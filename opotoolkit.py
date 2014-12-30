@@ -16,7 +16,7 @@
 ##################################################
 ##################################################
 ##### USER LICENSE AGREEMENT & DISCLAIMER
-##### copyright (C) 2014  vvn <vvn@eudemonics.org>
+##### copyright (C) 2014  vvn <vvn@notworth.it>
 ##### 
 ##### This program is FREE software: you can use it, redistribute it and/or modify
 ##### it as you wish. Copying and distribution of this file, with or without modification,
@@ -39,12 +39,14 @@
 ##### (you might even enjoy listening to it)
 ##### questions, comments, feedback, bugs, complaints, death threats, marriage proposals?
 ##### contact me at:
-##### vvn (at) eudemonics (dot) org
-##### latest version will always be available HERE: http://notworth.it/opo/opotoolkit.py
+##### vvn (at) notworth (dot) it
+##### latest version will always be available HERE: https://github.com/eudemonics/1plus1toolkit
+##### OR HERE: http://notworth.it/opo/opotoolkit.py.txt, http://notworth.it/opo/opointro.py.txt, http://notworth.it/opo/pyadb.py.txt
 
 import subprocess, sys, re, os, os.path, time, datetime, urllib
 from opointro import *
 from pyadb import *
+global usecolor
 if os.name == 'nt' or sys.platform == 'win32':
    try:
       import colorama
@@ -52,21 +54,25 @@ if os.name == 'nt' or sys.platform == 'win32':
       s = opointro()
       s.colorlogo()
       startmenu = s.colormenu
+      usecolor = 'color'
    except:
       try:
          import tendo.ansiterm
          s = opointro()
          s.colorlogo()
          startmenu = s.colormenu
+         usecolor = 'color'
       except:
          s = opointro()
          s.cleanlogo()
          startmenu = s.cleanmenu
+         usecolor = 'clean'
          pass
 else:
    s = opointro()
    s.colorlogo()
    startmenu = s.colormenu
+   usecolor = 'color'
 
 def mainmenu():
    print(startmenu)
@@ -513,9 +519,9 @@ def main():
                print("unable to connect to device. returning to main menu..\n")
             return recovimg
             
-         superSU = 'UPDATE-SuperSU-v2.16.zip'
+         superSU = 'UPDATE-SuperSU-v2.40.zip'
          def sudl(): # DOWNLOAD SUPERSU ZIP
-            URLsuperSU = "http://download.chainfire.eu/452/SuperSU/UPDATE-SuperSU-v2.16.zip?retrieve_file=1"
+            URLsuperSU = "http://download.chainfire.eu/641/SuperSU/UPDATE-SuperSU-v2.40.zip?retrieve_file=1"
             
             dl = urllib.URLopener()
             dl.retrieve(URLsuperSU, superSU)
@@ -546,7 +552,7 @@ def main():
                recovdl(recovimg)
             print("file \033[32m" + recovimg + " \033[0mfound!\n")
             raw_input("press ENTER to copy file to device, then reboot into bootloader.")
-            remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.16.zip'
+            remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.40.zip'
             obj.push(superSU, remotesuperSU)
             obj.reboot("bootloader")
             raw_input("press ENTER to boot into custom recovery.")
@@ -665,7 +671,7 @@ def main():
                      raw_input("press ENTER to continue..")
                      obj.reboot("recovery")
                      raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
-                     obj.sideload("UPDATE-SuperSU-v2.16.zip")
+                     obj.sideload("UPDATE-SuperSU-v2.40.zip")
                      superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
                      ogj.reboot("android")
                      if superfail == '1': # SUPERSU TWRP
@@ -761,21 +767,54 @@ def main():
             print ('''\n\033[36mSTOCK IMAGES AVAILABLE TO FLASH - THIS WILL REPLACE YOUR CURRENT PARTITION!
 \033[37mFLASH IN SEQUENTIAL ORDER IF POSSIBLE - BOOT.IMG SHOULD GO FIRST
 \033[33;1m***LATEST UPDATE FILES IN YELLOW***\n\033[0m
--\033[31m[1]\033[37m XNPH25R stock BOOT.IMG \033[0m -or- \033[33m XNPH30O stock BOOT.IMG \033[0m
--\033[31m[2]\033[37m XNPH25R stock USERDATA(_64).IMG \033[35m[WIPES USER DATA!]\033[0m
--\033[31m[3]\033[37m XNPH25R stock SYSTEM.IMG \033[0m
--\033[31m[4]\033[37m XNPH25R stock RECOVERY.IMG \033[0m
--\033[31m[5]\033[37m XNPH25R stock CACHE.IMG \033[0m
--\033[31m[6]\033[37m XNPH25R stock radio, modem, aboot, & more \033[34m[flash-radio.sh]\033[0m
--\033[31m[7]\033[37m XNPH30O stock radio, modem, sbl1, aboot \033[34m[flash-extras.sh]\033[0m
--\033[31m[8]\033[33m XNPH30O stock OTA UPDATES #1 and #2 \033[0m-or- \033[33;1mXNPH33R stock OTA UPDATE\033[0m
--\033[31m[9]\033[37m FLASH ENTIRE STOCK OR CUSTOM ROM IMAGE \033[0m
--\033[31m[0]\033[37m return to main menu\033[0m\n
+-\033[31m[1]\033[37m stock BOOT.IMG \033[0m
+-\033[31m[2]\033[37m stock USERDATA(_64).IMG \033[35m[WIPES USER DATA!]\033[0m
+-\033[31m[3]\033[37m stock SYSTEM.IMG \033[0m
+-\033[31m[4]\033[37m stock RECOVERY.IMG \033[0m
+-\033[31m[5]\033[37m stock CACHE.IMG \033[0m
+-\033[31m[6]\033[37m stock radio, modem, aboot, & more \033[34m[flash-radio.sh]\033[0m
+-\033[31m[7]\033[37m stock radio, modem, sbl1, aboot \033[34m[flash-extras.sh]\033[0m
+-\033[31m[8]\033[37m FLASH ENTIRE STOCK OR CUSTOM ROM IMAGE \033[0m
+-\033[31m[9]\033[37m return to main menu\033[0m\n
 \033[35mCHECK THAT DEVICE IS UNLOCKED AND COMPUTER IS AUTHORIZED FOR ADB ACCESS.\n\033[0m''')
 
-            flashsel = raw_input("\033[32mselect an option between 0 through 9 from menu \033[0m--> ")
-            while not re.search(r'^[0-9]$', flashsel):
-               flashsel = raw_input("invalid selection. please choose an option between 0 through 9 --> ")
+            flashsel = raw_input("\033[32mselect an option between 1 through 9 from menu \033[0m--> ")
+            while not re.search(r'^[1-9]$', flashsel):
+               flashsel = raw_input("invalid selection. please choose an option between 1 through 9 --> ")
+            
+            if usecolor == 'color':
+               print(colorversionmenu)
+            else:
+               print(cleanversionmenu)
+               
+            verssel = raw_input("enter selection 1-6 --> ")
+            while not re.search(r'^[1-6]$', verssel):
+               verssel = raw_input("invalid selection. please choose an option between 1-6 --> ")
+            
+            if verssel == '1':
+               vers == 'XNPH25R'
+            
+            elif verssel == '2':
+               vers == 'XNPH30O'
+            
+            elif verssel == '3':
+               vers == 'XNPH33R'
+               
+            elif verssel == '4':
+               vers == 'XNPH38R'
+               
+            elif verssel == '5':
+               vers == 'XNPH44S'
+            
+            elif verssel == '6':
+               print("returning to main menu..")
+               time.sleep(0.9)
+               main()
+            
+            else:
+               print("an error has occurred. returning to main menu..")
+               time.sleep(0.9)
+               main()
             
             def dlimg(imgfile):
                dlfile = "http://notworth.it/opo/" + imgfile
@@ -796,299 +835,148 @@ def main():
                obj.reboot("bootloader")
             
             if flashsel == '1':
-               whichboot = raw_input("enter 1 to flash boot.img from XNPH25R. enter 2 for boot.img from XNPH30O. --> ")
-               while not re.search(r'^[12]$', whichboot):
-                  whichboot = raw_input("invalid selection. enter 1 for XNPH25R boot.img, or 2 for XNPH30O boot.img --> ")
-               if whichboot == '1':
-                  imgfile = "XNPH25R/boot.img"
-                  while not os.path.isfile(imgfile):
-                     if not os.path.exists('XNPH25R'):
-                        os.makedirs('XNPH25R', 0755)
-                     print("downloading XNPH25R/boot.img...\n")
-                     dlimg(imgfile)
-                  obj.flashf("boot", imgfile)
-               elif whichboot == '2':
-                  imgfile = "XNPH30O/boot.img"
-                  while not os.path.isfile(imgfile):
-                     if not os.path.exists('XNPH30O'):
-                        os.makedirs('XNPH30O', 0755)
-                     print("downloading XNPH30O/boot.img..\n")
-                     dlimg(imgfile)
-                  obj.flashf("boot", imgfile)
-               else:
-                  print("an error has occurred. returning to flash menu..\n")
-                  flashmenu()
-               raw_input("press ENTER key to continue...")
+               imgfile = vers + "/boot.img"
+               while not os.path.isfile(imgfile):
+                  if not os.path.exists(vers):
+                     os.makedirs(vers, 0755)
+                  print("downloading %s...") % imgfile
+                  dlimg(imgfile)
+               obj.flashf("boot", imgfile)
+            else:
+               print("an error has occurred. returning to flash menu..\n")
                flashmenu()
+            raw_input("press ENTER key to continue...")
+            flashmenu()
                
             elif flashsel == '2':
                whichsize = raw_input("IMPORTANT!! choose correct storage capacity: enter 1 for 16gb device, or 2 for 64gb device. --> ")
                while not re.search(r'^[12]$', whichsize):
                   whichsize = raw_input("invalid selection. enter 1 for 16gb device, or 2 for 64gb device. --> ")
                if whichsize == '1':
-                  imgfile = "XNPH25R/userdata.img"
+                  imgfile = vers + "/userdata.img"
                   while not os.path.isfile(imgfile):
-                     if not os.path.exists('XNPH25R'):
-                        os.makedirs('XNPH25R', 0755)
-                     print("downloading XNPH25R/userdata.img..\n")
+                     if not os.path.exists(vers):
+                        os.makedirs(vers, 0755)
+                     print("downloading %s..") % imgfile
                      dlimg(imgfile)
-                  obj.flashf("userdata", "XNPH25R/userdata.img")
+                  obj.flashf("userdata", imgfile)
                elif whichsize == '2':
-                  imgfile = "XNPH25R/userdata_64G.img"
+                  imgfile = vers + "/userdata_64G.img"
                   while not os.path.isfile(imgfile):
-                     if not os.path.exists('XNPH25R'):
-                        os.makedirs('XNPH25R', 0755)
-                     print("downloading XNPH25R/userdata_64G.img..\n")
+                     if not os.path.exists(vers):
+                        os.makedirs(vers, 0755)
+                     print("downloading %s") % imgfile
                      dlimg(imgfile)
-                  obj.flashf("userdata", "XNPH25R/userdata_64G.img")
+                  obj.flashf("userdata", imgfile)
                else:
                   print("ERROR: unable to connect to device.\n")   
                raw_input("press ENTER key to return to flash menu...")
                flashmenu()
                
             elif flashsel == '3':
-               imgfile = "XNPH25R/system.img"
+               imgfile = vers + "/system.img"
                while not os.path.isfile(imgfile):
-                  if not os.path.exists('XNPH25R'):
-                     os.makedirs('XNPH25R', 0755)
-                  print("downloading XNPH25R/system.img..\n")
+                  if not os.path.exists(vers):
+                     os.makedirs(vers, 0755)
+                  print("downloading %s...") % imgfile
                   dlimg(imgfile)
-               obj.flashf("system", "XNPH25R/system.img")
+               obj.flashf("system", imgfile)
                raw_input("press ENTER key to continue...")
                flashmenu()
                
             elif flashsel == '4':
-               imgfile = "XNPH25R/recovery.img"
+               imgfile = vers + "/recovery.img"
                while not os.path.isfile(imgfile):
-                  if not os.path.exists('XNPH25R'):
-                     os.makedirs('XNPH25R', 0755)
-                  print("downloading XNPH25R/recovery.img..\n")
+                  if not os.path.exists(vers):
+                     os.makedirs(vers, 0755)
+                  print("downloading %s...") % imgfile
                   dlimg(imgfile)
-               obj.flashf("recovery", "XNPH25R/recovery.img")
+               obj.flashf("recovery", imgfile)
                raw_input("press ENTER key to continue...")
                flashmenu()
                
             elif flashsel == '5':
-               imgfile = "XNPH25R/cache.img"
+               imgfile = vers + "/cache.img"
                while not os.path.isfile(imgfile):
-                  if not os.path.exists('XNPH25R'):
-                     os.makedirs('XNPH25R', 0755)
-                  print("downloading XNPH25R/cache.img..\n")
+                  if not os.path.exists(vers):
+                     os.makedirs(vers, 0755)
+                  print("downloading %s...") % imgfile
                   dlimg(imgfile)
-               obj.flashf("cache", "XNPH25R/cache.img")
+               obj.flashf("cache", imgfile)
                raw_input("press ENTER key to continue...")
                flashmenu()
                
             elif flashsel == '6':
-               if not os.path.exists('XNPH25R'):
-                  os.makedirs('XNPH25R', 0755)
-               imgfile = "XNPH25R/flash-radio.sh"
-               while not os.path.isfile("XNPH25R/flash-radio.sh"):
-                  print("downloading XNPH25R/flash-radio.sh..\n")
-                  dlimg("XNPH25R/flash-radio.sh")
-                  os.chmod("XNPH25R/flash-radio.sh", 0755)
-               while not os.path.isfile("XNPH25R/boot.img"):
-                  print("downloading XNPH25R/boot.img..\n")
-                  dlimg("XNPH25R/boot.img")
-               while not os.path.isfile("XNPH25R/emmc_appsboot.mbn"):
-                  print("downloading XNPH25R/emmc_appsboot.mbn..\n")
-                  dlimg("XNPH25R/emmc_appsboot.mbn")
-               while not os.path.isfile("XNPH25R/NON-HLOS.bin"):
-                  print("downloading XNPH25R/NON-HLOS.bin..\n")
-                  dlimg("XNPH25R/NON-HLOS.bin")
-               while not os.path.isfile("XNPH25R/rpm.mbn"):
-                  print("downloading XNPH25R/rpm.mbn..\n")
-                  dlimg("XNPH25R/rpm.mbn")
-               while not os.path.isfile("XNPH25R/sbl1.mbn"):
-                  print("downloading XNPH25R/sbl1.mbn..\n")
-                  dlimg("XNPH25R/sbl1.mbn")
-               while not os.path.isfile("XNPH25R/sdi.mbn"):
-                  print("downloading XNPH25R/sdi.mbn..\n")
-                  dlimg("XNPH25R/sdi.mbn")
-               while not os.path.isfile("XNPH25R/tz.mbn"):
-                  print("downloading XNPH25R/tz.mbn..\n")
-                  dlimg("XNPH25R/tz.mbn")
-               while not os.path.isfile("XNPH25R/logo.bin"):
-                  print("downloading XNPH25R/logo.bin..\n")
-                  dlimg("XNPH25R/logo.bin")
-               subprocess.call(['./flash-radio.sh'], cwd='XNPH25R', shell=True)
+               if not os.path.exists(vers):
+                  os.makedirs(vers, 0755)
+               imgfile = vers + "/flash-radio.sh"
+               while not os.path.isfile(imgfile):
+                  print("downloading %s...") % imgfile
+                  dlimg(imgfile)
+                  os.chmod(imgfile, 0755)
+               while not os.path.isfile(vers + "/boot.img"):
+                  print("downloading %s/boot.img..") % vers
+                  dlimg("%s/boot.img") % vers
+               while not os.path.isfile(vers + "/emmc_appsboot.mbn"):
+                  print("downloading %s/emmc_appsboot.mbn..") % vers
+                  dlimg("%s/emmc_appsboot.mbn") % vers
+               while not os.path.isfile(vers + "/NON-HLOS.bin"):
+                  print("downloading %s/NON-HLOS.bin..") % vers
+                  dlimg("%s/NON-HLOS.bin") % vers
+               while not os.path.isfile(vers + "/rpm.mbn"):
+                  print("downloading %s/rpm.mbn..") % vers
+                  dlimg("%s/rpm.mbn") % vers
+               while not os.path.isfile(vers + "/sbl1.mbn"):
+                  print("downloading %s/sbl1.mbn..") % vers
+                  dlimg("%s/sbl1.mbn") % vers
+               while not os.path.isfile(vers + "/sdi.mbn"):
+                  print("downloading %s/sdi.mbn..") % vers
+                  dlimg("%s/sdi.mbn") % vers
+               while not os.path.isfile(vers + "/tz.mbn"):
+                  print("downloading %s/tz.mbn..") % vers
+                  dlimg("%s/tz.mbn") % vers
+               while not os.path.isfile(vers + "/logo.bin"):
+                  print("downloading %s/logo.bin..") % vers
+                  dlimg("%s/logo.bin") % vers
+               subprocess.call(['./flash-radio.sh'], cwd='%s', shell=True) % vers
                raw_input("press ENTER key to continue...")
                flashmenu()
                
             elif flashsel == '7':
-               if not os.path.exists('XNPH30O'):
-                  os.makedirs('XNPH30O', 0755)
-               while not os.path.isfile("XNPH30O/boot.img"):
-                  print("downloading XNPH30O/boot.img..\n")
-                  dlimg("XNPH30O/boot.img")
-               while not os.path.isfile("XNPH30O/emmc_appsboot.mbn"):
-                  print("downloading XNPH30O/emmc_appsboot.mbn..\n")
-                  dlimg("XNPH30O/emmc_appsboot.mbn")
-               while not os.path.isfile("XNPH30O/NON-HLOS.bin"):
-                  print("downloading XNPH30O/NON-HLOS.bin..\n")
-                  dlimg("XNPH30O/NON-HLOS.bin")
-               while not os.path.isfile("XNPH30O/rpm.mbn"):
-                  print("downloading XNPH30O/rpm.mbn..\n")
-                  dlimg("XNPH30O/rpm.mbn")
-               while not os.path.isfile("XNPH30O/sbl1.mbn"):
-                  print("downloading XNPH30O/sbl1.mbn..\n")
-                  dlimg("XNPH30O/sbl1.mbn")
-               while not os.path.isfile("XNPH30O/flash-extras.sh"):
-                  print("downloading XNPH30O/flash-extras.sh..\n")
-                  dlimg("XNPH30O/flash-extras.sh")
-                  os.chmod("XNPH30O/flash-extras.sh", 0755)
-               subprocess.call(['./flash-extras.sh'], cwd='XNPH30O', shell=True)
+               if not os.path.exists(vers):
+                  os.makedirs(vers, 0755)
+               while not os.path.isfile(vers + "/boot.img"):
+                  print("downloading %s/boot.img..") % vers
+                  dlimg("%s/boot.img") % vers
+               while not os.path.isfile(vers + "/emmc_appsboot.mbn"):
+                  print("downloading %s/emmc_appsboot.mbn..") % vers
+                  dlimg("%s/emmc_appsboot.mbn") % vers
+               while not os.path.isfile(vers + "/NON-HLOS.bin"):
+                  print("downloading %s/NON-HLOS.bin..") % vers
+                  dlimg("%s/NON-HLOS.bin") % vers
+               while not os.path.isfile(vers + "/rpm.mbn"):
+                  print("downloading %s/rpm.mbn..") % vers
+                  dlimg("%s/rpm.mbn") % vers
+               while not os.path.isfile(vers + "/sbl1.mbn"):
+                  print("downloading %s/sbl1.mbn..") % vers
+                  dlimg("%s/sbl1.mbn") % vers
+               while not os.path.isfile(vers + "/flash-extras.sh"):
+                  print("downloading %s/flash-extras.sh..") % vers
+                  dlimg("%s/flash-extras.sh") % vers
+                  os.chmod(vers + "/flash-extras.sh", 0755)
+               subprocess.call(['./flash-extras.sh'], cwd='%s', shell=True) % vers
                raw_input("press ENTER key to continue...")
                obj.fastreboot("android")
                flashmenu()
                
             elif flashsel == '8':
-               whichupdate = raw_input("enter 1 for XNPH30O update #1, 2 for XNPH30O update #2, 3 for XNPH33R update, or 4 to return to flash menu --> ")
-               while not re.search(r'^[1-4]$', whichupdate):
-                  whichupdate = raw_input("invalid selection. enter 1 for XNPH30O update #1, 2 for XNPH30O update #2, 3 for XNPH33R update, or 4 to return to flash menu --> ")
-               
-               imgfile = "XNPH33R-update1-signed.zip"
-               
-               if whichupdate == '1': # XNPH30O update 1
-                  imgfile = "XNPH30O-update1-signed.zip"
-                  while not os.path.isfile(imgfile):
-                     print("\033[35mdownloading XNPH30O-update1-signed.zip...\033[0m\n")
-                     dlimg(imgfile)
-                  print("file \033[32m" + imgfile + " \033[0mfound!\n")
-                  
-               elif whichupdate == '2': # XNPH30O update 2
-                  imgfile = "XNPH30O-update2-signed.zip"
-                  while not os.path.isfile(imgfile):
-                     print("\033[35mdownloading XNPH30O-update2-signed.zip...\033[0m\n")
-                     dlimg(imgfile)
-                  print("file \033[32m" + imgfile + " \033[0mfound!\n")
-                  
-               elif whichupdate == '3': # XNPH33R update 1
-                  imgfile = "XNPH33R-update1-signed.zip"
-                  while not os.path.isfile(imgfile):
-                     print("\033[35mdownloading XNPH33R-update1-signed.zip...\033[0m\n")
-                     dlimg(imgfile)
-                  print("file \033[32m" + imgfile + " \033[0mfound!\n")
-                  
-               elif whichupdate == '4': # return to flash menu
-                  time.sleep(0.9)
-                  flashmenu()
-                  
-               else: # error, return to flash menu
-                  print("unable to connect to device. returning to flash menu..\n")
-                  time.sleep(0.9)
-                  flashmenu()
-               
-               # choose which recovery [installed or custom] to flash update "imgfile"
-               recflupd = raw_input("enter 1 to flash update in installed recovery [may lose root], or 2 to flash in custom recovery [keep root prompt]. --> ")
-               while not re.search(r'^[12]$', recflupd):
-                  recflupd = raw_input("invalid selection. enter 1 to flash in installed recovery, or 2 to flash in custom recovery. --> ")
-               
-               # copy update to device
-               raw_input("make sure device is unlocked and PC is authenticated for ADB access. press ENTER to copy update to device.")
-               rimgfile = "/sdcard/" + imgfile
-               print("\033[32mpushing update file to device..\033[0m\n")
-               obj.push(imgfile, rimgfile)
-               
-               # flash update in installed recovery
-               if recflupd == '1':
-                  raw_input("press ENTER to reboot into recovery.")
-                  obj.reboot("recovery")
-                  print("choose APPLY UPDATE from recovery menu and select APPLY FROM ADB.\n")
-                  raw_input("press ENTER to install update now.")
-                  obj.sideload(imgfile)
-                  failside = raw_input("if update did not succeed, press 1 to install from device. else, push POWER button on device to reboot, then press ENTER to continue..")
-                  if failside == '1':
-                     print("choose APPLY UPDATE from recovery menu, then select CHOOSE FROM INTERNAL STORAGE.\n")
-                     print("select \033[32m" + imgfile + " \033[0mfrom root of SDCARD directory and install file.\n")
-                     print("\033[35mif update failed, return to main menu and select option 3 to boot into custom recovery.\033[0m\n\n")
-                     menusel = raw_input("enter 1 to return to flash menu, or 2 to return to main menu.")
-                     while not re.search(r'^[12]$',menusel):
-                        menusel = raw_input("invalid selection. enter 1 for flash menu, or 2 to return to main menu.")
-                     if menusel == '1':
-                        time.sleep(0.9)
-                        flashmenu()
-                     elif menusel == '2':
-                        time.sleep(0.9)
-                        main()
-                     else:
-                        print("error connecting to device. returning to main menu...\n")
-                        time.sleep(0.9)
-                        main()
-                  else:
-                     print("\033[32mreturning to flash menu..\033[0m\n\n")
-               
-               # flash update in custom recovery
-               elif recflupd == '2':
-                  whichcustrec = raw_input("\033[36;1mselect custom recovery:\033[36m 1 for TWRP, 2 for Philz, 3 for CWM \033[0m--> ")
-                  while not re.search(r'^[12]$', whichcustrec):
-                     whichcustrec = raw_input("invalid selection. enter 1 for TWRP, 2 for Philz, 3 for CWM --> ")
-                  v
-                  # TWRP
-                  if whichcustrec == '1':      
-                     custimgfile = "twrp.img"
-                     
-                  # PHILZ
-                  elif whichcustrec == '2':
-                     custimgfile = "philz.img"
-                     
-                  # CWM
-                  else:                        
-                     custimgfile = "cwm.img"
-                     
-                  while not os.path.isfile(custimgfile):
-                     print("file \033[32m" + custimgfile + " \033[0mnot found. attempting download...\n")
-                     dlimg(custimgfile)
-                  print("file \033[32m" + custimgfile + " \033[0mfound!\n")
-                  
-                  raw_input("press ENTER to reboot to bootloader.")
-                  obj.reboot("bootloader")
-                  
-                  raw_input("press ENTER to continue booting into custom recovery..")
-                  obj.bootimg(custimgfile)
-                  
-                  print("choose INSTALL UPDATE from recovery menu and select APPLY FROM ADB SIDELOAD.\n")
-                  raw_input("press ENTER to install update now.")
-                  obj.sideload(imgfile)
-                  
-                  failside = raw_input("if update did not succeed, press 1 to install from device. else, select REBOOT into SYSTEM from TWRP menu on device, then press ENTER..")
-                  if failside == '1':
-                     print("on device, choose INSTALL from recovery menu, then select \033[32m" + imgfile + " \033[0mfrom SDCARD root and swipe to install file.\n")
-                     print("\033[35mwhen finished, select REBOOT into SYSTEM from recovery options on device.\033[0m\n\n")
-                     menusel = raw_input("enter 1 to return to flash menu, or 2 to return to main menu.")
-                     while not re.search(r'^[12]$',menusel):
-                        menusel = raw_input("invalid selection. enter 1 for flash menu, or 2 to return to main menu.")
-                     if menusel == '1':
-                        time.sleep(0.9)
-                        flashmenu()
-                     elif menusel == '2':
-                        time.sleep(0.9)
-                        main()
-                     else:
-                        print("error connecting to device. returning to main menu...\n")
-                        time.sleep(0.9)
-                        main()
-                  else:
-                     print("\033[32mreturning to flash menu..\033[0m\n\n")
-               else:
-                  print("\033[32mreturning to flash menu..\033[0m\n\n")
-               
-               time.sleep(0.9)
-               flashmenu()
-               
-            elif flashsel == '9':
-               romsel = raw_input("enter 1 to flash XNPH30O stock ROM, 2 to flash XNPH25R stock ROM, or 3 to flash custom ROM. --> ")
+               romsel = raw_input("enter 1 to flash stock ROM for %s, 2 to flash custom ROM, or 3 to return to main menu. --> ") % vers
                while not re.search(r'^[1-3]$', romsel):
-                  romsel = raw_input("invalid selection. enter 1 to flash XNPH30O stock ROM, 2 to flash XNPH25R stock ROM, or 3 to flash custom ROM. --> ")
-               if romsel != '3':
-                  if romsel == '1':
-                     imgfile = "XNPH30O/cm-11.0-XNPH30O-bacon-signed-fastboot.zip"
-                     if not os.path.exists('XNPH30O'):
-                        os.makedirs('XNPH30O', 0755)
-                  if romsel == '2':
-                     imgfile = "XNPH25R/cm-11.0-XNPH25R-bacon-signed-fastboot.zip"
-                     if not os.path.exists('XNPH25R'):
-                        os.makedirs('XNPH25R', 0755)
+                  romsel = raw_input("invalid selection. enter an option 1-3. --> ")
+               if romsel == '1':
+                  imgfile = vers + "/%s-bacon-signed-fastboot.zip" % vers
+                  if not os.path.exists(vers):
+                     os.makedirs(vers, 0755)
                   while not os.path.isfile(imgfile):
                      print("file \033[32m" + imgfile + " \033[0mnot found. attempting download...\n")
                      dlimg(imgfile)
@@ -1134,7 +1022,7 @@ def main():
                      print("\033[32mreturning to flash menu..\033[0m\n\n")
                      time.sleep(0.9)
                      flashmenu()
-               else:
+               elif romsel == '2':
                   print("\033[31mmake sure device is unlocked and PC is authenticated for ADB access.\033[0m\n")
                   romname = raw_input("place ROM file into same directory as the script home, then enter filename --> ")
                   while not os.path.isfile(romname):
@@ -1169,8 +1057,13 @@ def main():
                         print("error connecting to device. returning to main menu...\n")
                         time.sleep(0.9)
                         main()
+                        
+               elif romsel == '3':
+                  print("returning to main menu..")
+                  time.sleep(0.9)
+                  main()
                   
-            elif flashsel == '0':
+            elif flashsel == '9':
                checkreboot = raw_input("press 1 to reboot device into system, or ENTER to continue.. --> ")
                if checkreboot == '1':
                   obj.fastreboot("android")
