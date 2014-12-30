@@ -21,11 +21,14 @@ RELEASE DATE: SEPTEMBER 8, 2014
 GITHUB RELEASE DATE: DECEMBER 30, 2014
 
 YEAH!!!! finally got github working with it! :)
-https://github.com/eudemonics/1plus1toolkit.git
 
-THIS VERSION IS PROBABLY BROKEN AS I AM NOT FINISHED EDITING IT.
+https://github.com/eudemonics/1plus1toolkit
 
-working versions:
+to download:
+
+git clone https://github.com/eudemonics/1plus1toolkit.git 1plus1toolkit
+
+if for some reason the files from github don't work, here are links to the last working versions:
 
 http://notworth.it/opo/opotoolkit.py.txt
 
@@ -102,7 +105,6 @@ you can use the pyadb.py library to incorporate adb/fastboot commands into your 
 CHANGES IN v1.3.1:
 
 oh dear god i don't even know where to start. will edit later.
-THIS VERSION IS PROBABLY BROKEN IF YOU ARE DOWNLOADING FROM GITHUB - BEWARE!
 
 ##################################################################################
  
