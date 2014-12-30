@@ -24,7 +24,9 @@ YEAH!!!! finally got github working with it! :)
 https://github.com/eudemonics/1plus1toolkit.git
 
 THIS VERSION IS PROBABLY BROKEN AS I AM NOT FINISHED EDITING IT.
+
 working versions:
+
 http://notworth.it/opo/opotoolkit.py.txt
 
 http://notworth.it/opo/opointro.py.txt
