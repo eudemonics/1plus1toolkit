@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ### HALF-ASSED ONE + ONE TOOLKIT
-##### VERSION: 1.3.1 STABLE
-##### RELEASE DATE: SEPTEMBER 13, 2014
+##### VERSION: 1.3.2 BETA
+##### RELEASE DATE: DECEMBER 30, 2014
 ##### AUTHOR: vvn [eudemonics on xda-developers]
 ##### DESCRIPTION: a spontaneously created but hopefully comprehensive Android toolkit,
 ##### built originally for the OnePlus One but can be used with most Android devices
