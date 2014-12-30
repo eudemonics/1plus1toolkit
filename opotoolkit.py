@@ -841,12 +841,10 @@ def main():
                      os.makedirs(vers, 0755)
                   print("downloading %s...") % imgfile
                   dlimg(imgfile)
+               raw_input("press ENTER to proceed with flashing boot image..")
                obj.flashf("boot", imgfile)
-            else:
-               print("an error has occurred. returning to flash menu..\n")
+               raw_input("press ENTER key to continue...")
                flashmenu()
-            raw_input("press ENTER key to continue...")
-            flashmenu()
                
             elif flashsel == '2':
                whichsize = raw_input("IMPORTANT!! choose correct storage capacity: enter 1 for 16gb device, or 2 for 64gb device. --> ")
@@ -1068,8 +1066,11 @@ def main():
                if checkreboot == '1':
                   obj.fastreboot("android")
                main()
+               
             else:
-               print("unable to connect to device.\n")
+               print("unable to connect to device. returning to flash menu..")
+               time.sleep(0.9)
+               flashmenu()
               
          def recovflash():
             print("\n")
