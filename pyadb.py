@@ -187,6 +187,12 @@ class pyADB(object):
       result = self.call_adb(command)
       return result 
       
+   # search packages
+   def searchpkg(self, query):
+      command = "shell pm list packages | grep %s" % query
+      result = self.call_adb(command)
+      return result
+      
    # find path for package
    def pathpkg(self, package):
       command = "shell pm path %s" % package
@@ -196,7 +202,7 @@ class pyADB(object):
    # pull APK from default package location
    def apkpull(self, pkgname):
       command = "pull /data/app/%s" % pkgname
-      result = self.cal_adb(command)
+      result = self.call_adb(command)
       return result
       
    # backup device   
@@ -317,6 +323,12 @@ class pyADB(object):
    def listsvc(self):
       command = "shell su -c service list"
       result = self.call_adb(command)
+      return result
+      
+   # services search
+   def searchsvc(self, query):
+      command = "shell su -c service list | grep %s" % query
+      result self.call_adb(command)
       return result
    
    # usb tether connect - switch = 1 enables usb tether, switch = 0 turns it off   
