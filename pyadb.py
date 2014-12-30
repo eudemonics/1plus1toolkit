@@ -328,7 +328,7 @@ class pyADB(object):
    # services search
    def searchsvc(self, query):
       command = "shell su -c service list | grep %s" % query
-      result self.call_adb(command)
+      result = self.call_adb(command)
       return result
    
    # usb tether connect - switch = 1 enables usb tether, switch = 0 turns it off   
