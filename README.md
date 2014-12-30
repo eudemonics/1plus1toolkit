@@ -26,10 +26,12 @@ https://github.com/eudemonics/1plus1toolkit.git
 THIS VERSION IS PROBABLY BROKEN AS I AM NOT FINISHED EDITING IT.
 working versions:
 http://notworth.it/opo/opotoolkit.py.txt
+
 http://notworth.it/opo/opointro.py.txt
+
 http://notworth.it/opo/pyadb.py.txt
 
-seriously?! there are formatting rules that totally screw up the way this file is viewed?! GRR.
+***seriously?! there are formatting rules that totally screw up the way this file is viewed?! GRR. SORRY IF THIS 'README' IS HARD TO READ.***
 
 this is a very half-assed project, as you might assume from the name of it, and i cannot guarantee fast or frequent updates. i will continue updating and adapting the application to support the latest official updates from both OnePlus and CyanogenMod11S, and will make every attempt to enable as much backwards-compatibility as possible. when something is NOT backwards compatible (such as re-unlocking your bootloader on firmware versions newer than XNPH25R), i will include an emphasized warning in the app itself before the command execution.
  
