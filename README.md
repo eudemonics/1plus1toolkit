@@ -1,42 +1,42 @@
-##################################################################################
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~                            77~~~~~~                   7~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~ HALF-ASSED ONEPLUS ONE TOOLKIT ~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~         7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~         7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~               7~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~               7~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~ v1.3.1 ~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~                                               7~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ AUTHOR: VVN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COPYRIGHT (C) 2014 VVN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-##################################################################################
+@################################################################################@
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~                            77~~~~~~                   7~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~ HALF-ASSED ONEPLUS ONE TOOLKIT ~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~         7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~         7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~               7~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~               7~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~ v1.3.1 ~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~                                               7~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ AUTHOR: VVN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COPYRIGHT (C) 2014 VVN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@################################################################################@
 
     LICENSE AGREEMENT & DISCLAIMER
     copyright (C) 2014  vvn <vvn@eudemonics.org>
@@ -55,14 +55,23 @@
 HALF-ASSED ONEPLUS ONE TOOLKIT by vvn
 VERSION: 1.3.1 STABLE
 RELEASE DATE: SEPTEMBER 8, 2014
+GITHUB RELEASE DATE: DECEMBER 30, 2014
+
+YEAH!!!! finally got github working with it! :)
+https://github.com/eudemonics/1plus1toolkit.git
+
+THIS VERSION IS PROBABLY BROKEN AS I AM NOT FINISHED EDITING IT.
+working versions:
+http://notworth.it/opo/opotoolkit.py.txt
+http://notworth.it/opo/opointro.py.txt
+http://notworth.it/opo/pyadb.py.txt
 
 this is a very half-assed project, as you might assume from the name of it, and i cannot guarantee fast or frequent updates. i will continue updating and adapting the application to support the latest official updates from both OnePlus and CyanogenMod11S, and will make every attempt to enable as much backwards-compatibility as possible. when something is NOT backwards compatible (such as re-unlocking your bootloader on firmware versions newer than XNPH25R), i will include an emphasized warning in the app itself before the command execution.
  
  REQUIREMENTS FOR SCRIPT TO WORK:
  * opotoolkit.py is the main script. that's the one file you REALLY need.
-   - get it here: http://pastebin.com/y511TjV1 -or- here: http://notworth.it/opo/opotoolkit.py
- * my PYADB library needs to be in the same directory as filename "pyadb.py".
-   - get it here: http://pastebin.com/7VSpinAz -or- here: http://notworth.it/opo/pyadb.py
+ * my PYADB library, named "pyadb.py", needs to be in the same directory as opotoolkit.py.
+ * opointro.py also needs to be in the same directory as "opotoolkit.py" and "pyadb.py".
  * obviously, you'll need python 2.7. ***DO NOT RUN AS PYTHON 3.x!*** 
    - download python 2.7.x here: https://www.python.org/downloads/
  * you need ADB and FASTBOOT from the android SDK. download the SDK here: https://developer.android.com/sdk/
@@ -70,23 +79,15 @@ this is a very half-assed project, as you might assume from the name of it, and 
    - download this script and run it: https://bootstrap.pypa.io/get-pip.py
    - open command prompt as admin in script directory and type: "python get-pip.py"
    - install colorama after pypi is successfully installed: pip install colorama
+   - just in case you don't install support for ANSI i spent a considerable amount of time making entirely new menus for you damn windows users (this is what opointro.py is for).
  * finally, you need an OS that supports Python and the android SDK, which I'm afraid narrows it down to:
-   - Linux (all flavors)
+   - Linux (all flavors) - ***IMPORTANT*** if using the included binaries, RENAME "adb-linux" and "fastboot-linux" to adb and fastboot!!!
    - Mac OSX (exotic jungle cats and beyond)
    - Windows (pretty much all releases, or starting from whichever one could support Python 2.x.)
  i apologize for limiting your options like that.
  
  you can either put the scripts and other files in the same directory as your android SDK,
  or set an environmental path variable for your android SDK directory.
- 
-##################################################################################
- 
- SETUP FROM ZIP BUNDLE DOWNLOAD:
- 
- unzip files to new directory, like "1PLUS1TOOLKIT"
- 
- *IMPORTANT*
- if you haven't installed ADB or setup an environmental path variable, you may want to use the included ADB and FASTBOOT binaries. if you're on windows or mac OSX, you can leave as is. if you're on linux, you'll want to rename "adb" to "adb-mac" and "fastboot" to "fastboot-mac", then rename "adb-linux" to "adb" and "fastboot-linux" to "fastboot."
   
 ##################################################################################
  
@@ -118,7 +119,7 @@ you can use the pyadb.py library to incorporate adb/fastboot commands into your 
  i have tested every function except the unlock bootloader and sync functions.
  everything works except the uninstall APK function, but i think i just don't quite understand the adb command.
  
- to report bugs, ask questions, offer suggestions, explain the adb uninstall and sync functions(?!), bitch at me, propose marriage, or send anonymous death threats, email me: vvn (at) eudemonics (dot) org
+ to report bugs, ask questions, offer suggestions, explain the adb uninstall and sync functions(?!), bitch at me, propose marriage, or send anonymous death threats, email me: vvn (at) notworth (dot) it
  
  feel free to share, modify, whatever.
  some credit would be nice. donations are super nice. but buying & sharing my EP would be the most awesome way to show your appreciation. really, it would mean the world to me.
@@ -127,6 +128,13 @@ you can use the pyadb.py library to incorporate adb/fastboot commands into your 
  follow on facebook: http://www.facebook.com/dreamcorporation
  and of course, more music on soundcloud: http://www.soundcloud.com/dreamcorp
   
+##################################################################################
+
+CHANGES IN v1.3.1:
+
+oh dear god i don't even know where to start. will edit later.
+THIS VERSION IS PROBABLY BROKEN IF YOU ARE DOWNLOADING FROM GITHUB - BEWARE!
+
 ##################################################################################
  
  CHANGES IN v1.3B:
