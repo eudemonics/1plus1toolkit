@@ -206,19 +206,18 @@ class opointro(object):
 DEVICE MUST BE CONNECTED VIA USB WITH ANDROID DEBUGGING ENABLED. 
 MAIN MENU:
 -[1] reboot into android, bootloader, or recovery
--[2] wipe device, flash stock image, or flash partitions
+-[2] flash partitions or wipe device
 -[3] boot once into custom recovery without flashing - need unlocked bootloader
--[4] unlock/lock bootloader, toggle tamper bit, and/or flash custom recovery image
--[5] install or uninstall APK
--[6] copy files between computer and device, or sync
--[7] backup or restore device
--[8] root device and/or install ZIP in fastboot
+-[4] install or uninstall APK
+-[5] copy files between computer and device, or sync
+-[6] backup or restore device
+-[7] root device and/or install ZIP in fastboot
+-[8] flash stock or custom ROM image
 -[9] run shell command on device
--[10] list packages, extract APK
--[11] list services
--[12] get bug report from device
+-[10] get bug report from device
+-[11] list installed apps
+-[12] list services
 -[13] view logcat from device
--[14] toggle USB tethering
 -[0] quit
 '''
 
@@ -238,19 +237,18 @@ MAIN MENU:
 \033[33mDEVICE MUST BE CONNECTED VIA USB WITH ANDROID DEBUGGING ENABLED. \033[0m \n
 \033[32mMAIN MENU:\033[0m
 -\033[31m[1]\033[37m reboot into android, bootloader, or recovery\033[0m
--\033[31m[2]\033[37m wipe device, flash stock image, or flash partitions\033[0m
--\033[31m[3]\033[37m boot once into custom recovery without flashing - need unlocked bootloader after XNPH25R\033[0m
--\033[31m[4]\033[37m unlock bootloader (fastboot or toggle lock/unlock bit), toggle tamper bit, and/or flash custom recovery image\033[0m
--\033[31m[5]\033[37m install or uninstall APK\033[0m
--\033[31m[6]\033[37m copy files between computer and device, or sync\033[0m
--\033[31m[7]\033[37m backup or restore device\033[0m
--\033[31m[8]\033[37m root device and/or install ZIP in fastboot\033[0m
+-\033[31m[2]\033[37m flash partitions or wipe device\033[0m
+-\033[31m[3]\033[37m boot once into custom recovery without flashing - need unlocked bootloader\033[0m
+-\033[31m[4]\033[37m install or uninstall APK\033[0m
+-\033[31m[5]\033[37m copy files between computer and device, or sync\033[0m
+-\033[31m[6]\033[37m backup or restore device\033[0m
+-\033[31m[7]\033[37m root device and/or install ZIP in fastboot\033[0m
+-\033[31m[8]\033[37m flash stock or custom ROM image\033[0m
 -\033[31m[9]\033[37m run shell command on device\033[0m
--\033[31m[10]\033[37m list packages, extract APK\033[0m
--\033[31m[11]\033[37m list services\033[0m
--\033[31m[12]\033[37m get bug report from device\033[0m
+-\033[31m[10]\033[37m get bug report from device\033[0m
+-\033[31m[11]\033[37m list packages\033[0m
+-\033[31m[12]\033[37m list services\033[0m
 -\033[31m[13]\033[37m view logcat from device\033[0m
--\033[31m[14]\033[37m toggle USB tethering\033[0m
 -\033[31m[0]\033[37m quit \033[0m\n'''
 
 ######################
