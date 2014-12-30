@@ -13,8 +13,11 @@ LICENSE AGREEMENT & DISCLAIMER
     accompany all official download releases of this program. 
 
 HALF-ASSED ONEPLUS ONE TOOLKIT by vvn
+
 VERSION: 1.3.1 STABLE
+
 RELEASE DATE: SEPTEMBER 8, 2014
+
 GITHUB RELEASE DATE: DECEMBER 30, 2014
 
 YEAH!!!! finally got github working with it! :)
