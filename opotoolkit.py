@@ -82,10 +82,10 @@ def main():
    mainmenu()
 
    global option
-   option = raw_input('Select an option 0-11 --> ')
+   option = raw_input('Select an option 0-13 --> ')
    
-   while not re.search(r'^[0-9]$', option) and not re.search(r'^1[0-1]$', option):
-      option = raw_input('Invalid selection. Please select an option 0-11 --> ')
+   while not re.search(r'^[0-9]$', option) and not re.search(r'^1[0-3]$', option):
+      option = raw_input('Invalid selection. Please select an option 0-13 --> ')
  
    if option:
 
@@ -1171,8 +1171,20 @@ def main():
          raw_input("press ENTER to return to main menu.")
          time.sleep(0.9)
          main()
+         
+      elif option == '11': # list packages
+         obj.listpkg()
+         raw_input("press ENTER to return to main menu.")
+         time.sleep(0.9)
+         main()
+         
+      elif option == '12': # list services
+         obj.listsvc()
+         raw_input("press ENTER to return to main menu.")
+         time.sleep(0.9)
+         main()
                   
-      elif option == '11': #get logcat
+      elif option == '13': #get logcat
          print("logcat will open in a new window. close logcat window to return to menu.")
          if os.name == 'nt':
             process = subprocess.Popen('start /wait adb logcat', shell=True, creationflags=subprocess.CREATE_NEW_CONSOLE, stdout=subprocess.PIPE)
@@ -1184,7 +1196,7 @@ def main():
             line = process.stdout.readline()
          time.sleep(0.9)
          main()
-         
+      
       elif option == '0': #quit
          print("thanks for using the HALF-ASSED ONEPLUS ONE TOOLKIT! bye!")
          sys.exit()
