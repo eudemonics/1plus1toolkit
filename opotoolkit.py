@@ -644,7 +644,7 @@ def main():
                
          if rootcheck == '1': # SUPERSU
             bootcustom = raw_input("press 1 to install superSU in custom recovery, 2 to install in your installed recovery, or 3 to install in fastboot [lower success rate]. --> ")
-            while not re.search(r'^[12]$', bootcustom):
+            while not re.search(r'^[1-3]$', bootcustom):
                bootcustom = raw_input("invalid choice. please enter 1 to load custom recovery, 2 to use installed recovery, or 3 for fastboot. --> ")
             if bootcustom == '1': # SUPERSU TWRP
                recovimg = chooserec()
@@ -656,7 +656,7 @@ def main():
                   print("file \033[32m" + superSU + " \033[0mnot found. attempting download...\n")
                   sudl()
                print("file \033[32m" + superSU + " \033[0mfound!\n")
-               raw_input("press ENTER to copy file to device, then reboot into bootloader.")
+               raw_input("press ENTER to copy file to device, then reboot into recovery.")
                remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.40.zip'
                obj.push(superSU, remotesuperSU)
                raw_input("press ENTER to continue..")
