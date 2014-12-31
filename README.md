@@ -14,7 +14,7 @@ LICENSE AGREEMENT & DISCLAIMER
 
 HALF-ASSED ONEPLUS ONE TOOLKIT by vvn
 
-VERSION: 1.3.1 STABLE
+VERSION: 1.3.2 BETA
 
 RELEASE DATE: SEPTEMBER 8, 2014
 
@@ -99,6 +99,12 @@ you can use the pyadb.py library to incorporate adb/fastboot commands into your 
  you can stream and buy the EP at: http://dreamcorp.bandcamp.com or any major online music retailer (itunes, google play, amazon, spotify, cdbaby, etc.) - just search for "the dream corporation" and album title "last night on earth"
  follow on facebook: http://www.facebook.com/dreamcorporation
  and of course, more music on soundcloud: http://www.soundcloud.com/dreamcorp
+
+##################################################################################
+
+CHANGES IN v1.3.2 BETA:
+
+pretty much everything in the menu between options 8 and 13
 
 ##################################################################################
 
