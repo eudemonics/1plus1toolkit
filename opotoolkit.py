@@ -531,7 +531,7 @@ def main():
             
          superSU = 'UPDATE-SuperSU-v2.40.zip'
          def sudl(): # DOWNLOAD SUPERSU ZIP
-            URLsuperSU = "http://download.chainfire.eu/641/SuperSU/UPDATE-SuperSU-v2.40.zip?retrieve_file=1"
+            URLsuperSU = "http://cf.morose.nl/UPDATE-SuperSU-v2.40.zip"
             
             dl = urllib.URLopener()
             dl.retrieve(URLsuperSU, superSU)
@@ -638,32 +638,43 @@ def main():
             
          print("\033[36mif the firmware release date for your device is before june 2014, there is a chance the towelroot exploit may work.")
          print("\033[35mhowever, superSU is a safer and more widely confirmed root method for the ONEPLUS ONE. ATTEMPT AT YOUR OWN RISK!\033[0m\n")
-         rootcheck = raw_input("which root method would you like to try? enter 1 for towelroot, 2 for superSU [recommended for oneplus one], 3 for Superuser, or 4 to install custom ZIP file. --> ")
+         rootcheck = raw_input("which root method would you like to try? enter 1 for superSU [recommended for oneplus one], 2 for towelroot, 3 for Superuser, or 4 to install custom ZIP file. --> ")
          while not re.search(r'^[1-4]$', rootcheck):
-            rootcheck = raw_input("invalid selection. enter 1 to install towelroot exploit, 2 to install superSU package, 3 to install Superuser, or 4 to install custom ZIP file. --> ")
-         
-         if rootcheck == '1': # TOWELROOT
-            towroot()
-            trysuroot = raw_input("if towelroot failed, press 1 to launch superSU method. otherwise, press ENTER to return to main menu. --> ")
-            if trysuroot == '1': # SUPERSU
-               recovimg = chooserec()
-               suroot(recovimg) # SUPERSU CUSTOM RECOVERY
-               time.sleep(0.9)
-               main()
-            else:
-               time.sleep(0.9)
-               main()
+            rootcheck = raw_input("invalid selection. enter 1 to install superSU package, 2 to install towelroot exploit, 3 to install Superuser, or 4 to install custom ZIP file. --> ")
                
-         elif rootcheck == '2': # SUPERSU
-            bootcustom = raw_input("press 1 to install superSU in custom recovery, or 2 to install in fastboot [lower success rate]. --> ")
+         if rootcheck == '1': # SUPERSU
+            bootcustom = raw_input("press 1 to install superSU in custom recovery, 2 to install in your installed recovery, or 3 to install in fastboot [lower success rate]. --> ")
             while not re.search(r'^[12]$', bootcustom):
-               bootcustom = raw_input("invalid choice. please enter 1 to load custom recovery or 2 for fastboot. --> ")
+               bootcustom = raw_input("invalid choice. please enter 1 to load custom recovery, 2 to use installed recovery, or 3 for fastboot. --> ")
             if bootcustom == '1': # SUPERSU TWRP
                recovimg = chooserec()
                suroot(recovimg) # SUPERSU CUSTOM RECOVERY
                time.sleep(0.9)
                main()
-            elif bootcustom == '2': # SUPERSU FASTBOOT
+            elif bootcustom == '2': # INSTALLED RECOVERY
+               while not os.path.isfile(superSU):
+                  print("file \033[32m" + superSU + " \033[0mnot found. attempting download...\n")
+                  sudl()
+               print("file \033[32m" + superSU + " \033[0mfound!\n")
+               raw_input("press ENTER to copy file to device, then reboot into bootloader.")
+               remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.40.zip'
+               obj.push(superSU, remotesuperSU)
+               raw_input("press ENTER to continue..")
+               obj.reboot("recovery")
+               raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
+               obj.sideload("UPDATE-SuperSU-v2.40.zip")
+               superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
+               ogj.reboot("android")
+               if superfail == '1': # SUPERSU TWRP
+                  suroot("twrp.img")
+               elif superfail == '2': # SUPERSU PHILZ
+                  suroot("philz.img")
+               else:
+                  obj.get_state()
+               time.sleep(0.9)
+               main()
+               
+            elif bootcustom == '3': # SUPERSU FASTBOOT
                updatewhich = raw_input("to try installing superSU in fastboot, press 1. else, enter name of ZIP file to install --> ")
                if updatewhich == '1': # SUPERSU FASTBOOT
                   while not os.path.isfile(superSU):
@@ -713,6 +724,19 @@ def main():
                   main()
             else:
                print("failed to connect to device. returning to main menu.. \n\n")
+               
+
+         elif rootcheck == '2': # TOWELROOT
+            towroot()
+            trysuroot = raw_input("if towelroot failed, press 1 to launch superSU method. otherwise, press ENTER to return to main menu. --> ")
+            if trysuroot == '1': # SUPERSU
+               recovimg = chooserec()
+               suroot(recovimg) # SUPERSU CUSTOM RECOVERY
+               time.sleep(0.9)
+               main()
+            else:
+               time.sleep(0.9)
+               main()
          
          elif rootcheck == '3': # SUPERUSER or CUSTOM ZIP FILE
             bootcustom = raw_input("press 1 to install Superuser in TWRP recovery, 2 to install in Philz recovery, or 3 to install in fastboot [lowest success rate]. --> ")
