@@ -9,14 +9,24 @@
 ##### will not be irregularly maintained at the developer's whim.
 ##### REQUIREMENTS: Python 2.7, Android SDK tools, USB drivers, pyadb.py library, opointro.py
 ##### also required, obviously, is a computer that runs an OS that supports python 2.7.
-##### HOLY SHIT I HAVE A README FILE!
-##### http://notworth.it/opo/README
-##### source code for stable releases should be available on my pastebin:
-##### http://pastebin.com/u/eudemonics
+##### HOLY SHIT GITHUB IS FINALLY WORKING!
+##### INSTALL INSTRUCTIONS USING GIT:
+##### enter command into terminal:
+##### git clone https://github.com/eudemonics/1plus1toolkit.git 1plus1toolkit
+##### to run after using git clone (without $ sign):
+#####   $ cd 1plus1toolkit
+#####   $ python opotoolkit.py
+##### 
+##### VIEW IN BROWSER:
+##### https://github.com/eudemonics/1plus1toolkit
+#####
+##### UPDATE VIA GIT:
+##### cd 1plus1toolkit
+##### git pull https://github.com/eudemonics/1plus1toolkit.git
 ##################################################
 ##################################################
 ##### USER LICENSE AGREEMENT & DISCLAIMER
-##### copyright (C) 2014  vvn <vvn@notworth.it>
+##### copyright (C) 2014  vvn <vvn @ notworth.it>
 ##### 
 ##### This program is FREE software: you can use it, redistribute it and/or modify
 ##### it as you wish. Copying and distribution of this file, with or without modification,
@@ -40,8 +50,8 @@
 ##### questions, comments, feedback, bugs, complaints, death threats, marriage proposals?
 ##### contact me at:
 ##### vvn (at) notworth (dot) it
-##### latest version will always be available HERE: https://github.com/eudemonics/1plus1toolkit
-##### OR HERE: http://notworth.it/opo/opotoolkit.py.txt, http://notworth.it/opo/opointro.py.txt, http://notworth.it/opo/pyadb.py.txt
+##### latest version will always be available HERE:
+##### https://github.com/eudemonics/1plus1toolkit
 
 import subprocess, sys, re, os, os.path, time, datetime, urllib
 from opointro import *
@@ -763,72 +773,62 @@ def main():
          
       elif option == '8': #flash stock images/partitions
       
+         def dlimg(imgfile):
+            dlfile = "http://notworth.it/opo/" + imgfile
+            dl = urllib.URLopener()
+            dl.retrieve(dlfile, imgfile)
+            site = urllib.urlopen(dlfile)
+            meta = site.info()
+            dlsize = meta.getheaders("Content-Length")[0]
+            fsize = os.path.getsize(imgfile)
+            print("file size: \033[33m")
+            print(dlsize)
+            print("\n\033[0mbytes downloaded: \033[33m")
+            print(fsize)
+            print("\033[0m\n")
+      
          def flashmenu():
-            print ('''\n\033[36mSTOCK IMAGES AVAILABLE TO FLASH - THIS WILL REPLACE YOUR CURRENT PARTITION!
-\033[37mFLASH IN SEQUENTIAL ORDER IF POSSIBLE - BOOT.IMG SHOULD GO FIRST
-\033[33;1m***LATEST UPDATE FILES IN YELLOW***\n\033[0m
--\033[31m[1]\033[37m stock BOOT.IMG \033[0m
--\033[31m[2]\033[37m stock USERDATA(_64).IMG \033[35m[WIPES USER DATA!]\033[0m
--\033[31m[3]\033[37m stock SYSTEM.IMG \033[0m
--\033[31m[4]\033[37m stock RECOVERY.IMG \033[0m
--\033[31m[5]\033[37m stock CACHE.IMG \033[0m
--\033[31m[6]\033[37m stock radio, modem, aboot, & more \033[34m[flash-radio.sh]\033[0m
--\033[31m[7]\033[37m stock radio, modem, sbl1, aboot \033[34m[flash-extras.sh]\033[0m
--\033[31m[8]\033[37m FLASH ENTIRE STOCK OR CUSTOM ROM IMAGE \033[0m
--\033[31m[9]\033[37m return to main menu\033[0m\n
-\033[35mCHECK THAT DEVICE IS UNLOCKED AND COMPUTER IS AUTHORIZED FOR ADB ACCESS.\n\033[0m''')
-
-            flashsel = raw_input("\033[32mselect an option between 1 through 9 from menu \033[0m--> ")
+            if usecolor == 'color':
+               menuflash = colorflashmenu
+            else:
+               menuflash = cleanflashmenu
+            print(menuflash)
+            flashsel = raw_input("select an option from 1 through 9 from menu --> ")
             while not re.search(r'^[1-9]$', flashsel):
-               flashsel = raw_input("invalid selection. please choose an option between 1 through 9 --> ")
-            
+               flashsel = raw_input("invalid selection. please choose an option between 1 and 9 --> ")
             if usecolor == 'color':
                print(colorversionmenu)
             else:
                print(cleanversionmenu)
-               
-            verssel = raw_input("enter selection 1-6 --> ")
+                  
+            verssel = raw_input("choose target version 1-5 from menu, or 6 to exit --> ")
             while not re.search(r'^[1-6]$', verssel):
                verssel = raw_input("invalid selection. please choose an option between 1-6 --> ")
-            
+   
             if verssel == '1':
                vers == 'XNPH25R'
-            
+   
             elif verssel == '2':
                vers == 'XNPH30O'
-            
+   
             elif verssel == '3':
                vers == 'XNPH33R'
-               
+      
             elif verssel == '4':
                vers == 'XNPH38R'
-               
+      
             elif verssel == '5':
                vers == 'XNPH44S'
-            
+   
             elif verssel == '6':
                print("returning to main menu..")
                time.sleep(0.9)
                main()
-            
+   
             else:
                print("an error has occurred. returning to main menu..")
                time.sleep(0.9)
                main()
-            
-            def dlimg(imgfile):
-               dlfile = "http://notworth.it/opo/" + imgfile
-               dl = urllib.URLopener()
-               dl.retrieve(dlfile, imgfile)
-               site = urllib.urlopen(dlfile)
-               meta = site.info()
-               dlsize = meta.getheaders("Content-Length")[0]
-               fsize = os.path.getsize(imgfile)
-               print("file size: \033[33m")
-               print(dlsize)
-               print("\n\033[0mbytes downloaded: \033[33m")
-               print(fsize)
-               print("\033[0m\n")
             
             if re.search(r'^[1-7]$', flashsel):
                print("\n\033[34mrebooting into bootloader...\033[0m\n")
@@ -852,22 +852,17 @@ def main():
                   whichsize = raw_input("invalid selection. enter 1 for 16gb device, or 2 for 64gb device. --> ")
                if whichsize == '1':
                   imgfile = vers + "/userdata.img"
-                  while not os.path.isfile(imgfile):
-                     if not os.path.exists(vers):
-                        os.makedirs(vers, 0755)
-                     print("downloading %s..") % imgfile
-                     dlimg(imgfile)
-                  obj.flashf("userdata", imgfile)
                elif whichsize == '2':
                   imgfile = vers + "/userdata_64G.img"
-                  while not os.path.isfile(imgfile):
-                     if not os.path.exists(vers):
-                        os.makedirs(vers, 0755)
-                     print("downloading %s") % imgfile
-                     dlimg(imgfile)
-                  obj.flashf("userdata", imgfile)
                else:
-                  print("ERROR: unable to connect to device.\n")   
+                  print("ERROR: an unknown error has occurred.")
+               while not os.path.isfile(imgfile):
+                  if not os.path.exists(vers):
+                     os.makedirs(vers, 0755)
+                  print("downloading %s") % imgfile
+                  dlimg(imgfile)
+               raw_input("press ENTER to proceed with flashing data.")
+               obj.flashf("data", imgfile)
                raw_input("press ENTER key to return to flash menu...")
                flashmenu()
                
@@ -878,6 +873,7 @@ def main():
                      os.makedirs(vers, 0755)
                   print("downloading %s...") % imgfile
                   dlimg(imgfile)
+               raw_input("press ENTER to proceed with flashing system.")
                obj.flashf("system", imgfile)
                raw_input("press ENTER key to continue...")
                flashmenu()
@@ -889,6 +885,7 @@ def main():
                      os.makedirs(vers, 0755)
                   print("downloading %s...") % imgfile
                   dlimg(imgfile)
+               raw_input("press ENTER to proceed with flashing recovery.")
                obj.flashf("recovery", imgfile)
                raw_input("press ENTER key to continue...")
                flashmenu()
@@ -900,6 +897,7 @@ def main():
                      os.makedirs(vers, 0755)
                   print("downloading %s...") % imgfile
                   dlimg(imgfile)
+               raw_input("press ENTER to proceed with flashing cache.")
                obj.flashf("cache", imgfile)
                raw_input("press ENTER key to continue...")
                flashmenu()
@@ -962,6 +960,7 @@ def main():
                   print("downloading %s/flash-extras.sh..") % vers
                   dlimg("%s/flash-extras.sh") % vers
                   os.chmod(vers + "/flash-extras.sh", 0755)
+               raw_input("press ENTER to proceed with running flash-extras.sh script.")
                subprocess.call(['./flash-extras.sh'], cwd='%s', shell=True) % vers
                raw_input("press ENTER key to continue...")
                obj.fastreboot("android")
@@ -1052,7 +1051,7 @@ def main():
                         time.sleep(0.9)
                         main()
                      else:
-                        print("error connecting to device. returning to main menu...\n")
+                        print("an unknown error has occurred. returning to main menu...\n")
                         time.sleep(0.9)
                         main()
                         
@@ -1061,19 +1060,22 @@ def main():
                   time.sleep(0.9)
                   main()
                   
-            elif flashsel == '9':
+            elif flashsel == '0':
                checkreboot = raw_input("press 1 to reboot device into system, or ENTER to continue.. --> ")
                if checkreboot == '1':
                   obj.fastreboot("android")
+               time.sleep(0.9)
                main()
                
             else:
                print("unable to connect to device. returning to flash menu..")
                time.sleep(0.9)
                flashmenu()
-              
+               
+
+      elif option == '9': # unlock bootloader
+      
          def recovflash():
-            print("\n")
             flashcont = raw_input("select 1 to continue flashing recovery. select 2 to flash a stock or custom image. select 3 to return to flash menu. --> ")
             while not re.search(r'^[123]$', flashcont):
                flashcont = raw_input("invalid selection. select 1 to continue flashing recovery. select 2 to flash a stock partition image. select 3 to return to flash menu. --> ")
@@ -1119,13 +1121,20 @@ def main():
                print("unable to connect to device.\n")
             
             time.sleep(0.9)
-            flashmenu()
-               
-         print("\n\033[36mFlashing a CUSTOM RECOVERY requires an UNLOCKED BOOTLOADER.\033[0m\n")
-         print("\033[33m***UNLOCKING YOUR BOOTLOADER WILL WIPE YOUR DEVICE!!!***\033[0m\n")
-         print("\033[37mIF YOUR DEVICE HOLDS IMPORTANT DATA, BACK UP DEVICE BEFORE YOU CONTINUE!\033[0m\n")
-         print("\033[35mIMPORTANT: if you have already unlocked your device and are re-unlocking, you MUST be running the XNPH25R stock firmware or older.\n")
-         print("\033[32mRE-UNLOCK ATTEMPTS WILL FAIL on XNPH30O or newer. you must return to the previous menu and flash the XNPH25R images to your device.\033[0m\n")
+            
+         bootcolormenu = '''
+         \033[33m***UNLOCKING YOUR BOOTLOADER WILL WIPE YOUR DEVICE!!!***\033[0m
+         \033[37mIF YOUR DEVICE HOLDS IMPORTANT DATA, BACK UP DEVICE BEFORE YOU CONTINUE!\033[0m
+         '''
+         bootcleanmenu = '''
+         ***UNLOCKING YOUR BOOTLOADER WILL WIPE YOUR DEVICE!!!***
+         IF YOUR DEVICE HOLDS IMPORTANT DATA, BACK UP DEVICE BEFORE YOU CONTINUE!'''
+         
+         if usecolor == 'color':
+            print(bootcolormenu)
+         else:
+            print(bootcleanmenu)
+            
          bunlock = raw_input("enter 1 to continue unlocking bootloader. enter 2 to skip to flashing custom recovery or images. enter 3 to re-lock bootloader. or enter 4 to return to menu. --> ")
          while not re.search(r'^[123]$', bunlock):
             bunlock = raw_input("invalid selection. enter 1 to unlock bootloader and wipe device. enter 2 to skip to flashing custom recovery or images. enter 3 to re-lock bootloader. or enter 4 to return to menu. --> ")
@@ -1157,7 +1166,7 @@ def main():
          time.sleep(0.9)
          main()
 
-      elif option == '9': #run shell command
+      elif option == '10': #run shell command
          shellcmd = raw_input("enter shell command --> ")
          while shellcmd:
             obj.shell(shellcmd)
@@ -1165,26 +1174,26 @@ def main():
          time.sleep(0.9)
          main()
 
-      elif option is '10': #get bugreport
+      elif option is '11': #get bugreport
          raw_input("please allow several minutes for process to complete. press ENTER to start generating bug report.")
          obj.bugreport()
          raw_input("press ENTER to return to main menu.")
          time.sleep(0.9)
          main()
          
-      elif option == '11': # list packages
+      elif option == '12': # list packages
          obj.listpkg()
          raw_input("press ENTER to return to main menu.")
          time.sleep(0.9)
          main()
          
-      elif option == '12': # list services
+      elif option == '13': # list services
          obj.listsvc()
          raw_input("press ENTER to return to main menu.")
          time.sleep(0.9)
          main()
                   
-      elif option == '13': #get logcat
+      elif option == '14': #get logcat
          print("logcat will open in a new window. close logcat window to return to menu.")
          if os.name == 'nt':
             process = subprocess.Popen('start /wait adb logcat', shell=True, creationflags=subprocess.CREATE_NEW_CONSOLE, stdout=subprocess.PIPE)

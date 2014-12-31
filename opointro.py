@@ -213,11 +213,12 @@ MAIN MENU:
 -[6] backup or restore device
 -[7] root device and/or install ZIP in fastboot
 -[8] flash stock or custom ROM image
--[9] run shell command on device
--[10] get bug report from device
--[11] list installed apps
--[12] list services
--[13] view logcat from device
+-[9] unlock bootloader or flash custom recovery
+-[10] run shell command on device
+-[11] get bug report from device
+-[12] list installed apps
+-[13] list services
+-[14] view logcat from device
 -[0] quit
 '''
 
@@ -244,11 +245,12 @@ MAIN MENU:
 -\033[31m[6]\033[37m backup or restore device\033[0m
 -\033[31m[7]\033[37m root device and/or install ZIP in fastboot\033[0m
 -\033[31m[8]\033[37m flash stock or custom ROM image\033[0m
--\033[31m[9]\033[37m run shell command on device\033[0m
--\033[31m[10]\033[37m get bug report from device\033[0m
--\033[31m[11]\033[37m list packages\033[0m
--\033[31m[12]\033[37m list services\033[0m
--\033[31m[13]\033[37m view logcat from device\033[0m
+-\033[31m[9]\033[37m unlock bootloader or flash custom recovery\033[0m
+-\033[31m[10]\033[37m run shell command on device\033[0m
+-\033[31m[11]\033[37m get bug report from device\033[0m
+-\033[31m[12]\033[37m list packages\033[0m
+-\033[31m[13]\033[37m list services\033[0m
+-\033[31m[14]\033[37m view logcat from device\033[0m
 -\033[31m[0]\033[37m quit \033[0m\n'''
 
 ######################
@@ -338,8 +340,7 @@ FLASH IN SEQUENTIAL ORDER IF POSSIBLE - BOOT.IMG SHOULD GO FIRST
 -[6] stock NON-HLOS.BIN, modem, aboot, & more [flash-radio.sh]
 -[7] stock radio, modem, sbl1, aboot [flash-extras.sh]
 -[8] FLASH ENTIRE STOCK OR CUSTOM ROM IMAGE
--[9] return to version menu
--[0] return to main menu
+-[9] return to main menu
 CHECK THAT DEVICE IS UNLOCKED AND COMPUTER IS AUTHORIZED FOR ADB ACCESS.
 '''
 
@@ -356,6 +357,5 @@ colorflashmenu = '''
 -\033[31m[6]\033[37m stock NON-HLOS.BIN, modem, aboot & more [flash-radio.sh]\033[0m
 -\033[31m[7]\033[37m stock radio, modem, sbl1, aboot \033[34m[flash-extras.sh]\033[0m
 -\033[31m[8]\033[37m flash complete stock or ROM image \033[0m
--\033[31m[9]\033[37m return to version menu\033[0m\n
--\033[31m[0]\033[37m return to main menu\033[0m\n
+-\033[31m[9]\033[37m return to main menu\033[0m\n
 \033[35mCHECK THAT DEVICE IS UNLOCKED AND COMPUTER IS AUTHORIZED FOR ADB ACCESS.\n\033[0m'''
