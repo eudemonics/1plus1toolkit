@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ### HALF-ASSED ONE + ONE TOOLKIT
-##### VERSION: 1.3.2 BETA
+##### VERSION: 1.3.3 BETA
 ##### RELEASE DATE: DECEMBER 30, 2014
 ##### AUTHOR: vvn [eudemonics on xda-developers]
 ##### DESCRIPTION: a spontaneously created but hopefully comprehensive Android toolkit,
@@ -92,10 +92,10 @@ def main():
    mainmenu()
 
    global option
-   option = raw_input('Select an option 0-13 --> ')
+   option = raw_input('Select an option 0-14 --> ')
    
-   while not re.search(r'^[0-9]$', option) and not re.search(r'^1[0-3]$', option):
-      option = raw_input('Invalid selection. Please select an option 0-13 --> ')
+   while not re.search(r'^[0-9]$', option) and not re.search(r'^1[0-4]$', option):
+      option = raw_input('Invalid selection. Please select an option 0-14 --> ')
  
    if option:
 
