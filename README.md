@@ -1,5 +1,5 @@
 LICENSE AGREEMENT & DISCLAIMER
-    copyright (C) 2014  vvn [ vvn @ notworth.it ]
+    copyright (C) 2014-2015  vvn [ vvn @ notworth.it ]
 
     This program is FREE software: you can redistribute it and/or modify
     it as you wish. Copying and distribution of this file, with or without modification,
@@ -108,6 +108,14 @@ you can use the pyadb.py library to incorporate adb/fastboot commands into your 
  you can stream and buy the EP at: http://dreamcorp.bandcamp.com or any major online music retailer (itunes, google play, amazon, spotify, cdbaby, etc.) - just search for "the dream corporation" and album title "last night on earth"
  follow on facebook: http://www.facebook.com/dreamcorporation
  and of course, more music on soundcloud: http://www.soundcloud.com/dreamcorp
+
+##################################################################################
+
+CHANGES IN v1.3.3.7 BETA:
+
+updated to latest SuperSU download. added md5 file signature checking for downloads
+in rooting function. added additional separate menus for ANSI colors and windows
+users without ANSI text support.
 
 ##################################################################################
 
