@@ -4,7 +4,7 @@ PYADB.PY (Python 2.7 library), and all related files and documentation.
 
 THE HALF-ASSED ONEPLUS ONE TOOLKIT
 INITIAL RELEASE: August 26, 2014
-DOCUMENT UPDATED: December 30, 2014
+DOCUMENT UPDATED: February 6, 2014
 
 COPYLEFT, COPYRIGHT (c) 2014 VVN
 (eudemonics on xda-developers)
@@ -25,10 +25,10 @@ comply with all terms and conditions within this license agreement:
 
 As the licensee, you are hereby granted full permission from the
 copyright holder(s) to download, install, run, copy, modify,
-distribute, and perform any other actions on, with, or using the 
+distribute, and perform any other actions on, with, or using the
 files covered under this license that are not explicitly listed
 within this document, with or without modification to the original
-source code, without fees or royalties, as long as the following 
+source code, without fees or royalties, as long as the following
 conditions are acknowledged and fulfilled:
 
 	1) The complete, unabridged, and unmodified text of this
@@ -36,7 +36,7 @@ conditions are acknowledged and fulfilled:
 	as an easily viewable plain text file in the project's root
 	directory, plus all references to it within the project
 	should be retained without any edits.
-	
+
 	2) The full, unmodified text of this NOTICE should be placed
 	in a location easily viewable to users of any redistributed
 	or derivative work.
@@ -46,14 +46,14 @@ conditions are acknowledged and fulfilled:
     changes were applied, if available. URIs to the location of the
     original source code that was modified is recommended, but not
     mandatory.
-    
+
 	4) Pre-existing intellectual property disclaimers, notices, or
 	terms and conditions for software, libraries, or documentation
 	included in the project under their respective license agreements,
 	take precedence over the terms outlined in this agreement.
 	If none exist, the "W3C Software Short Notice" should be included
 	within the body of any redistributed or derivative code.
-	
+
 
 DISCLAIMERS
 
