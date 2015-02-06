@@ -506,31 +506,94 @@ def main():
       
          def twrpdl(): # DOWNLOAD TWRP CUSTOM RECOVERY
             TWRPurl = "http://notworth.it/opo/twrp.img"
+            TWRPmd5 = "77ba4381b13a03cc6dcff90f95e59a24"
             dl = urllib.URLopener()
             dl.retrieve(TWRPurl, "twrp.img")
             site = urllib.urlopen(TWRPurl)
             meta = site.info()
             dlsize = meta.getheaders("Content-Length")[0]
             fsize = os.path.getsize("twrp.img")
-            print("file size: \033[33m")
-            print(dlsize)
-            print("\n\033[0mbytes downloaded: \033[33m")
-            print(fsize)
-            print("\033[0m\n")
+            if usecolor == 'color':
+               print("file size: \033[33m")
+               print(dlsize)
+               print("\n\033[0mbytes downloaded: \033[33m")
+               print(fsize)
+               print("\033[0m\n")
+               print("\033[34mchecking md5 signature...\033[0m\n")
+            else:
+               print("file size: ")
+               print(dlsize)
+               print("bytes downloaded: ")
+               print(fsize)
+               print("checking md5 signature...")
+            md5_read = ''
+            integrity = ''
+            with open("twrp.img", "r+b") as sf:
+               sfdata = sf.read()
+               md5_read = hashlib.md5(sfdata).hexdigest()
+            if TWRPmd5 == md5_read:
+               print("MD5 verified!")
+               integrity = 'passed'
+            else:
+               print("MD5 file integrity check failed!")
+               integrity = 'failed'
+            if integrity == 'failed':
+               if dlsize != fsize:
+                  with open("twrp.img", "r+b") as f:
+                     # read contents of downloaded file
+                     fdata = f.read()
+                     f.write(site.read())
+                     f.flush()
+                     os.fsync(f.fileno())
+                     f.close()
          
          def recovdl(recovimg): # DOWNLOAD IMAGE FROM SITE
             recovurl = "http://notworth.it/opo/" + recovimg
+            if recovimg == 'philz.img':
+               recovmd5 = "b2f8fb888e1377f00187ad0bd35a6584"
+            elif recovimg == 'cwm.img':
+               recovmd5 = "b60bd10f3f7cc254a4354cdc9c69b3bd"
+            else: # twrp.img MD5
+               recovmd5 = "77ba4381b13a03cc6dcff90f95e59a24"
             dl = urllib.URLopener()
             dl.retrieve(recovurl, recovimg)
             site = urllib.urlopen(recovurl)
             meta = site.info()
             dlsize = meta.getheaders("Content-Length")[0]
             fsize = os.path.getsize(recovimg)
-            print("file size: \033[33m")
-            print(dlsize)
-            print("\n\033[0mbytes downloaded: \033[33m")
-            print(fsize)
-            print("\033[0m\n")
+            if usecolor == 'color':
+               print("file size: \033[33m")
+               print(dlsize)
+               print("\n\033[0mbytes downloaded: \033[33m")
+               print(fsize)
+               print("\033[0m\n")
+               print("\033[34mchecking md5 signature...\033[0m\n")
+            else:
+               print("file size: ")
+               print(dlsize)
+               print("bytes downloaded: ")
+               print(fsize)
+               print("checking md5 signature...")
+            md5_read = ''
+            integrity = ''
+            with open(recovimg, "r+b") as sf:
+               sfdata = sf.read()
+               md5_read = hashlib.md5(sfdata).hexdigest()
+            if recovmd5 == md5_read:
+               print("MD5 verified!")
+               integrity = 'passed'
+            else:
+               print("MD5 file integrity check failed!")
+               integrity = 'failed'
+            if integrity == 'failed':
+               if dlsize != fsize:
+                  with open(recovimg, "r+b") as f:
+                     # read contents of downloaded recovery file
+                     fdata = f.read()
+                     f.write(site.read())
+                     f.flush()
+                     os.fsync(f.fileno())
+                     f.close()
          
          def chooserec(): # CHOOSE WHICH CUSTOM RECOVERY TO BOOT INTO ONCE
             recovimg = "twrp.img"
@@ -635,7 +698,7 @@ def main():
             MD5superusr = "b3c89f46f014c9df7d23b94d37386b8a"
             dl = urllib.URLopener()
             dl.retrieve(URLsuperusr, superusr)
-            site = urllib.urlopen(URLsupusr)
+            site = urllib.urlopen(URLsuperusr)
             meta = site.info()
             dlsize = meta.getheaders("Content-Length")[0]
             if usecolor == "color":
@@ -656,7 +719,7 @@ def main():
             with open(superusr, "r+b") as sf:
                sfdata = sf.read()
                md5_read = hashlib.md5(sfdata).hexdigest()
-            if MD5superSU == md5_read:
+            if MD5superusr == md5_read:
                print("MD5 verified!")
                integrity = 'passed'
             else:
@@ -665,7 +728,7 @@ def main():
             if integrity == 'failed':
                if dlsize != fsize:
                   with open(superusr, "r+b") as f:
-                     # read contents of downloaded SuperSU file
+                     # read contents of downloaded Superuser file
                      fdata = f.read()
                      f.write(site.read())
                      f.flush()
@@ -674,35 +737,80 @@ def main():
             
          def susrroot(recovimg): # FLASH SUPERUSER ZIP IN CUSTOM RECOVERY
             while not os.path.isfile(superusr):
-               print("file \033[32m" + superusr + " \033[0mnot found. attempting download...\n")
+               if usecolor == 'color':
+                  print("file \033[32m" + superusr + " \033[0mnot found. attempting download...\n")
+               else:
+                  print("file " + superusr + " not found. attempting download... \n")
                susrdl()
-            print("file \033[32m" + superusr + " \033[0mfound!\n")
+            if usecolor == 'color':
+               print("file \033[32m" + superusr + " \033[0mfound!\n")
+            else:
+               print("file " + superusr + " found!\n")
             while not os.path.isfile(recovimg):
-               print("file \033[32m" + recovimg + " \033[0mnot found. attempting download...\n")
+               if usecolor == 'color':
+                  print("file \033[32m" + recovimg + " \033[0mnot found. attempting download...\n")
+               else:
+                  print("file " + recovimg + " not found. attempting download...")
                recovdl(recovimg)
-            print("file \033[32m" + recovimg + " \033[0mfound!\n")
+            if usecolor == 'color':
+               print("file \033[32m" + recovimg + " \033[0mfound!\n")
+            else:
+               print("file " + recovimg + " found!")
             raw_input("press ENTER to copy file to device and reboot into bootloader.")
             remotesuperusr = '/sdcard/Superuser-3.1.3-arm-signed.zip'
             obj.push(superusr, remotesuperusr)
             obj.reboot("bootloader")
             raw_input("press ENTER to boot into custom recovery.")
             obj.bootimg(recovimg)
-            print("on device, choose INSTALL from recovery menu, then select file \033[36m" + superusr + "\033[0m in the \033[36m/sdcard\033[0m directory.\n")
+            if usecolor == 'color':
+               print("on device, choose INSTALL from recovery menu, then select file \033[36m" + superusr + "\033[0m in the \033[36m/sdcard\033[0m directory.\n")
+            else:
+               print("on device, choose INSTALL from recovery menu, then select file " + superusr + " in the /sdcard directory.\n")
             raw_input("if install is successful, select REBOOT from recovery menu on device. press ENTER to continue.")
          
          trfile = 'apps/tr.apk'
          def trdl(): # DOWNLOAD TOWELROOT APK
             dl = urllib.URLopener()
-            dl.retrieve("https://towelroot.com/tr.apk", trfile)
-            site = urllib.urlopen("https://towelroot.com/tr.apk")
+            URLtr = "https://towelroot.com/tr.apk"
+            MD5tr = "e287e785d0e3e043fb0cfbfe69309d8e"
+            dl.retrieve(URLtr, trfile)
+            site = urllib.urlopen(URLtr)
             meta = site.info()
             dlsize = meta.getheaders("Content-Length")[0]
             fsize = os.path.getsize(trfile)
-            print("file size: \033[33m")
-            print(dlsize)
-            print("\033[0m\nbytes downloaded: \033[33m")
-            print(fsize)
-            print("\033[0m\n")
+            if usecolor == "color":
+               print("file size: \033[33m")
+               print(dlsize)
+               print("\n\033[0mbytes downloaded: \033[33m")
+               print(fsize)
+               print("\033[0m\n")
+               print("\033[34mchecking md5 signature...\033[0m\n")
+            else:
+               print("file size: ")
+               print(dlsize)
+               print("bytes downloaded: ")
+               print(fsize)
+               print("checking md5 signature...")
+            md5_read = ''
+            integrity = ''
+            with open(trfile, "r+b") as sf:
+               sfdata = sf.read()
+               md5_read = hashlib.md5(sfdata).hexdigest()
+            if MD5tr == md5_read:
+               print("MD5 verified!")
+               integrity = 'passed'
+            else:
+               print("MD5 file integrity check failed!")
+               integrity = 'failed'
+            if integrity == 'failed':
+               if dlsize != fsize:
+                  with open(trfile, "r+b") as f:
+                     # read contents of downloaded TowelRoot file
+                     fdata = f.read()
+                     f.write(site.read())
+                     f.flush()
+                     os.fsync(f.fileno())
+                     f.close()
             
          def towroot(): # INSTALL TOWELROOT APK
             if not os.path.exists('apps'):
@@ -734,13 +842,19 @@ def main():
                main()
             elif bootcustom == '2': # INSTALLED RECOVERY
                while not os.path.isfile(superSU):
-                  print("file \033[32m" + superSU + " \033[0mnot found. attempting download...\n")
+                  if usecolor == 'color':
+                     print("file \033[32m" + superSU + " \033[0mnot found. attempting download...\n")
+                  else:
+                     print("file " + superSU + " not found. attempting download...")
                   sudl()
-               print("file \033[32m" + superSU + " \033[0mfound!\n")
+               if usecolor == 'color':
+                  print("file \033[32m" + superSU + " \033[0mfound!\n")
+               else:
+                  print("file " + superSU + " found!\n")
                raw_input("press ENTER to copy file to device, then reboot into recovery.")
                remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.45.zip'
                obj.push(superSU, remotesuperSU)
-               raw_input("press ENTER to continue..")
+               raw_input("file copied to device. press ENTER to continue to recovery..")
                obj.reboot("recovery")
                raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
                obj.sideload("UPDATE-SuperSU-v2.45.zip")
@@ -759,18 +873,24 @@ def main():
                updatewhich = raw_input("to try installing superSU in fastboot, press 1. else, enter name of ZIP file to install --> ")
                if updatewhich == '1': # SUPERSU FASTBOOT
                   while not os.path.isfile(superSU):
-                     print("file \033[32m" + superSU + " \033[0mnot found. attempting download...\n\n")
+                     if usecolor == 'color':
+                        print("file \033[32m" + superSU + " \033[0mnot found. attempting download...\n\n")
+                     else:
+                        print("file " + superSU + " not found. attempting download...\n\n")
                      sudl()
                   raw_input("press ENTER to reboot into bootloader.")
                   obj.reboot("bootloader")
-                  print("\033[35mattempting to install superSU via fastboot...\n\033[0m")
+                  if usecolor == 'color':
+                     print("\033[35mattempting to install superSU via fastboot...\n\033[0m")
+                  else:
+                     print("attempting to install superSU via fastboot...\n")
                   obj.update(superSU)
                   failsu = raw_input("if installation failed, press 1 to try sideload method. otherwise, press ENTER to continue...")
                   if failsu == '1': # SUPERSU SIDELOAD
                      obj.fastreboot("android")
                      time.sleep(0.9)
                      print("\033[32mmake sure your computer is authorized to access your device over ADB.\033[0m\n")
-                     raw_input("press ENTER to continue..")
+                     raw_input("press ENTER to continue rebooting to recovery..")
                      obj.reboot("recovery")
                      raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
                      obj.sideload("UPDATE-SuperSU-v2.45.zip")
