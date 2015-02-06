@@ -53,7 +53,7 @@
 ##### latest version will always be available HERE:
 ##### https://github.com/eudemonics/1plus1toolkit
 
-import subprocess, sys, re, os, os.path, time, datetime, urllib
+import subprocess, sys, re, os, os.path, hashlib, time, datetime, urllib
 from opointro import *
 from pyadb import *
 global usecolor
@@ -322,6 +322,12 @@ def main():
             time.sleep(0.9)
             main()
 
+############################################################
+############################################################
+# OPTION 5: COPY/SYNC FILES BETWEEN DEVICE & COMPUTER #
+############################################################
+############################################################
+
       elif option == '5': #copy and/or sync between computer and device
          copytype = raw_input("to push file from computer to device, enter T. to pull file from device to computer, enter F. to sync, enter S --> ")
          matchT = re.search(r'(?i)T', copytype)
@@ -417,6 +423,12 @@ def main():
          time.sleep(0.9)
          main()
 
+############################################################
+############################################################
+# OPTION 6 - BACKUP OR RESTORE #
+############################################################
+############################################################
+
       elif option == '6': #backup
          whichbackup = raw_input("to backup, enter 1. to restore, enter 2 --> ")
          while not re.search(r'^[12]$', whichbackup):
@@ -484,6 +496,12 @@ def main():
          time.sleep(0.9)
          main()
 
+############################################################
+############################################################
+# OPTION 7 - ROOT DEVICE #
+############################################################
+############################################################
+
       elif option == '7': #root
       
          def twrpdl(): # DOWNLOAD TWRP CUSTOM RECOVERY
@@ -529,9 +547,10 @@ def main():
                print("unable to connect to device. returning to main menu..\n")
             return recovimg
             
-         superSU = 'UPDATE-SuperSU-v2.40.zip'
+         superSU = 'UPDATE-SuperSU-v2.45.zip'
          def sudl(): # DOWNLOAD SUPERSU ZIP
-            URLsuperSU = "http://cf.morose.nl/UPDATE-SuperSU-v2.40.zip"
+            URLsuperSU = "http://download.chainfire.eu/695/SuperSU/UPDATE-SuperSU-v2.45.zip?retrieve_file=1"
+            MD5superSU = "9dbd5253b8f10a8064273dbec3bc78c8"
             
             dl = urllib.URLopener()
             dl.retrieve(URLsuperSU, superSU)
@@ -540,29 +559,63 @@ def main():
             meta = site.info()
             dlsize = meta.getheaders("Content-Length")[0]
             fsize = os.path.getsize(superSU)
-            print("file size: \033[33m")
-            print(dlsize)
-            print("\n\033[0mbytes downloaded: \033[33m")
-            print(fsize)
-            print("\033[0m\n")
-            if dlsize != fsize:
-               with open(superSU, "r+b") as f:
-                  f.write(site.read())
-                  f.flush()
-                  os.fsync(f.fileno())
-                  f.close()
+            if usecolor == "color":
+               print("file size: \033[33m")
+               print(dlsize)
+               print("\n\033[0mbytes downloaded: \033[33m")
+               print(fsize)
+               print("\033[0m\n")
+               print("\033[34mchecking md5 signature...\033[0m\n")
+            else:
+               print("file size: ")
+               print(dlsize)
+               print("bytes downloaded: ")
+               print(fsize)
+               print("checking md5 signature...")
+            md5_read = ''
+            integrity = ''
+            with open(superSU, "r+b") as sf:
+               sfdata = sf.read()
+               md5_read = hashlib.md5(sfdata).hexdigest()
+            if MD5superSU == md5_read:
+               print("MD5 verified!")
+               integrity = 'passed'
+            else:
+               print("MD5 file integrity check failed!")
+               integrity = 'failed'
+            if integrity == 'failed':
+               if dlsize != fsize:
+                  with open(superSU, "r+b") as f:
+                     # read contents of downloaded SuperSU file
+                     fdata = f.read()
+                     f.write(site.read())
+                     f.flush()
+                     os.fsync(f.fileno())
+                     f.close()
             
          def suroot(recovimg):
             while not os.path.isfile(superSU):
-               print("file \033[32m" + superSU + " \033[0mnot found. attempting download...\n")
+               if usecolor == 'color':
+                  print("file \033[32m" + superSU + " \033[0mnot found.\n \033[40m\033[34;1mattempting download...\033[0m\n")
+               else:
+                  print("file " + superSU + " not found. \n attempting download... \n")
                sudl()
-            print("file \033[32m" + superSU + " \033[0mfound!\n")
+            if usecolor == 'color':   
+               print("file \033[32m" + superSU + " \033[0mfound!\n")
+            else:
+               print("file " + superSU + " found!\n")
             while not os.path.isfile(recovimg):
-               print("file \033[32m" + recovimg + " \033[0mnot found. attempting download...\n")
+               if usecolor == 'color':
+                  print("file \033[32m" + recovimg + " \033[0mnot found. attempting download...\n")
+               else:
+                  print("file " + recovimg + " not found. attempting download...\n")
                recovdl(recovimg)
-            print("file \033[32m" + recovimg + " \033[0mfound!\n")
+            if usecolor == 'color':
+               print("file \033[32m" + recovimg + " \033[0mfound!\n")
+            else:
+               print("file " + recovimg + " found!\n")
             raw_input("press ENTER to copy file to device, then reboot into bootloader.")
-            remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.40.zip'
+            remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.45.zip'
             obj.push(superSU, remotesuperSU)
             obj.reboot("bootloader")
             raw_input("press ENTER to boot into custom recovery.")
@@ -579,17 +632,45 @@ def main():
          superusr = 'Superuser-3.1.3-arm-signed.zip'
          def susrdl():  # DOWNLOAD SUPERUSER ZIP
             URLsuperusr = "http://notworth.it/opo/Superuser-3.1.3-arm-signed.zip"
+            MD5superusr = "b3c89f46f014c9df7d23b94d37386b8a"
             dl = urllib.URLopener()
             dl.retrieve(URLsuperusr, superusr)
             site = urllib.urlopen(URLsupusr)
             meta = site.info()
             dlsize = meta.getheaders("Content-Length")[0]
-            fsize = os.path.getsize(superusr)
-            print("file size: \033[33m")
-            print(dlsize)
-            print("\n\033[0mbytes downloaded: \033[33m")
-            print(fsize)
-            print("\033[0m\n")
+            if usecolor == "color":
+               print("file size: \033[33m")
+               print(dlsize)
+               print("\n\033[0mbytes downloaded: \033[33m")
+               print(fsize)
+               print("\033[0m\n")
+               print("\033[34mchecking md5 signature...\033[0m\n")
+            else:
+               print("file size: ")
+               print(dlsize)
+               print("bytes downloaded: ")
+               print(fsize)
+               print("checking md5 signature...")
+            md5_read = ''
+            integrity = ''
+            with open(superusr, "r+b") as sf:
+               sfdata = sf.read()
+               md5_read = hashlib.md5(sfdata).hexdigest()
+            if MD5superSU == md5_read:
+               print("MD5 verified!")
+               integrity = 'passed'
+            else:
+               print("MD5 file integrity check failed!")
+               integrity = 'failed'
+            if integrity == 'failed':
+               if dlsize != fsize:
+                  with open(superusr, "r+b") as f:
+                     # read contents of downloaded SuperSU file
+                     fdata = f.read()
+                     f.write(site.read())
+                     f.flush()
+                     os.fsync(f.fileno())
+                     f.close()
             
          def susrroot(recovimg): # FLASH SUPERUSER ZIP IN CUSTOM RECOVERY
             while not os.path.isfile(superusr):
@@ -657,12 +738,12 @@ def main():
                   sudl()
                print("file \033[32m" + superSU + " \033[0mfound!\n")
                raw_input("press ENTER to copy file to device, then reboot into recovery.")
-               remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.40.zip'
+               remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.45.zip'
                obj.push(superSU, remotesuperSU)
                raw_input("press ENTER to continue..")
                obj.reboot("recovery")
                raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
-               obj.sideload("UPDATE-SuperSU-v2.40.zip")
+               obj.sideload("UPDATE-SuperSU-v2.45.zip")
                superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
                ogj.reboot("android")
                if superfail == '1': # SUPERSU TWRP
@@ -692,7 +773,7 @@ def main():
                      raw_input("press ENTER to continue..")
                      obj.reboot("recovery")
                      raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
-                     obj.sideload("UPDATE-SuperSU-v2.40.zip")
+                     obj.sideload("UPDATE-SuperSU-v2.45.zip")
                      superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
                      ogj.reboot("android")
                      if superfail == '1': # SUPERSU TWRP
@@ -794,6 +875,12 @@ def main():
                   
          time.sleep(0.9)
          main()
+
+############################################################
+############################################################
+# OPTION 8 - FLASH STOCK IMAGES/PARTITIONS #
+############################################################
+############################################################
          
       elif option == '8': #flash stock images/partitions
       
@@ -828,21 +915,22 @@ def main():
             verssel = raw_input("choose target version 1-5 from menu, or 6 to exit --> ")
             while not re.search(r'^[1-6]$', verssel):
                verssel = raw_input("invalid selection. please choose an option between 1-6 --> ")
+            vers = ''
    
             if verssel == '1':
-               vers == 'XNPH25R'
+               vers = 'XNPH25R'
    
             elif verssel == '2':
-               vers == 'XNPH30O'
+               vers = 'XNPH30O'
    
             elif verssel == '3':
-               vers == 'XNPH33R'
+               vers = 'XNPH33R'
       
             elif verssel == '4':
-               vers == 'XNPH38R'
+               vers = 'XNPH38R'
       
             elif verssel == '5':
-               vers == 'XNPH44S'
+               vers = 'XNPH44S'
    
             elif verssel == '6':
                print("returning to main menu..")
@@ -1095,7 +1183,16 @@ def main():
                print("unable to connect to device. returning to flash menu..")
                time.sleep(0.9)
                flashmenu()
-               
+         
+         flashmenu()
+         time.sleep(0.9)
+         main()
+
+############################################################
+############################################################
+# OPTION 9 - UNLOCK BOOTLOADER #
+############################################################
+############################################################
 
       elif option == '9': # unlock bootloader
       
@@ -1159,9 +1256,9 @@ def main():
          else:
             print(bootcleanmenu)
             
-         bunlock = raw_input("enter 1 to continue unlocking bootloader. enter 2 to skip to flashing custom recovery or images. enter 3 to re-lock bootloader. or enter 4 to return to menu. --> ")
-         while not re.search(r'^[123]$', bunlock):
-            bunlock = raw_input("invalid selection. enter 1 to unlock bootloader and wipe device. enter 2 to skip to flashing custom recovery or images. enter 3 to re-lock bootloader. or enter 4 to return to menu. --> ")
+         bunlock = raw_input("enter 1 to continue unlocking bootloader. enter 2 to skip to flashing custom recovery or images. enter 3 to re-lock bootloader. or enter 4 to return to previous menu. --> ")
+         while not re.search(r'^[1-4]$', bunlock):
+            bunlock = raw_input("invalid selection. enter 1 to unlock bootloader and wipe device. enter 2 to skip to flashing custom recovery or images. enter 3 to re-lock bootloader. or enter 4 to return to previous menu. --> ")
          
          if bunlock == '1':
             obj.reboot("bootloader")
@@ -1183,20 +1280,39 @@ def main():
                obj.lockboot()
                raw_input("press ENTER to reboot your device")
                obj.fastreboot("android")
-               
+         
+         elif bunlock == '4':
+            print("returning to previous menu menu..")
+            time.sleep(0.9)
+            flashmenu()
+                  
          else:
+            print("an unknown error has occurred. returning to main menu..")
+            time.sleep(0.9)
             flashmenu()
                
          time.sleep(0.9)
          main()
 
+############################################################
+############################################################
+# OPTION 10 - RUN SHELL COMMAND #
+############################################################
+############################################################
+
       elif option == '10': #run shell command
          shellcmd = raw_input("enter shell command --> ")
          while shellcmd:
             obj.shell(shellcmd)
-            shellcmd = raw_input("enter another shell command, or press ENTER to continue --> ")
+            shellcmd = raw_input("enter another shell command, or press ENTER to return to main menu --> ")
          time.sleep(0.9)
          main()
+
+############################################################
+############################################################
+# OPTION 11 - GET BUGREPORT #
+############################################################
+############################################################
 
       elif option is '11': #get bugreport
          raw_input("please allow several minutes for process to complete. press ENTER to start generating bug report.")
@@ -1204,18 +1320,38 @@ def main():
          raw_input("press ENTER to return to main menu.")
          time.sleep(0.9)
          main()
-         
+
+############################################################
+############################################################
+# OPTION 12 - LIST INSTALLED PACKAGES #
+############################################################
+############################################################
+
       elif option == '12': # list packages
+         print("LISTING INSTALLED PACKAGES...")
          obj.listpkg()
          raw_input("press ENTER to return to main menu.")
          time.sleep(0.9)
          main()
-         
+
+############################################################
+############################################################
+# OPTION 13 - LIST SERVICES #
+############################################################
+############################################################
+
       elif option == '13': # list services
+         print("LISTING RUNNING SERVICES...")
          obj.listsvc()
          raw_input("press ENTER to return to main menu.")
          time.sleep(0.9)
          main()
+
+############################################################
+############################################################
+# OPTION 14 - GET LOGCAT #
+############################################################
+############################################################
                   
       elif option == '14': #get logcat
          print("logcat will open in a new window. close logcat window to return to menu.")
@@ -1229,7 +1365,13 @@ def main():
             line = process.stdout.readline()
          time.sleep(0.9)
          main()
-      
+
+############################################################
+############################################################
+# OPTION 0 - QUIT #
+############################################################
+############################################################
+
       elif option == '0': #quit
          print("thanks for using the HALF-ASSED ONEPLUS ONE TOOLKIT! bye!")
          sys.exit()
