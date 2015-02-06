@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ### HALF-ASSED ONE + ONE TOOLKIT
-##### VERSION: 1.3.3 BETA
-##### RELEASE DATE: DECEMBER 30, 2014
+##### VERSION: 1.3.3.7 BETA
+##### RELEASE DATE: FEBRUARY 06, 2015
 ##### AUTHOR: vvn [eudemonics on xda-developers]
 ##### DESCRIPTION: a spontaneously created but hopefully comprehensive Android toolkit,
 ##### built originally for the OnePlus One but can be used with most Android devices
@@ -915,7 +915,7 @@ def main():
             verssel = raw_input("choose target version 1-5 from menu, or 6 to exit --> ")
             while not re.search(r'^[1-6]$', verssel):
                verssel = raw_input("invalid selection. please choose an option between 1-6 --> ")
-            vers = ''
+            #vers = ''
    
             if verssel == '1':
                vers = 'XNPH25R'
