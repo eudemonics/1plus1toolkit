@@ -101,6 +101,12 @@ def main():
 
       obj = pyADB()
 
+############################################################
+############################################################
+# OPTION 1 - REBOOT #
+############################################################
+############################################################
+
       if option == '1': #reboot      
          rboption = raw_input("please enter 1 to reboot into android. enter 2 to reboot to bootloader. enter 3 to reboot to recovery. --> ")
          while not re.search(r'^[123]$', rboption):
@@ -170,6 +176,12 @@ def main():
                   obj.fastreboot(rbtype)
             time.sleep(0.9)
             main()
+            
+############################################################
+############################################################
+# OPTION 2 - WIPE OR FLASH PARTITIONS #
+############################################################
+############################################################
 
       elif option == '2': #wipe
          print("\033[35m***WIPING SOME PARTITIONS WILL ERASE YOUR DATA.***\n please make sure to back up any important data before proceeding!\n\n")
@@ -228,6 +240,11 @@ def main():
             time.sleep(0.9)
             main()
             
+############################################################
+############################################################
+# OPTION 6 - BOOT ONCE INTO CUSTOM RECOVERY #
+############################################################
+############################################################
                           
       elif option == '3': #boot custom recovery
          recovery = raw_input("enter 1 for TWRP, 2 for ClockworkMod, or 3 for Philz recovery --> ")
@@ -277,6 +294,12 @@ def main():
          raw_input("press ENTER to return to main menu..")
          time.sleep(0.9)
          main()
+
+############################################################
+############################################################
+# OPTION 6 - INSTALL/UNINSTALL APK #
+############################################################
+############################################################
 
       elif option == '4': #install or uninstall APK
          whichinstall = raw_input("please enter 1 to install, 2 to uninstall, or 3 to return to main menu. --> ")
@@ -859,7 +882,7 @@ def main():
                raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
                obj.sideload("UPDATE-SuperSU-v2.45.zip")
                superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
-               ogj.reboot("android")
+               obj.reboot("android")
                if superfail == '1': # SUPERSU TWRP
                   suroot("twrp.img")
                elif superfail == '2': # SUPERSU PHILZ
@@ -895,7 +918,7 @@ def main():
                      raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
                      obj.sideload("UPDATE-SuperSU-v2.45.zip")
                      superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
-                     ogj.reboot("android")
+                     obj.reboot("android")
                      if superfail == '1': # SUPERSU TWRP
                         suroot("twrp.img")
                      elif superfail == '2': # SUPERSU PHILZ
