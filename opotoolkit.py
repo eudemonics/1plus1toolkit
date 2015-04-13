@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ### HALF-ASSED ONE + ONE TOOLKIT
-##### VERSION: 1.3.3.7 BETA
-##### RELEASE DATE: FEBRUARY 06, 2015
+##### VERSION: 1.3.4 BETA
+##### RELEASE DATE: APRIL 11, 2015
 ##### AUTHOR: vvn [eudemonics on xda-developers]
 ##### DESCRIPTION: a spontaneously created but hopefully comprehensive Android toolkit,
 ##### built originally for the OnePlus One but can be used with most Android devices
@@ -15,6 +15,7 @@
 ##### git clone https://github.com/eudemonics/1plus1toolkit.git 1plus1toolkit
 ##### to run after using git clone (without $ sign):
 #####   $ cd 1plus1toolkit
+#####   $ chmod +x opotoolkit.py
 #####   $ python opotoolkit.py
 ##### 
 ##### VIEW IN BROWSER:
@@ -92,10 +93,10 @@ def main():
    mainmenu()
 
    global option
-   option = raw_input('Select an option 0-14 --> ')
+   option = raw_input('Select an option 0-16 --> ')
    
-   while not re.search(r'^[0-9]$', option) and not re.search(r'^1[0-4]$', option):
-      option = raw_input('Invalid selection. Please select an option 0-14 --> ')
+   while not re.search(r'^[0-9]$', option) and not re.search(r'^1[0-6]$', option):
+      option = raw_input('Invalid selection. Please select an option 0-16 --> ')
  
    if option:
 
@@ -1466,13 +1467,102 @@ def main():
 
 ############################################################
 ############################################################
-# OPTION 12 - LIST INSTALLED PACKAGES #
+# OPTION 12 - FIND/LIST/PULL INSTALLED PACKAGES #
 ############################################################
 ############################################################
 
       elif option == '12': # list packages
-         print("LISTING INSTALLED PACKAGES...")
-         obj.listpkg()
+         optstr = raw_input("would you like to search for a specific package? enter Y/N --> ")
+         while not re.search(r'^[YyNn]$', optstr):
+            optstr = raw_input("invalid selection. please enter Y to search for a package or N to list all packages --> ")
+         searchstr = []
+         qstr = ''
+         if optstr.lower() == 'y':
+            qstr = raw_input("please enter a keyword to search for in package names --> ")
+            while not re.search(r'^[\w\-. ]+$', qstr):
+               qstr = raw_input("invalid search string. acceptable characters are alphanumeric, period, underscore, and hyphen. please enter new search string --> ")
+            if usecolor == 'color':
+               searchtitle = '\033[33mSEARCHING INSTALLED PACKAGES FOR: %s \033[0m\n' % qstr
+            else:
+               searchtitle = 'SEARCHING INSTALLED PACKAGES FOR: %s \n' % qstr
+            print(searchtitle)
+            results = obj.searchpkg(qstr)
+            while len(results) < 1:
+               qstr = raw_input("no package name matches the search query you entered. please try searching again with a different search string --> ")
+               while not re.search(r'^[\w\-. ]+$', qstr):
+                  qstr = raw_input("invalid package name. acceptable characters are alphanumeric, period, underscore, and hyphen. please enter new search string --> ")
+               results = obj.searchpkg(qstr)
+               match = re.search(r'%s', results) % qstr
+               if match:
+                  print("found: \n")
+                  print(results)
+            searchstr = results
+            pathquestion = "would you like to get the path for this package? enter Y/N --> "
+         else:
+            print("LISTING ALL INSTALLED PACKAGES ON DEVICE \n")
+            results = obj.listpkg()
+            print(results)
+            pathquestion = "would you like to get the path for a specific package? enter Y/N --> "
+         
+         # CHECK TO GET PATH OR NOT
+         getpath = raw_input(pathquestion)
+         while not re.search(r'^[yYnN]$', getpath):
+            getpath = raw_input("invalid entry. enter Y or N to get path of package --> ")         
+         
+         if getpath.lower() == 'y':
+            whichpath = raw_input("please enter the complete package name to get the path --> ")
+            while not re.search(r'^[\w\-. ]+$', whichpath):
+               whichpath = raw_input("invalid package name. please enter complete package name for the app to get path --> ")
+               
+            results = obj.pathpkg(whichpath)
+            # GET PATH OF PACKAGE
+            app_path = []
+            if results:
+               path = results.split('=')[0]
+               print(path)
+               app_path.append(path)
+            else:
+               print("no results found. returning to main menu..")
+               time.sleep(0.9)
+               main()
+            if app_path:
+               pullcheck = raw_input("would you like to pull the package? Y/N --> ")
+               while not re.search(r'^[yYnN]$', pullcheck):
+                  pullcheck = raw_input("invalid entry. enter Y to pull package or N to return to main menu --> ")
+                  
+               # DON'T PULL
+               if pullcheck.lower() == 'n':
+                  time.sleep(0.9)
+                  main()
+               
+               # PULL PACKAGE
+               else:
+                  for app in app_path:
+                     print("pulling %s") % app
+                     obj.defaultapkpull(app)
+                     print("%s has been pulled to the current directory" % app) 
+            else:
+               print("no results found. returning to main menu..")
+               
+               time.sleep(0.9)
+               main()
+         # DON'T GET PATH
+         else:
+            getpull = raw_input("would you like to pull a specific package? Y/N --> ")
+            while not re.search(r'^[yYnN]$', getpull):
+               getpull = raw_input("invalid entry. please enter Y to pull a specific package or N to return to main menu --> ")
+            # PULL PACKAGE   
+            if getpull.lower() == 'y':
+               pkgname = raw_input("please enter the complete package name you would like to pull --> ")
+               while not re.search(r'^[\w\-. ]+$', pkgname):
+                  pkgname = raw_input("invalid package name. please enter a valid full package name --> ")
+               obj.pullapk(pkgname)
+            
+            # DON'T PULL PACKAGE
+            else:
+               time.sleep(0.9)
+               main()
+            
          raw_input("press ENTER to return to main menu.")
          time.sleep(0.9)
          main()
@@ -1492,11 +1582,46 @@ def main():
 
 ############################################################
 ############################################################
-# OPTION 14 - GET LOGCAT #
+# OPTION 14 - LIST FEATURES #
+############################################################
+############################################################
+
+      elif option == '14': # list features
+         print("LISTING FEATURES...")
+         obj.getfeatures()
+         raw_input("press ENTER to return to main menu.")
+         time.sleep(0.9)
+         main()
+
+############################################################
+############################################################
+# OPTION 15 - LIST PERMISSIONS #
+############################################################
+############################################################
+
+      elif option == '15': # list permissions
+         whichperms = raw_input('select 1 to get all permissions, or 2 to get permissions for a specific package --> ')
+         while not re.search(r'^[12]$', whichperms):
+            whichperms = raw_input('invalid selection. enter 1 to list all permissions or 2 to show permissions for a specific package --> ')
+         if whichperms == '2':
+            pkg = raw_input('please enter the package name you would like to show permissions for --> ')
+            while not re.search(r'^([a-zA-Z_.0-9]+?)$', pkg):
+               pkg = raw_input('invalid package name. please enter package name to show its permissions --> ')
+            obj.getpermissions(pkg)
+         else:
+            print("LISTING ALL PERMISSIONS...")
+            obj.getallpermissions()
+         raw_input("press ENTER to return to main menu.")
+         time.sleep(0.9)
+         main()
+
+############################################################
+############################################################
+# OPTION 16 - GET LOGCAT #
 ############################################################
 ############################################################
                   
-      elif option == '14': #get logcat
+      elif option == '16': #get logcat
          print("logcat will open in a new window. close logcat window to return to menu.")
          if os.name == 'nt':
             process = subprocess.Popen('start /wait adb logcat', shell=True, creationflags=subprocess.CREATE_NEW_CONSOLE, stdout=subprocess.PIPE)
@@ -1511,12 +1636,29 @@ def main():
 
 ############################################################
 ############################################################
+# OPTION 17 - WIFIDEBUGGING #
+############################################################
+############################################################
+
+#       elif option == '17': #wifi debugging
+#          print("DEVICE MUST BE ROOTED AND ON SAME WI-FI ACCESS POINT!!!")
+#          switch = raw_input("enter 1 to enable or 2 to disable ADB debugging over WiFi. enter 3 to return to main menu.  --> ")
+#          while not re.search(r'^[1-3]$', switch):
+#             switch = raw_input("invalid selection. choose 1 to enable or 2 to disable ADB debugging over WiFi, or 3 to return to main menu --> ")
+#          if re.search(r'^[12]$', switch):
+#             obj.wifidebug(switch)
+#          raw_input('press ENTER to return to main menu..')
+#          time.sleep(0.9)
+#          main()
+
+############################################################
+############################################################
 # OPTION 0 - QUIT #
 ############################################################
 ############################################################
 
       elif option == '0': #quit
-         print("thanks for using the HALF-ASSED ONEPLUS ONE TOOLKIT! bye!")
+         print("thanks for using the HALF-ASSED ONEPLUS ONE TOOLKIT! goodbye!")
          sys.exit()
                   
       else:

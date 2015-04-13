@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ### PYADB (Python 2.7 Library)
-##### VERSION: 1.3.3.7
-##### RELEASE DATE: OCTOBER 13, 2014
+##### VERSION: 1.3.4 BETA
+##### RELEASE DATE: MARCH 25, 2015
 ##### AUTHOR: vvn
 ##### DESCRIPTION: simple library to port ADB and FASTBOOT functions to PYTHON
 #####
@@ -12,7 +12,7 @@
 ##################################################
 ##################################################
 ##### USER LICENSE AGREEMENT & DISCLAIMER
-##### copyright, copyleft (C) 2014  vvn <vvn@eudemonics.org>
+##### copyright, copyleft (C) 2014-2015  vvn <vvn@notworth.it>
 ##### 
 ##### This program is FREE software: you can use it, redistribute it and/or modify
 ##### it as you wish. Copying and distribution of this file, with or without modification,
@@ -37,9 +37,7 @@
 ##### contact me at:
 ##### vvn (at) notworth (dot) it
 ##### latest version will always be available HERE:
-##### http://notworth.it/opo/pyadb.py.txt (remove *.txt extension, obviously.)
-##### MD5 checksum file will accompany it:
-##### http://notworth.it/opo/pyadb.py.txt.md5
+##### https://github.com/eudemonics/opotoolkit
 ##### there be only code after this -->
 
 import os, subprocess, sys, datetime
@@ -121,7 +119,7 @@ class pyADB(object):
       return result
 
    # uninstall APK
-   def uninstall(self, path_to_app, args):
+   def uninstall(self, path_to_app, *args):
       command = "uninstall %s" % path_to_app
       if 'keep' in args:
          command = "uninstall -k %s" % path_to_app
@@ -183,28 +181,72 @@ class pyADB(object):
       
    # list packages
    def listpkg(self):
-      command = "shell pm list packages"
-      result = self.call_adb(command)
-      return result 
+      command = "adb shell pm list packages -f | sed -ne 's/package://p'"
+      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      response, errors = output.communicate()
+      return response
       
    # search packages
    def searchpkg(self, query):
-      command = "shell pm list packages | grep %s" % query
-      result = self.call_adb(command)
-      return result
+      command = "adb shell pm list packages -f | grep %s | sed -ne 's/package://p'" % query
+      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      response = output.communicate()
+      return response
       
    # find path for package
    def pathpkg(self, package):
-      command = "shell pm path %s" % package
-      result = self.call_adb(command)
-      return result
+      command = "adb shell pm list packages -f %s | sed -ne 's/package://;s/=.*$//p'" % package
+      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      response, errors = output.communicate()
+      return response
    
-   # pull APK from default package location
+   def pullapk(self, pkgname):
+      path = "adb shell pm list packages -f %s | sed -ne 's/package://;s/=.*$//p'" % pkgname
+      path = str(path)
+      pkgpath = path.split('=')[0]
+      command = "adb pull -p %s" % pkgpath
+      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      response, errors = output.communicate()
+      return response
+   
+   # pull APK from package location on device
    def apkpull(self, pkgname):
-      command = "pull /data/app/%s" % pkgname
+      com = "adb shell pm list packages -f %s | sed -ne 's/package://;s/=.*$//p'" % pkgname
+      packages = []
+      output = Popen(com, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      for o in output:
+         pkg1 = o.rsplit("=")[0]
+         pkg = pkg1.split(":")[1]
+         packages.append(pkg)
+      response = []
+      for package in packages:
+         command = "adb pull -p " + r'"%s"' % package
+         output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+         response.append(output.communicate())
+      return response
+      
+   def defaultapkpull(self, package):
+      command = "adb pull -p " + r'"%s"' % package
+      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      response, errors = output.communicate()
+      return response
+   
+   def getfeatures(self):
+      command = "shell pm list features"
       result = self.call_adb(command)
       return result
       
+   def getallpermissions(self):
+      command = "shell pm list permissions -g -f"
+      result = self.call_adb(command)
+      return result
+   
+   def getpermissions(self, package):
+      command = "adb shell pm list permissions -g -f | grep -A 4 %s" % package
+      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      response = output.communicate()
+      return response
+   
    # backup device   
    def backup(self, backupfile, backapk, backobb, backshared, backall, backsys):
       command = "adb backup -f %s" % backupfile
@@ -321,13 +363,13 @@ class pyADB(object):
       
    # services list
    def listsvc(self):
-      command = "shell su -c service list"
+      command = "shell service list"
       result = self.call_adb(command)
       return result
       
    # services search
    def searchsvc(self, query):
-      command = "shell su -c service list | grep %s" % query
+      command = "shell service list | grep %s" % query
       result = self.call_adb(command)
       return result
    
@@ -336,3 +378,21 @@ class pyADB(object):
       command = "shell su -c service call connectivity 34 i32 " + str(switch)
       result = self.call_adb(command)
       return result
+      
+   # enable wifi debugging
+   def wifidebug(self, switch): # switch 1 enables wifi debugging, 0 or 2 disables
+      cmd = "adb shell su -c ifconfig wlan0 | sed -ne 's/^.*ip //;s/ mask.*$//p'"
+      ipaddr = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      commands = []
+      wifioff = "sed -i 's/5555/-1/g' wifidebug.sh"
+      wifion = "sed -i 's/-1/5555/g' wifidebug.sh"
+      if switch == '1':
+         commands = "adb shell su -c mount -o rw,remount /data","adb push wifidebug.sh /data","adb shell su -c chmod 0775 /data/wifidebug.sh","adb shell su -c sh /data/wifidebug.sh","adb kill-server","adb start-server","adb connect " + r'"%s"' % ipaddr
+      else:
+         commands = wifioff,"adb shell su -c mount -o rw,remount /data","adb push wifidebug.sh /data","adb shell su -c chmod 0775 /data/wifidebug.sh","adb shell su -c sh /data/wifidebug.sh","adb disconnect localhost",wifion
+      response = []
+      for command in commands:
+         output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+         result = output.communicate()
+         response.append(result)
+      return response

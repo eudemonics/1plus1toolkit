@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 ### OPOINTRO 
-##### VERSION: 1.3.3.7 BETA
-##### RELEASE DATE: FEBRUARY 06, 2014
+##### VERSION: 1.3.4 BETA
+##### RELEASE DATE: APRIL 11, 2015
 ##### AUTHOR: vvn
 ##### DESCRIPTION: simple library to port ADB and FASTBOOT functions to PYTHON
 #####
 ##### USER LICENSE AGREEMENT & DISCLAIMER
-##### copyright (C) 2014-15  vvn <vvn@notworth.it>
+##### copyright, copyleft (C) 2014-15  vvn <vvn@notworth.it>
 ##### 
 ##### This program is FREE software: you can use it, redistribute it and/or modify
 ##### it as you wish. Copying and distribution of this file, with or without modification,
@@ -48,7 +48,7 @@ class opointro(object):
       time.sleep(0.1)
       print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
-      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ v1.3.3.7 BETA ~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#")
+      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ v1.3.4 BETA ~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
       print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
@@ -110,9 +110,9 @@ class opointro(object):
       time.sleep(0.1)
       print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ AUTHOR: VVN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
-      print ("#~~~~~~~~~~~~~~~~~~~~~~~~ RELEASE DATE: FEBRUARY 06, 2014 ~~~~~~~~~~~~~~~~~~~~~~~#")
+      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~ RELEASE DATE: APRIL 11, 2015 ~~~~~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
-      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COPYRIGHT (C) 2014 VVN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
+      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COPYLEFT (C) 2014-2015 VVN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
       print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
@@ -132,7 +132,7 @@ class opointro(object):
       time.sleep(0.1)
       print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~ \033[40m\033[33mONEPLUS ONE TOOLKIT\033[41m\033[37m ~~~~~~~~I\033[41m\033[37;1m   7~~~~~~~~~#\033[0m")
       time.sleep(0.1)
-      print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~ \033[41m\033[40;1mv1.3.3.7 BETA\033[41m\033[37;1m ~~~~~~~~~~I   7~~~~~~~~~#\033[0m")
+      print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~ \033[41m\033[40;1mv1.3.4 BETA\033[41m\033[37;1m ~~~~~~~~~~~~I   7~~~~~~~~~#\033[0m")
       time.sleep(0.1)
       print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~I   7~~~~~~~~~#\033[0m")
       time.sleep(0.1)
@@ -176,7 +176,7 @@ class opointro(object):
       time.sleep(0.1)
       print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~~ \033[40m\033[35;1mAUTHOR: VVN \033[41m\033[37;1m~~~~~~~~~~~~~~~~~~~~~~~~~#\033[0m")
       time.sleep(0.1)
-      print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~ \033[40m\033[36;1mRELEASE DATE: FEBRUARY 06, 2014 \033[41m\033[37;1m~~~~~~~~~~~~~~~~#\033[0m")
+      print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~ \033[40m\033[36;1mRELEASE DATE: APRIL 11, 2015 \033[41m\033[37;1m~~~~~~~~~~~~~~~~~#\033[0m")
       time.sleep(0.1)
       print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#\033[0m")
       time.sleep(0.1)
@@ -195,7 +195,7 @@ class opointro(object):
    cleanmenu = '''
 *********************************************************** 
 ************ THE HALF-ASSED ONEPLUS ONE TOOLKIT ***********
-*************** VERSION: 1.3.3.7 BETA * by vvn ************
+**************** VERSION: 1.3.4 BETA * by vvn *************
 ***********************************************************
 *** this is a FREE program, released AS-IS: NO WARRANTY ***
 ****************** USE AT YOUR OWN RISK! ******************
@@ -216,9 +216,11 @@ MAIN MENU:
 -[9] unlock bootloader or flash custom recovery
 -[10] run shell command on device
 -[11] get bug report from device
--[12] list installed apps
+-[12] find/list apps, pull APK from device
 -[13] list services
--[14] view logcat from device
+-[14] list features
+-[15] list permissions
+-[16] view logcat from device
 -[0] quit
 '''
 
@@ -227,7 +229,7 @@ MAIN MENU:
    colormenu = '''
 \033[40m\033[34m***********************************************************\033[0m 
 \033[40m\033[34m************ \033[36mTHE HALF-ASSED ONEPLUS ONE TOOLKIT \033[34m***********\033[0m
-\033[40m\033[34m*************** \033[37mVERSION: 1.3.3.7 BETA \033[34m* \033[35mby vvn \033[34m************\033[0m
+\033[40m\033[34m**************** \033[37mVERSION: 1.3.4 BETA \033[34m* \033[35mby vvn \033[34m*************\033[0m
 \033[40m\033[34m***********************************************************\033[0m
 \033[40m\033[34m*** \033[33mthis is a FREE program, released AS-IS: NO WARRANTY \033[34m***\033[0m
 \033[40m\033[34m****************** \033[32mUSE AT YOUR OWN RISK! \033[34m******************\033[0m
@@ -248,9 +250,11 @@ MAIN MENU:
 -\033[31m[9]\033[37m unlock bootloader or flash custom recovery\033[0m
 -\033[31m[10]\033[37m run shell command on device\033[0m
 -\033[31m[11]\033[37m get bug report from device\033[0m
--\033[31m[12]\033[37m list packages\033[0m
+-\033[31m[12]\033[37m find/list apps, pull APK from device\033[0m
 -\033[31m[13]\033[37m list services\033[0m
--\033[31m[14]\033[37m view logcat from device\033[0m
+-\033[31m[14]\033[37m list features\033[0m
+-\033[31m[15]\033[37m list permissions\033[0m
+-\033[31m[16]\033[37m view logcat from device\033[0m
 -\033[31m[0]\033[37m quit \033[0m\n'''
 
 ######################
@@ -300,13 +304,14 @@ please make sure to back up any important data before proceeding!\n\n
 ##### CLEAN #####
 
 cleanversionmenu = '''
-CHOOSE A RELEASE VERSION - must be your current version or earlier to restore, or ONE version higher to upgrade. [1-6]
+CHOOSE A RELEASE VERSION - must be your current version or earlier to restore, or ONE version higher to upgrade. [1-7]
 -[1] XNPH25R
 -[2] XNPH30O
 -[3] XNPH33R
 -[4] XNPH38R
 -[5] XNPH44S
--[6] return to main menu
+-[6] XNPH05Q
+-[7] return to main menu
 '''
 
 ##### COLOR #####
@@ -318,7 +323,8 @@ CHOOSE A RELEASE VERSION - must be your current version or earlier to restore, o
 -\033[36m[3]\033[37m XNPH33R \033[0m
 -\033[36m[4]\033[37m XNPH38R \033[0m
 -\033[36m[5]\033[37m XNPH44S \033[0m
--\033[36m[6]\033[37m return to main menu \033[0m
+-\033[36m[6]\033[37m XNPH05Q \033[0m
+-\033[36m[7]\033[37m return to main menu \033[0m
 '''
 
 ######################

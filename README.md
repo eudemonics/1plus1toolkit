@@ -1,90 +1,113 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 #README means READ ME!
+=======
+LICENSE AGREEMENT & DISCLAIMER
+    copyright (C) 2014-2015  vvn [ vvn @ notworth.it ]
+>>>>>>> parent of f1b5d44... format changes
 
-##LICENSE AGREEMENT & DISCLAIMER
-####copyright (C) 2014-2015  vvn [ vvn @ notworth.it ]
+    This program is FREE software: you can redistribute it and/or modify
+    it as you wish. Copying and distribution of this file, with or without modification,
+	are permitted in any medium without royalty provided the copyright
+	notice and this notice are preserved. This program is offered AS-IS,
+	WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-    This program is FREE software: you can redistribute it and/or modify it as you wish. Copying and distribution of this file, with or without modification, are permitted in any medium without royalty provided the copyright notice and this notice are preserved. This program is offered AS-IS, WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+    For more information, please refer to the "LICENSE AND NOTICE" file that should
+    accompany all official download releases of this program.
 
-    For more information, please refer to the "LICENSE AND NOTICE" file that should accompany all official download releases of this program.
+**HALF-ASSED ONEPLUS ONE TOOLKIT by vvn [ eudemonics on xda-developers ]**
 
-###HALF-ASSED ONEPLUS ONE TOOLKIT by vvn [ eudemonics on xda-developers ]
+**VERSION: 1.3.3.7 BETA**
 
-####VERSION: 1.3.3.7 BETA
+<<<<<<< HEAD
+####VERSION: 1.3.4 BETA
+=======
+**ORIGINAL RELEASE DATE: AUGUST 23, 2014**
+>>>>>>> parent of f1b5d44... format changes
 
-####ORIGINAL RELEASE DATE: AUGUST 23, 2014
+**LATEST VERSION RELEASE DATE: FEBRUARY 06, 2015**
 
-####LATEST VERSION RELEASE DATE: FEBRUARY 06, 2015
+<<<<<<< HEAD
+####LATEST VERSION RELEASE DATE: APRIL 11, 2015
+=======
+**GITHUB RELEASE DATE: FEBRUARY 06, 2015**
+>>>>>>> parent of f1b5d44... format changes
 
----
+YEAH!!!! finally got github working with it! :)
 
-**to download using git:**
+https://github.com/eudemonics/1plus1toolkit
 
-	git clone https://github.com/eudemonics/1plus1toolkit.git 1plus1toolkit
+to download using git:
 
-**to run:**
+git clone https://github.com/eudemonics/1plus1toolkit.git 1plus1toolkit
 
-	cd 1plus1toolkit
-	chmod +x opotoolkit.py
-	./opotoolkit.py
+to run:
 
-**or this:**
+cd 1plus1toolkit
 
-	cd 1plus1toolkit && python opotoolkit.py
+./opotoolkit.py
 
-**if for some reason the files from github don't work, here are links to the latest version files from my site (version 1.3.3.7). remove the .txt extension, of course:**
-
-<http://nobody.ninja/opo/opotoolkit.py.txt>
-
-<http://nobody.ninja/opo/opointro.py.txt>
-
-<http://nobody.ninja/opo/pyadb.py.txt>
-
-<http://nobody.ninja/opo/sdk.sh.txt>
-
+<<<<<<< HEAD
 #####THIS SCRIPT MUST BE RUN USING PYTHON 2.7. PLEASE DO NOT BITCH AT ME THAT THE SCRIPT IS GETTING A FORMAT ERROR IF YOU HAVE IGNORED THIS NOTICE AND ARE USING PYTHON 3.
+=======
+or this:
 
-**this is a very half-assed project, as you might assume from the name of it, and i cannot guarantee fast or frequent updates. i will continue updating and adapting the application to support the latest official updates from both OnePlus and CyanogenMod11S, and will make every attempt to enable as much backwards-compatibility as possible. when something is NOT backwards compatible (such as re-unlocking your bootloader on firmware versions newer than XNPH25R), i will include an emphasized warning in the app itself before the command execution.**
+cd 1plus1toolkit && python opotoolkit.py
 
-####REQUIREMENTS FOR SCRIPT TO WORK:
-* opotoolkit.py is the main script. that's the one file you REALLY need.
+if for some reason the files from github don't work, here are links to the last STABLE version files (version 1.3):
 
-* my PYADB library, named "pyadb.py", needs to be in the same directory as opotoolkit.py.
+http://notworth.it/opo/opotoolkit.py.txt
 
-* opointro.py also needs to be in the same directory as "opotoolkit.py" and "pyadb.py".
+http://notworth.it/opo/opointro.py.txt
 
-* obviously, you'll need python 2.7.
-	**DO NOT RUN AS PYTHON 3.x!**
-download python 2.7.x here: <https://www.python.org/downloads/>
+http://notworth.it/opo/pyadb.py.txt
+>>>>>>> parent of f1b5d44... format changes
 
- * you need ADB and FASTBOOT from the android SDK. you can git clone the entire repo and run sdk.sh in a terminal, or download the SDK here: <https://developer.android.com/sdk/>
+**THIS SCRIPT MUST BE RUN USING PYTHON 2.7. PLEASE DO NOT BITCH AT ME THAT THE SCRIPT IS GETTING A FORMAT ERROR IF YOU HAVE IGNORED THIS NOTICE AND ARE USING PYTHON 3.**
+
+this is a very half-assed project, as you might assume from the name of it, and i cannot guarantee fast or frequent updates. i will continue updating and adapting the application to support the latest official updates from both OnePlus and CyanogenMod11S, and will make every attempt to enable as much backwards-compatibility as possible. when something is NOT backwards compatible (such as re-unlocking your bootloader on firmware versions newer than XNPH25R), i will include an emphasized warning in the app itself before the command execution.
+
+ REQUIREMENTS FOR SCRIPT TO WORK:
+ * opotoolkit.py is the main script. that's the one file you REALLY need.
+ * my PYADB library, named "pyadb.py", needs to be in the same directory as opotoolkit.py.
+ * opointro.py also needs to be in the same directory as "opotoolkit.py" and "pyadb.py".
+ * obviously, you'll need python 2.7. **DO NOT RUN AS PYTHON 3.x!**
+   - download python 2.7.x here: https://www.python.org/downloads/
+ * you need ADB and FASTBOOT from the android SDK. download the SDK here: https://developer.android.com/sdk/
  * IF YOU ARE ON WINDOWS, you need the colorama module in order for the script to be viewed properly. windows doesn't support ANSI codes natively in python so you'll have to install and use the colorama module. once python 2.7 is installed, get pypi:
-   - download this script and run it: <https://bootstrap.pypa.io/get-pip.py>
-   - open command prompt as admin in script directory and type: *"python get-pip.py"*
-   - install colorama after pypi is successfully installed: *"pip install colorama"*
+   - download this script and run it: https://bootstrap.pypa.io/get-pip.py
+   - open command prompt as admin in script directory and type: "python get-pip.py"
+   - install colorama after pypi is successfully installed: pip install colorama
    - just in case you don't install support for ANSI i spent a considerable amount of time making entirely new menus for you damn windows users (this is what opointro.py is for).
-   
  * finally, you need an OS that supports Python and the android SDK, which I'm afraid narrows it down to:
-   - Linux (all flavors) - ***IMPORTANT*** - if using the included binaries, RENAME "adb-linux" and "fastboot-linux" to adb and fastboot!!! or you can run ./sdk.sh
+   - Linux (all flavors) - ***IMPORTANT*** if using the included binaries, RENAME "adb-linux" and "fastboot-linux" to adb and fastboot!!! or you can run ./sdk.sh
    - Mac OSX (exotic jungle cats and beyond)
    - Windows (pretty much all releases, or starting from whichever one could support Python 2.x.)
-   
-you can either put the scripts and other files in the same directory as your android SDK, or set an environmental path variable for your android SDK directory.
+ i apologize for limiting your options like that.
 
-####SETTING UP AN ENIVIRONMENTAL PATH VARIABLE (HIGHLY RECOMMENDED):
+ you can either put the scripts and other files in the same directory as your android SDK,
+ or set an environmental path variable for your android SDK directory.
+
+##################################################################################
+
+ SETTING UP AN ENIVIRONMENTAL PATH VARIABLE (HIGHLY RECOMMENDED):
 
 if you're on windows you can go to my pastebin (pastebin.com/u/eudemonics), find the only powershell script on there, and steal/adapt the code to create your own environment path variable. but it's much easier to configure in system properties - i'm not on windows right now so these may not be exact instructions, but you should be able to right click on "my computer", select "properties", go to the "environment" tab in system settings, and add the environment path there. linux and OSX users just need to add the android SDK directory to their ~/.bash_profile or ~/.bashsrc or wherever environment paths are defined. if you still don't understand environmental path variables or symbolic links, i highly recommend google (or startpage.com, the private version).
 
 if you don't want to go to the trouble of creating the environmental path variables, and you want to use the android SDK on your computer, then just extract all the files from the ZIP into your android SDK directory.
 
-######HOW TO RUN THE TOOLKIT:
+##################################################################################
+
+HOW TO RUN THE TOOLKIT:
 
 plug phone to computer via USB, turn on android debugging.
 
 if you don't have "developer options" in your settings anywhere, you'll have to enable it. go to your general settings to "about phone" and tap on the build info (towards the bottom) 7 TIMES. then open "developer options" in settings and enable android USB debugging.
 
 open command prompt or terminal window to scripts directory. start the toolkit by entering:
-
-	python opotoolkit.py
+"python opotoolkit.py"
 
 if everything is installed and in the right places, you should see a menu like the attached screenshot. if for some reason you get a permission denied error, try launching the command prompt or terminal as administrator or superuser.
 
@@ -92,61 +115,71 @@ i'll continue working on it and adding more when i can so keep checking this spa
 
 you can use the pyadb.py library to incorporate adb/fastboot commands into your own python projects. i'll be adding more features to that, but for now most of the common features are covered.
 
-###USE AT YOUR OWN RISK. i am not responsible for any damage to your device.
+ USE AT YOUR OWN RISK. i am not responsible for any damage to your device.
 
  direct all questions, bug reports, suggestions, death threats, marriage proposals, and random bitching to: vvn (at) notworth (dot) it
 
-feel free to share, modify, whatever.
+ feel free to share, modify, whatever.
+ some credit would be nice. donations are super nice. but buying & sharing my EP would be the most awesome way to show your appreciation. really, it would mean the world to me.
 
-some credit would be nice. donations are super nice. but buying & sharing my EP would be the most awesome way to show your appreciation. really, it would mean the world to me.
+ you can stream and buy the EP at: http://dreamcorp.bandcamp.com or any major online music retailer (itunes, google play, amazon, spotify, cdbaby, etc.) - just search for "the dream corporation" and album title "last night on earth"
+ follow on facebook: http://www.facebook.com/dreamcorporation
+ and of course, more music on soundcloud: http://www.soundcloud.com/dreamcorp
 
-you can stream and buy the EP at: <http://dreamcorp.bandcamp.com> or any major online music retailer (itunes, google play, amazon, spotify, cdbaby, etc.) - just search for **"the dream corporation"** and album title *"last night on earth"*
+##################################################################################
 
-follow on facebook: <http://www.facebook.com/dreamcorporation>
+<<<<<<< HEAD
+**CHANGES IN v1.3.4 BETA:**
 
-and of course, more music on soundcloud: <http://www.soundcloud.com/dreamcorp>
+added XNPH05Q update and additional functions (option 12 for finding and pulling APK not completely tested yet so please report any errors!): search/pull APK, list permissions, list services, list features. this little script's getting pretty hefty..
 
 ##################################################################################
 
 **CHANGES IN v1.3.3.7 BETA:**
+=======
+CHANGES IN v1.3.3.7 BETA:
+>>>>>>> parent of f1b5d44... format changes
 
-updated to latest SuperSU v2.45 download. added md5 file signature checking for downloads in rooting function. added additional separate menus for ANSI colors and windows users without ANSI text support. updated README (duh)
+updated to latest SuperSU download. added md5 file signature checking for downloads
+in rooting function. added additional separate menus for ANSI colors and windows
+users without ANSI text support.
 
 ##################################################################################
 
-**CHANGES IN v1.3.3 BETA:**
+CHANGES IN v1.3.3 BETA:
 
 updated rooting function. added sdk.sh to for those of you too lazy to manually
 rename files. this script can only be run in OSX, Linux, or Cygwin on Windows -
 do not try to run it in MS-DOS!
 set it to executable first:
 
-	chmod +x sdk.sh
-	./sdk.sh
+chmod +x sdk.sh
+./sdk.sh
 
 ##################################################################################
 
-**CHANGES IN v1.3.2 BETA:**
+CHANGES IN v1.3.2 BETA:
 
 pretty much everything in the menu between options 8 and 13
 
 ##################################################################################
 
-**CHANGES IN v1.3.1: STABLE:**
+CHANGES IN v1.3.1: STABLE:
 
-oh dear god i don't even know where to start. added an entire new file, opointro.py to keep separate versions of menus for ANSI-supported and non-ANSI supported interfaces. added a bunch of functions to pyadb.py. updated SuperSU to version 2.16.
+oh dear god i don't even know where to start. added an entire new file, opointro.py to keep separate versions of menus for ANSI-supported and non-ANSI supported interfaces.
+added a bunch of functions to pyadb.py. updated SuperSU to version 2.16.
 
 ##################################################################################
 
-**CHANGES IN v1.3B:**
+ CHANGES IN v1.3B:
 
-updated README (hi!). added linux binaries to zip package. updated PYADB.PY library for increased flexibility. also authored and attached a license agreement and disclaimer document. fixed function to copy files between device and computer - it works now, even added progress status. sync works too!
+ updated README. added linux binaries to zip package. updated PYADB.PY library for increased flexibility. also authored and attached a license agreement and disclaimer document. fixed function to copy files between device and computer - it works now, even added progress status. sync works too!
 
  did i mention i hate windows? added support for ANSI colors - well, provided windows users install the colorama module. (pip install colorama) there's actually more, but i'm too lazy to provide comprehensive details.
 
 ##################################################################################
 
- **CHANGES IN v1.2B:**
+ CHANGES IN v1.2B:
 
  new SuperSU binary - we are now on v2.02! many thanks to chainfire for the development and maintenance of SuperSU. also added a 3rd rooting option using the "Superuser" zip - this is an older file that may work on older devices. or not. hey look, options!
 
@@ -162,11 +195,15 @@ updated README (hi!). added linux binaries to zip package. updated PYADB.PY libr
 
  in a future release there will be more functionality for other phones. i plan to add a script for deodexing, and maybe if i am not too tired i'll create a stock ROM with root already injected into it.
 
+ my github repository is still being a jerk and won't let me commit anything. sorry. keep checking my pastebin until then to get the latest updates:
+
+ http://pastebin.com/u/eudemonics
+
  there might be some errors. i don't know. i thought i fixed the ones i came across. i really need sleep.
 
 ##################################################################################
 
- **CHANGES IN v1.1:**
+ CHANGES IN v1.1:
 
    - most files in script can be downloaded directly from script by demand to proper location, making it an easier install and a more seamless user experience
    - added support and files for latest updates: XNPH33R released 8/22/2014, and XNPH30O updates #1 and #2
@@ -179,14 +216,77 @@ updated README (hi!). added linux binaries to zip package. updated PYADB.PY libr
 
 ##################################################################################
 
-for the most up-to-date version of the toolkit, check my github:
+for the most up-to-date version of the toolkit, check my pastebin:
 
-<https://github.com/eudemonics/1plus1toolkit>
-
-occasionally i update the source files on pastebin, too:
-
-<http://pastebin.com/u/eudemonics>
+http://pastebin.com/u/eudemonics
 
 ##################################################################################
+<<<<<<< HEAD
 
 ###ENJOY!
+=======
+sqlmap
+==
+
+
+sqlmap is an open source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws and taking over of database servers. It comes with a powerful detection engine, many niche features for the ultimate penetration tester and a broad range of switches lasting from database fingerprinting, over data fetching from the database, to accessing the underlying file system and executing commands on the operating system via out-of-band connections.
+
+Screenshots
+----
+
+![Screenshot](https://raw.github.com/wiki/sqlmapproject/sqlmap/images/sqlmap_screenshot.png)
+
+You can visit the [collection of screenshots](https://github.com/sqlmapproject/sqlmap/wiki/Screenshots) demonstrating some of features on the wiki.
+
+Installation
+----
+
+You can download the latest tarball by clicking [here](https://github.com/sqlmapproject/sqlmap/tarball/master) or latest zipball by clicking  [here](https://github.com/sqlmapproject/sqlmap/zipball/master).
+
+Preferably, you can download sqlmap by cloning the [Git](https://github.com/sqlmapproject/sqlmap) repository:
+
+    git clone https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
+
+sqlmap works out of the box with [Python](http://www.python.org/download/) version **2.6.x** and **2.7.x** on any platform.
+
+Usage
+----
+
+To get a list of basic options and switches use:
+
+    python sqlmap.py -h
+
+To get a list of all options and switches use:
+
+    python sqlmap.py -hh
+
+You can find a sample run [here](https://gist.github.com/stamparm/5335217).
+To get an overview of sqlmap capabilities, list of supported features and description of all options and switches, along with examples, you are advised to consult the [user's manual](https://github.com/sqlmapproject/sqlmap/wiki).
+
+Links
+----
+
+* Homepage: http://sqlmap.org
+* Download: [.tar.gz](https://github.com/sqlmapproject/sqlmap/tarball/master) or [.zip](https://github.com/sqlmapproject/sqlmap/zipball/master)
+* Commits RSS feed: https://github.com/sqlmapproject/sqlmap/commits/master.atom
+* Issue tracker: https://github.com/sqlmapproject/sqlmap/issues
+* User's manual: https://github.com/sqlmapproject/sqlmap/wiki
+* Frequently Asked Questions (FAQ): https://github.com/sqlmapproject/sqlmap/wiki/FAQ
+* Mailing list subscription: https://lists.sourceforge.net/lists/listinfo/sqlmap-users
+* Mailing list RSS feed: http://rss.gmane.org/messages/complete/gmane.comp.security.sqlmap
+* Mailing list archive: http://news.gmane.org/gmane.comp.security.sqlmap
+* Twitter: [@sqlmap](https://twitter.com/sqlmap)
+* Demos: [http://www.youtube.com/user/inquisb/videos](http://www.youtube.com/user/inquisb/videos)
+* Screenshots: https://github.com/sqlmapproject/sqlmap/wiki/Screenshots
+
+Translations
+----
+
+* [Chinese](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-zh-CN.md)
+* [Croatian](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-hr-HR.md)
+* [Greek](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-gr-GR.md)
+* [Indonesian](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-id-ID.md)
+* [Portuguese](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-pt-BR.md)
+>>>>>>> e35c7fbb7a6fed243805ec98f4c915ae0d6aa541
+=======
+>>>>>>> parent of f1b5d44... format changes
