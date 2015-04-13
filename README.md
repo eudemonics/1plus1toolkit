@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 #README means READ ME!
 =======
 LICENSE AGREEMENT & DISCLAIMER
     copyright (C) 2014-2015  vvn [ vvn @ notworth.it ]
->>>>>>> parent of f1b5d44... format changes
 
     This program is FREE software: you can redistribute it and/or modify
     it as you wish. Copying and distribution of this file, with or without modification,
@@ -21,19 +18,15 @@ LICENSE AGREEMENT & DISCLAIMER
 
 **VERSION: 1.3.3.7 BETA**
 
-<<<<<<< HEAD
 ####VERSION: 1.3.4 BETA
 =======
 **ORIGINAL RELEASE DATE: AUGUST 23, 2014**
->>>>>>> parent of f1b5d44... format changes
 
 **LATEST VERSION RELEASE DATE: FEBRUARY 06, 2015**
 
-<<<<<<< HEAD
 ####LATEST VERSION RELEASE DATE: APRIL 11, 2015
 =======
 **GITHUB RELEASE DATE: FEBRUARY 06, 2015**
->>>>>>> parent of f1b5d44... format changes
 
 YEAH!!!! finally got github working with it! :)
 
@@ -49,21 +42,12 @@ cd 1plus1toolkit
 
 ./opotoolkit.py
 
-<<<<<<< HEAD
-#####THIS SCRIPT MUST BE RUN USING PYTHON 2.7. PLEASE DO NOT BITCH AT ME THAT THE SCRIPT IS GETTING A FORMAT ERROR IF YOU HAVE IGNORED THIS NOTICE AND ARE USING PYTHON 3.
-=======
 or this:
 
 cd 1plus1toolkit && python opotoolkit.py
 
-if for some reason the files from github don't work, here are links to the last STABLE version files (version 1.3):
-
-http://notworth.it/opo/opotoolkit.py.txt
-
-http://notworth.it/opo/opointro.py.txt
-
-http://notworth.it/opo/pyadb.py.txt
->>>>>>> parent of f1b5d44... format changes
+#####THIS SCRIPT MUST BE RUN USING PYTHON 2.7. PLEASE DO NOT BITCH AT ME THAT THE SCRIPT IS GETTING A FORMAT ERROR IF YOU HAVE IGNORED THIS NOTICE AND ARE USING PYTHON 3.
+=======
 
 **THIS SCRIPT MUST BE RUN USING PYTHON 2.7. PLEASE DO NOT BITCH AT ME THAT THE SCRIPT IS GETTING A FORMAT ERROR IF YOU HAVE IGNORED THIS NOTICE AND ARE USING PYTHON 3.**
 
@@ -128,7 +112,6 @@ you can use the pyadb.py library to incorporate adb/fastboot commands into your 
 
 ##################################################################################
 
-<<<<<<< HEAD
 **CHANGES IN v1.3.4 BETA:**
 
 added XNPH05Q update and additional functions (option 12 for finding and pulling APK not completely tested yet so please report any errors!): search/pull APK, list permissions, list services, list features. this little script's getting pretty hefty..
@@ -136,9 +119,6 @@ added XNPH05Q update and additional functions (option 12 for finding and pulling
 ##################################################################################
 
 **CHANGES IN v1.3.3.7 BETA:**
-=======
-CHANGES IN v1.3.3.7 BETA:
->>>>>>> parent of f1b5d44... format changes
 
 updated to latest SuperSU download. added md5 file signature checking for downloads
 in rooting function. added additional separate menus for ANSI colors and windows
@@ -146,7 +126,7 @@ users without ANSI text support.
 
 ##################################################################################
 
-CHANGES IN v1.3.3 BETA:
+**CHANGES IN v1.3.3 BETA:**
 
 updated rooting function. added sdk.sh to for those of you too lazy to manually
 rename files. this script can only be run in OSX, Linux, or Cygwin on Windows -
@@ -158,20 +138,20 @@ chmod +x sdk.sh
 
 ##################################################################################
 
-CHANGES IN v1.3.2 BETA:
+**CHANGES IN v1.3.2 BETA:**
 
 pretty much everything in the menu between options 8 and 13
 
 ##################################################################################
 
-CHANGES IN v1.3.1: STABLE:
+**CHANGES IN v1.3.1: STABLE:**
 
 oh dear god i don't even know where to start. added an entire new file, opointro.py to keep separate versions of menus for ANSI-supported and non-ANSI supported interfaces.
 added a bunch of functions to pyadb.py. updated SuperSU to version 2.16.
 
 ##################################################################################
 
- CHANGES IN v1.3B:
+**CHANGES IN v1.3B:**
 
  updated README. added linux binaries to zip package. updated PYADB.PY library for increased flexibility. also authored and attached a license agreement and disclaimer document. fixed function to copy files between device and computer - it works now, even added progress status. sync works too!
 
@@ -179,7 +159,7 @@ added a bunch of functions to pyadb.py. updated SuperSU to version 2.16.
 
 ##################################################################################
 
- CHANGES IN v1.2B:
+**CHANGES IN v1.2B:**
 
  new SuperSU binary - we are now on v2.02! many thanks to chainfire for the development and maintenance of SuperSU. also added a 3rd rooting option using the "Superuser" zip - this is an older file that may work on older devices. or not. hey look, options!
 
@@ -203,7 +183,7 @@ added a bunch of functions to pyadb.py. updated SuperSU to version 2.16.
 
 ##################################################################################
 
- CHANGES IN v1.1:
+**CHANGES IN v1.1:**
 
    - most files in script can be downloaded directly from script by demand to proper location, making it an easier install and a more seamless user experience
    - added support and files for latest updates: XNPH33R released 8/22/2014, and XNPH30O updates #1 and #2
@@ -216,77 +196,10 @@ added a bunch of functions to pyadb.py. updated SuperSU to version 2.16.
 
 ##################################################################################
 
-for the most up-to-date version of the toolkit, check my pastebin:
+for the most up-to-date version of the toolkit, check my github:
 
-http://pastebin.com/u/eudemonics
+https://github.com/eudemonics/1plus1toolkit
 
 ##################################################################################
-<<<<<<< HEAD
 
 ###ENJOY!
-=======
-sqlmap
-==
-
-
-sqlmap is an open source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws and taking over of database servers. It comes with a powerful detection engine, many niche features for the ultimate penetration tester and a broad range of switches lasting from database fingerprinting, over data fetching from the database, to accessing the underlying file system and executing commands on the operating system via out-of-band connections.
-
-Screenshots
-----
-
-![Screenshot](https://raw.github.com/wiki/sqlmapproject/sqlmap/images/sqlmap_screenshot.png)
-
-You can visit the [collection of screenshots](https://github.com/sqlmapproject/sqlmap/wiki/Screenshots) demonstrating some of features on the wiki.
-
-Installation
-----
-
-You can download the latest tarball by clicking [here](https://github.com/sqlmapproject/sqlmap/tarball/master) or latest zipball by clicking  [here](https://github.com/sqlmapproject/sqlmap/zipball/master).
-
-Preferably, you can download sqlmap by cloning the [Git](https://github.com/sqlmapproject/sqlmap) repository:
-
-    git clone https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
-
-sqlmap works out of the box with [Python](http://www.python.org/download/) version **2.6.x** and **2.7.x** on any platform.
-
-Usage
-----
-
-To get a list of basic options and switches use:
-
-    python sqlmap.py -h
-
-To get a list of all options and switches use:
-
-    python sqlmap.py -hh
-
-You can find a sample run [here](https://gist.github.com/stamparm/5335217).
-To get an overview of sqlmap capabilities, list of supported features and description of all options and switches, along with examples, you are advised to consult the [user's manual](https://github.com/sqlmapproject/sqlmap/wiki).
-
-Links
-----
-
-* Homepage: http://sqlmap.org
-* Download: [.tar.gz](https://github.com/sqlmapproject/sqlmap/tarball/master) or [.zip](https://github.com/sqlmapproject/sqlmap/zipball/master)
-* Commits RSS feed: https://github.com/sqlmapproject/sqlmap/commits/master.atom
-* Issue tracker: https://github.com/sqlmapproject/sqlmap/issues
-* User's manual: https://github.com/sqlmapproject/sqlmap/wiki
-* Frequently Asked Questions (FAQ): https://github.com/sqlmapproject/sqlmap/wiki/FAQ
-* Mailing list subscription: https://lists.sourceforge.net/lists/listinfo/sqlmap-users
-* Mailing list RSS feed: http://rss.gmane.org/messages/complete/gmane.comp.security.sqlmap
-* Mailing list archive: http://news.gmane.org/gmane.comp.security.sqlmap
-* Twitter: [@sqlmap](https://twitter.com/sqlmap)
-* Demos: [http://www.youtube.com/user/inquisb/videos](http://www.youtube.com/user/inquisb/videos)
-* Screenshots: https://github.com/sqlmapproject/sqlmap/wiki/Screenshots
-
-Translations
-----
-
-* [Chinese](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-zh-CN.md)
-* [Croatian](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-hr-HR.md)
-* [Greek](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-gr-GR.md)
-* [Indonesian](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-id-ID.md)
-* [Portuguese](https://github.com/sqlmapproject/sqlmap/blob/master/doc/translations/README-pt-BR.md)
->>>>>>> e35c7fbb7a6fed243805ec98f4c915ae0d6aa541
-=======
->>>>>>> parent of f1b5d44... format changes
