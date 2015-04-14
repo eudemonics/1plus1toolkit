@@ -15,22 +15,15 @@ LICENSE AGREEMENT & DISCLAIMER
     accompany all official download releases of this program.
 
 **HALF-ASSED ONEPLUS ONE TOOLKIT by vvn [ eudemonics on xda-developers ]**
-
-**VERSION: 1.3.3.7 BETA**
-
-####VERSION: 1.3.4 BETA
 =======
+
+####VERSION: 1.3.5 BETA
+####LATEST VERSION RELEASE DATE: APRIL 14, 2015
+
 **ORIGINAL RELEASE DATE: AUGUST 23, 2014**
-
-**LATEST VERSION RELEASE DATE: FEBRUARY 06, 2015**
-
-####LATEST VERSION RELEASE DATE: APRIL 11, 2015
-=======
 **GITHUB RELEASE DATE: FEBRUARY 06, 2015**
 
-YEAH!!!! finally got github working with it! :)
-
-https://github.com/eudemonics/1plus1toolkit
+=======
 
 to download using git:
 
