@@ -112,6 +112,12 @@ you can use the pyadb.py library to incorporate adb/fastboot commands into your 
 
 ##################################################################################
 
+**CHANGES IN v1.3.5 BETA:**
+
+updated SuperSU to newer version, fixed APK search/pull functions in opotoolkit.py and pyadb.py, added new class to opointro.py for ANSI colors
+
+##################################################################################
+
 **CHANGES IN v1.3.4 BETA:**
 
 added XNPH05Q update and additional functions (option 12 for finding and pulling APK not completely tested yet so please report any errors!): search/pull APK, list permissions, list services, list features. this little script's getting pretty hefty..

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ### PYADB (Python 2.7 Library)
-##### VERSION: 1.3.4 BETA
-##### RELEASE DATE: MARCH 25, 2015
+##### VERSION: 1.3.5 BETA
+##### RELEASE DATE: APRIL 14, 2015
 ##### AUTHOR: vvn
 ##### DESCRIPTION: simple library to port ADB and FASTBOOT functions to PYTHON
 #####
@@ -96,8 +96,8 @@ class pyADB(object):
    def fastboot_devices(self):
       command_text = 'fastboot devices'
       output = Popen(command_text, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response = output.communicate()
-      return response or None
+      response, errors = output.communicate()
+      return response
       # command = "devices -l"
       # result = self.call_adb(command)   
       # return result   
@@ -190,7 +190,8 @@ class pyADB(object):
    def searchpkg(self, query):
       command = "adb shell pm list packages -f | grep %s | sed -ne 's/package://p'" % query
       output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response = output.communicate()
+      response, errors = output.communicate()
+      response = filter(None, response)
       return response
       
    # find path for package
@@ -226,7 +227,7 @@ class pyADB(object):
       return response
       
    def defaultapkpull(self, package):
-      command = "adb pull -p " + r'"%s"' % package
+      command = "adb pull -p %s" % package
       output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
       response, errors = output.communicate()
       return response
@@ -379,15 +380,15 @@ class pyADB(object):
       result = self.call_adb(command)
       return result
       
-   # enable wifi debugging
+   # enable wifi debugging - requires root - not tested!
    def wifidebug(self, switch): # switch 1 enables wifi debugging, 0 or 2 disables
       cmd = "adb shell su -c ifconfig wlan0 | sed -ne 's/^.*ip //;s/ mask.*$//p'"
-      ipaddr = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      ipaddr = os.system(cmd)
       commands = []
       wifioff = "sed -i 's/5555/-1/g' wifidebug.sh"
       wifion = "sed -i 's/-1/5555/g' wifidebug.sh"
       if switch == '1':
-         commands = "adb shell su -c mount -o rw,remount /data","adb push wifidebug.sh /data","adb shell su -c chmod 0775 /data/wifidebug.sh","adb shell su -c sh /data/wifidebug.sh","adb kill-server","adb start-server","adb connect " + r'"%s"' % ipaddr
+         commands = "adb shell su -c mount -o rw,remount /data","adb push wifidebug.sh /data/data","adb shell su -c chmod 0775 /data/data/wifidebug.sh","adb shell su -c sh /data/data/wifidebug.sh","adb kill-server","adb start-server","adb connect " + r'"%s"' % ipaddr
       else:
          commands = wifioff,"adb shell su -c mount -o rw,remount /data","adb push wifidebug.sh /data","adb shell su -c chmod 0775 /data/wifidebug.sh","adb shell su -c sh /data/wifidebug.sh","adb disconnect localhost",wifion
       response = []
@@ -396,3 +397,11 @@ class pyADB(object):
          result = output.communicate()
          response.append(result)
       return response
+
+   def launchdrozer(self):
+      cmd = "adb install drozer.apk"
+      os.system(cmd)
+      command = "adb shell am broadcast -n http://com.mwr.dz/.receivers.Receiver -c com.mwr.dz.START_EMBEDDED"
+      command2 = "adb shell su am startservice -n com.mwr.dz/.services.ServerService -c com.mwr.dz.START_EMBEDDED"
+      command3 = "adb shell am start -n com.mwr.dz/.activities.MainActivity && adb shell input tap 1240 720"
+      

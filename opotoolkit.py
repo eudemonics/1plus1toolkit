@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ### HALF-ASSED ONE + ONE TOOLKIT
-##### VERSION: 1.3.4 BETA
-##### RELEASE DATE: APRIL 11, 2015
+##### VERSION: 1.3.5 BETA
+##### RELEASE DATE: APRIL 14, 2015
 ##### AUTHOR: vvn [eudemonics on xda-developers]
 ##### DESCRIPTION: a spontaneously created but hopefully comprehensive Android toolkit,
 ##### built originally for the OnePlus One but can be used with most Android devices
@@ -634,10 +634,10 @@ def main():
                print("unable to connect to device. returning to main menu..\n")
             return recovimg
             
-         superSU = 'UPDATE-SuperSU-v2.45.zip'
+         superSU = 'UPDATE-SuperSU-v2.46.zip'
          def sudl(): # DOWNLOAD SUPERSU ZIP
-            URLsuperSU = "http://download.chainfire.eu/695/SuperSU/UPDATE-SuperSU-v2.45.zip?retrieve_file=1"
-            MD5superSU = "9dbd5253b8f10a8064273dbec3bc78c8"
+            URLsuperSU = "http://notworth.it/opo/" + superSU
+            MD5superSU = "332de336aee7337954202475eeaea453"
             
             dl = urllib.URLopener()
             dl.retrieve(URLsuperSU, superSU)
@@ -702,7 +702,7 @@ def main():
             else:
                print("file " + recovimg + " found!\n")
             raw_input("press ENTER to copy file to device, then reboot into bootloader.")
-            remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.45.zip'
+            remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.46.zip'
             obj.push(superSU, remotesuperSU)
             obj.reboot("bootloader")
             raw_input("press ENTER to boot into custom recovery.")
@@ -876,12 +876,12 @@ def main():
                else:
                   print("file " + superSU + " found!\n")
                raw_input("press ENTER to copy file to device, then reboot into recovery.")
-               remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.45.zip'
+               remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.46.zip'
                obj.push(superSU, remotesuperSU)
                raw_input("file copied to device. press ENTER to continue to recovery..")
                obj.reboot("recovery")
                raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
-               obj.sideload("UPDATE-SuperSU-v2.45.zip")
+               obj.sideload("UPDATE-SuperSU-v2.46.zip")
                superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
                obj.reboot("android")
                if superfail == '1': # SUPERSU TWRP
@@ -917,7 +917,7 @@ def main():
                      raw_input("press ENTER to continue rebooting to recovery..")
                      obj.reboot("recovery")
                      raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
-                     obj.sideload("UPDATE-SuperSU-v2.45.zip")
+                     obj.sideload("UPDATE-SuperSU-v2.46.zip")
                      superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
                      obj.reboot("android")
                      if superfail == '1': # SUPERSU TWRP
@@ -1492,9 +1492,13 @@ def main():
                while not re.search(r'^[\w\-. ]+$', qstr):
                   qstr = raw_input("invalid package name. acceptable characters are alphanumeric, period, underscore, and hyphen. please enter new search string --> ")
                results = obj.searchpkg(qstr)
-               match = re.search(r'%s', results) % qstr
-               if match:
-                  print("found: \n")
+            if len(results) >= 1:
+               if usecolor == 'color':
+                  print(acolors.AQUA + "FOUND: \n" + acolors.GREEN)
+                  print(results)
+                  print(acolors.CLEAR)
+               else:
+                  print("FOUND: \n")
                   print(results)
             searchstr = results
             pathquestion = "would you like to get the path for this package? enter Y/N --> "
@@ -1512,12 +1516,12 @@ def main():
          if getpath.lower() == 'y':
             whichpath = raw_input("please enter the complete package name to get the path --> ")
             while not re.search(r'^[\w\-. ]+$', whichpath):
-               whichpath = raw_input("invalid package name. please enter complete package name for the app to get path --> ")
+               whichpath = raw_input("invalid package name. please enter complete package name for the app to get its path --> ")
                
             results = obj.pathpkg(whichpath)
             # GET PATH OF PACKAGE
             app_path = []
-            if results:
+            if len(results) >= 1:
                path = results.split('=')[0]
                print(path)
                app_path.append(path)
@@ -1537,10 +1541,20 @@ def main():
                
                # PULL PACKAGE
                else:
+                  current = os.getcwd()
                   for app in app_path:
-                     print("pulling %s") % app
-                     obj.defaultapkpull(app)
-                     print("%s has been pulled to the current directory" % app) 
+                     if usecolor == 'color':
+                        print(acolors.OKMAGENTA + "pulling %s") % app
+                        print(acolors.CLEAR)
+                        pulled = obj.defaultapkpull(app)
+                        print(pulled)
+                        print(acolors.OKAQUA + "the following file was pulled to the current directory (" + acolors.OKBLUE + "%s" + "%s): ") % (current, acolors.OKAQUA)
+                        print(acolors.CLEAR + app)
+                     else:
+                        print("pulling %s") % app
+                        pulled = obj.defaultapkpull(app)
+                        print(pulled)
+                        print("the following file was pulled to the current directory (%s): " % current)
             else:
                print("no results found. returning to main menu..")
                
