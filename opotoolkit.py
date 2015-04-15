@@ -1672,7 +1672,12 @@ def main():
 ############################################################
 
       elif option == '0': #quit
-         print("thanks for using the HALF-ASSED ONEPLUS ONE TOOLKIT! goodbye!")
+         print("thanks for using the HALF-ASSED ONEPLUS ONE TOOLKIT! kittendroid says meow meow goodbye!")
+         time.sleep(3)
+         if usecolor == 'color':
+            print(acolors.BLACKBG + exitkitten + acolors.CLEAR)
+         else:
+            print(exitkitten)
          sys.exit()
                   
       else:
