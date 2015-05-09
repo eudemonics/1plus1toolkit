@@ -48,3 +48,4 @@ else
     echo "Mini-SDK already in path, installation complete."
   fi
 fi
+echo "To run toolkit, enter: python opotoolkit.py"
