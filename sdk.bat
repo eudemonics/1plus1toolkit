@@ -12,4 +12,4 @@ icacls adb.exe /grant %USERNAME%:F
 icacls Adb*.dll /grant %USERNAME%:F
 icacls fastboot.exe /grant %USERNAME%:F
 
-echo "Mini-SDK installation complete."
+echo "Mini-SDK installation complete. To start toolkit, enter: python opotoolkit.py"
