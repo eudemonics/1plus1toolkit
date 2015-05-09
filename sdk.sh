@@ -18,9 +18,6 @@ here=`pwd | sed 's/ /\\\ /g'`
 
 if [[ "$platform" =~ "CYGWIN"* ]] ; then
   rm -f adb adb-linux fastboot fastboot-linux
-elif os.name == 'nt' or sys.platform == 'win32':
-  os.system('sdk.bat')
-  sys.exit()
 else
   rm -f adb.exe Adb*.dll fastboot.exe
   if [[ "$platform" =~ "Darwin"* ]] ; then
