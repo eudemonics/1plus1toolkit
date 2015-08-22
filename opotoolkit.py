@@ -1915,6 +1915,8 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
       elif option == '18': # list connected devices
          devs = obj.attached_devices()
          print(devs)
+         print('')
+         raw_input('press ENTER to continue..')
          time.sleep(0.9)
          main()
 
