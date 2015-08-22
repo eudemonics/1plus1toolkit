@@ -401,13 +401,13 @@ class pyADB(object):
       
    # set DNS servers using setprop
    def setdns(self, dns1, *args):
-      command = "shell su -c setprop net.dns1 %s" % dns1
+      command = "adb shell su -c setprop net.dns1 %s" % dns1
       if args:
          i = 2
          lim = len(args) + 2
          for arg in args:
             while i < lim:
-               command = command + " && shell su -c setprop net.dns" + str(i) + " %s" % arg
+               command = command + " && adb shell su -c setprop net.dns" + str(i) + " %s" % arg
                i += 1
             if i >= lim:
                break
