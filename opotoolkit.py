@@ -1879,6 +1879,7 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
                print(resp)
                print('DNS servers set to %s and %s') % (dns1, dns2)
             elif dnslist[2]:
+               dns2 = dnslist[1]
                dns3 = dnslist[2]
                resp = obj.setdns(dns1, dns2, dns3)
                print(resp)
