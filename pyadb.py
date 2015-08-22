@@ -394,7 +394,7 @@ class pyADB(object):
    
    # get DNS servers from getprop
    def getdns(self):
-      command = "adb shell getprop net.dns1 && adb shell getprop net.dns2"
+      command = "adb shell getprop net.dns1 && adb shell getprop net.dns2 && adb shell getprop net.dns3"
       output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
       response, errors = output.communicate()
       return response or None
@@ -403,14 +403,12 @@ class pyADB(object):
    def setdns(self, dns1, *args):
       command = "adb shell su -c setprop net.dns1 %s" % dns1
       if args:
-         i = 2
-         lim = len(args) + 1
-         for arg in args:
-            while i < lim:
-               command = command + " && adb shell su -c setprop net.dns" + str(i) + " %s" % arg
-               i += 1
-            if i >= lim:
-               break
+         print(args)
+         command = command + " && adb shell su -c setprop net.dns2 " + args[0]
+         if len(args) > 1:
+            dns2, dns3 = args
+            command = command + " && adb shell su -c setprop net.dns3 " + dns3
+         print(command)
       output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
       response, errors = output.communicate()
       return response

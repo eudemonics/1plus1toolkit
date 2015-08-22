@@ -1866,33 +1866,42 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
          newdns = raw_input('would you like to change DNS servers? Y/N --> ')
          while not re.match(r'^[yYnN]$', newdns):
             newdns = raw_input('invalid input. please enter Y or N --> ')
-         if newdns.lower() == 'y':
-            setdns = raw_input('enter up to 3 DNS servers, each separated by a comma --> ')
-         while not re.search(r'^([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?(([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?)?', setdns):
-            setdns = raw_input('invalid format. enter up to 3 DNS servers, each separated by a comma --> ')
-         if ',' in setdns:
-            dnslist = setdns.split(',')
-            dns1 = dnslist[0]
-            if dnslist[1] and not dnslist[2]:
-               dns2 = dnslist[1]
-               resp = obj.setdns(dns1, dns2)
-               print(resp)
-               print('\nDNS servers set to %s and %s \n') % (dns1, dns2)
-            elif dnslist[2]:
-               dns2 = dnslist[1]
-               dns3 = dnslist[2]
-               resp = obj.setdns(dns1, dns2, dns3)
-               print(resp)
-               print('\nDNS servers set to %s, %s, and %s \n') % (dns1, dns2, dns3)
-            else:
-               print('\nan error has occurred. returning to main menu.. \n')
-               time.sleep(2)
-               main()
+         print('')
+         if newdns.lower() == 'n':
+            raw_input('press ENTER to return to main menu.')
+            time.sleep(0.9)
+            main()
          else:
-            dns1 = setdns
-            resp = obj.setdns(dns1)
-            print(resp)
-            print('\nDNS server set to %s \n' % dns1)
+            setdns = raw_input('enter up to 3 DNS servers, each separated by a comma --> ')
+            while not re.search(r'^([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?(([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?)?', setdns):
+               setdns = raw_input('invalid format. enter up to 3 DNS servers, each separated by a comma --> ')
+            if ',' in setdns:
+               dnslist = setdns.split(',')
+               dns1 = dnslist[0]
+               dns1.strip().lstrip()
+               if not dnslist[2]:
+                  dns2 = dnslist[1]
+                  dns2.strip().lstrip()
+                  resp = obj.setdns(dns1, dns2)
+                  print(resp)
+                  print('\nDNS servers set to %s and %s \n') % (dns1, dns2)
+               elif dnslist[2]:
+                  dns2 = dnslist[1]
+                  dns3 = dnslist[2]
+                  dns3.strip().lstrip()
+                  resp = obj.setdns(dns1, dns2, dns3)
+                  print(resp)
+                  print('\nDNS servers set to %s, %s, and %s \n') % (dns1, dns2, dns3)
+               else:
+                  print('\nan error has occurred. returning to main menu.. \n')
+                  time.sleep(2)
+                  main()
+            else:
+               dns1 = setdns
+               dns1.strip().lstrip()
+               resp = obj.setdns(dns1)
+               print(resp)
+               print('\nDNS server set to %s \n' % dns1)
          raw_input('press ENTER to continue..')
          time.sleep(0.9)
          main()
