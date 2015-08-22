@@ -1868,7 +1868,7 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
             newdns = raw_input('invalid input. please enter Y or N --> ')
          if newdns.lower() == 'y':
             setdns = raw_input('enter up to 3 DNS servers, each separated by a comma --> ')
-         while not re.search(r'^([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?', setdns):
+         while not re.search(r'^([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?(([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?)?', setdns):
             setdns = raw_input('invalid format. enter up to 3 DNS servers, each separated by a comma --> ')
          if ',' in setdns:
             dnslist = setdns.split(',')
@@ -1903,24 +1903,6 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
          print(devs)
          time.sleep(0.9)
          main()
-         
-
-############################################################
-############################################################
-# OPTION 17 - WIFIDEBUGGING #
-############################################################
-############################################################
-
-#       elif option == '17': #wifi debugging
-#          print("DEVICE MUST BE ROOTED AND ON SAME WI-FI ACCESS POINT!!!")
-#          switch = raw_input("enter 1 to enable or 2 to disable ADB debugging over WiFi. enter 3 to return to main menu.  --> ")
-#          while not re.search(r'^[1-3]$', switch):
-#             switch = raw_input("invalid selection. choose 1 to enable or 2 to disable ADB debugging over WiFi, or 3 to return to main menu --> ")
-#          if re.search(r'^[12]$', switch):
-#             obj.wifidebug(switch)
-#          raw_input('press ENTER to return to main menu..')
-#          time.sleep(0.9)
-#          main()
 
 ############################################################
 ############################################################
