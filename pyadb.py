@@ -54,7 +54,7 @@ class pyADB(object):
       command_text = r'"%s"' % command_text
       command_text = command_text + '; exit 0'
       output = Popen(command_text, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
-      output = subprocess.check_call(command_text, shell=True, stderr=subprocess.STDOUT)
+      #output = subprocess.check_call(command_text, shell=True, stderr=subprocess.STDOUT)
       return output
       response = output.communicate()[0]
       return response
