@@ -1873,7 +1873,7 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
          if ',' in setdns:
             dnslist = setdns.split(',')
             dns1 = dnslist[0]
-            if dnslist[1]:
+            if dnslist[1] and not dnslist[2]:
                dns2 = dnslist[1]
                resp = obj.setdns(dns1, dns2)
                print(resp)
