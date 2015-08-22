@@ -404,7 +404,7 @@ class pyADB(object):
       command = "adb shell su -c setprop net.dns1 %s" % dns1
       if args:
          i = 2
-         lim = len(args) + 2
+         lim = len(args) + 1
          for arg in args:
             while i < lim:
                command = command + " && adb shell su -c setprop net.dns" + str(i) + " %s" % arg
