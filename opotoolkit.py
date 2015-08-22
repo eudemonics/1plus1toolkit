@@ -1,15 +1,24 @@
 #!/usr/bin/env python
 ### HALF-ASSED ONE + ONE TOOLKIT
-##### VERSION: 1.3.5 BETA
-##### RELEASE DATE: APRIL 14, 2015
+##### VERSION: 1.3.8 BETA
+##### RELEASE DATE: AUG 22, 2015
 ##### AUTHOR: vvn [eudemonics on xda-developers]
-##### DESCRIPTION: a spontaneously created but hopefully comprehensive Android toolkit,
-##### built originally for the OnePlus One but can be used with most Android devices
-##### (DO NOT FLASH INCLUDED ONEPLUS ONE DEVICE FILES ON OTHER DEVICES!), that will or 
-##### will not be irregularly maintained at the developer's whim.
-##### REQUIREMENTS: Python 2.7, Android SDK tools, USB drivers, pyadb.py library, opointro.py
-##### also required, obviously, is a computer that runs an OS that supports python 2.7.
-##### HOLY SHIT GITHUB IS FINALLY WORKING!
+##### DESCRIPTION: A spotaneously developed, very sporadically updated, but hopefully 
+##### helpful and comprehensive toolkit for Android, built originally for the OnePlus
+##### One but can be used with most Android devices. again, please do not expect 
+##### frequent or timely updates. if you have a request, you may contact me directly
+##### to submit your inquiry.
+
+##### ***DO NOT FLASH ONEPLUS ONE SYSTEM FILES ON OTHER DEVICES!!!***
+##### actually, don't flash ANY ROM images or system files unless they are built
+##### specifically for the device you want to flash, as flashing an unsupported ROM, ##### firmware, or radio could HARD BRICK your device. only download factory images ##### from the official OEM website, and custom ROMs from trustworthy sites and
+##### recognized developers.
+#####
+##### all system image downloads and other apps used in this program are hosted on 
+##### private servers to ensure
+##### yet tested whether ALL the downloads work
+##### REQUIREMENTS: Python 2.7, Android SDK, USB drivers, pyadb.py, opointro.py
+#####
 ##### INSTALL INSTRUCTIONS USING GIT:
 ##### enter command into terminal:
 ##### git clone https://github.com/eudemonics/1plus1toolkit.git 1plus1toolkit
@@ -27,7 +36,7 @@
 ##################################################
 ##################################################
 ##### USER LICENSE AGREEMENT & DISCLAIMER
-##### copyright (C) 2014  vvn <vvn @ notworth.it>
+##### copyright (C) 2014-2015  vvn <lost [at] nobody.ninja>
 ##### 
 ##### This program is FREE software: you can use it, redistribute it and/or modify
 ##### it as you wish. Copying and distribution of this file, with or without modification,
@@ -44,13 +53,13 @@
 ##### don't ask about the arbitrary versioning. i am totally making this shit up.
 ##### getting credited for my work is nice. so are donations.
 ##### BTC: 1M511j1CHR8x7RYgakNdw1iF3ike2KehXh
-##### https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=26PWMPCNKN28L
+##### 
 ##### but to really show your appreciation, you should buy my EP instead!
 ##### you can stream and purchase it at: dreamcorp.bandcamp.com
 ##### (you might even enjoy listening to it)
 ##### questions, comments, feedback, bugs, complaints, death threats, marriage proposals?
 ##### contact me at:
-##### vvn (at) notworth (dot) it
+##### lost (at) nobody (dot) ninja
 ##### latest version will always be available HERE:
 ##### https://github.com/eudemonics/1plus1toolkit
 
@@ -93,10 +102,10 @@ def main():
    mainmenu()
 
    global option
-   option = raw_input('Select an option 0-16 --> ')
+   option = raw_input('Select an option 0-18 --> ')
    
-   while not re.search(r'^[0-9]$', option) and not re.search(r'^1[0-6]$', option):
-      option = raw_input('Invalid selection. Please select an option 0-16 --> ')
+   while not re.search(r'^[0-9]$', option) and not re.search(r'^1[0-8]$', option):
+      option = raw_input('Invalid selection. Please select an option 0-18 --> ')
  
    if option:
 
@@ -243,7 +252,7 @@ def main():
             
 ############################################################
 ############################################################
-# OPTION 6 - BOOT ONCE INTO CUSTOM RECOVERY #
+# OPTION 3 - BOOT ONCE INTO CUSTOM RECOVERY #
 ############################################################
 ############################################################
                           
@@ -298,7 +307,7 @@ def main():
 
 ############################################################
 ############################################################
-# OPTION 6 - INSTALL/UNINSTALL APK #
+# OPTION 4 - INSTALL/UNINSTALL APK #
 ############################################################
 ############################################################
 
@@ -526,9 +535,32 @@ def main():
 ############################################################
 ############################################################
 
-      elif option == '7': #root
+      elif option == '7':
       
-         def twrpdl(): # DOWNLOAD TWRP CUSTOM RECOVERY
+         # FUNCTION TO CHECK MD5 SIGNATURE
+         def checkmd5(mfile, md5):
+            md5list = [('twrp.img','77ba4381b13a03cc6dcff90f95e59a24'),('philz.img', 'b2f8fb888e1377f00187ad0bd35a6584'),('CWM','b60bd10f3f7cc254a4354cdc9c69b3bd')]
+            md5_read = ''
+            integrity = 'none'
+            for dlfile, hashsig in zip(md5list):
+               if mfile in dlfile:
+                  with open(dlfile, "r+b") as sf:
+                     sfdata = sf.read()
+                     md5_read = hashlib.md5(sfdata).hexdigest()
+                  if hashsig == md5_read:
+                     print("MD5 verified!")
+                     integrity = 'passed'
+                  else:
+                     print("MD5 file integrity check failed!")
+                     integrity = 'failed'
+                  break
+               else:
+                  continue
+            return integrity
+      
+      
+         # DOWNLOAD TWRP CUSTOM RECOVERY
+         def twrpdl():
             TWRPurl = "http://notworth.it/opo/twrp.img"
             TWRPmd5 = "77ba4381b13a03cc6dcff90f95e59a24"
             dl = urllib.URLopener()
@@ -571,14 +603,16 @@ def main():
                      os.fsync(f.fileno())
                      f.close()
          
-         def recovdl(recovimg): # DOWNLOAD IMAGE FROM SITE
+         # DOWNLOAD IMAGE FROM SITE
+         def recovdl(recovimg): 
             recovurl = "http://notworth.it/opo/" + recovimg
             if recovimg == 'philz.img':
                recovmd5 = "b2f8fb888e1377f00187ad0bd35a6584"
             elif recovimg == 'cwm.img':
                recovmd5 = "b60bd10f3f7cc254a4354cdc9c69b3bd"
             else: # twrp.img MD5
-               recovmd5 = "77ba4381b13a03cc6dcff90f95e59a24"
+               recovmd5 = "f69fa503419644851822d883c2388bb8"
+               #old recovmd5 = "77ba4381b13a03cc6dcff90f95e59a24"
             dl = urllib.URLopener()
             dl.retrieve(recovurl, recovimg)
             site = urllib.urlopen(recovurl)
@@ -619,7 +653,8 @@ def main():
                      os.fsync(f.fileno())
                      f.close()
          
-         def chooserec(): # CHOOSE WHICH CUSTOM RECOVERY TO BOOT INTO ONCE
+         # CHOOSE WHICH CUSTOM RECOVERY TO BOOT INTO ONCE
+         def chooserec(): 
             recovimg = "twrp.img"
             pickrecov = raw_input("press 1 to flash superSU in TWRP Recovery, 2 to use Philz Recovery, or 3 to use CWM. --> ")
             while not re.search(r'^[123]$', pickrecov):
@@ -634,10 +669,11 @@ def main():
                print("unable to connect to device. returning to main menu..\n")
             return recovimg
             
-         superSU = 'UPDATE-SuperSU-v2.46.zip'
-         def sudl(): # DOWNLOAD SUPERSU ZIP
+         # DOWNLOAD SUPERSU ZIP
+         superSU = 'SuperSU-v2.49.zip'
+         def sudl(): 
             URLsuperSU = "http://notworth.it/opo/" + superSU
-            MD5superSU = "332de336aee7337954202475eeaea453"
+            MD5superSU = "6ad55644c8117c505d0da15b4f6bac8a"
             
             dl = urllib.URLopener()
             dl.retrieve(URLsuperSU, superSU)
@@ -679,7 +715,8 @@ def main():
                      f.flush()
                      os.fsync(f.fileno())
                      f.close()
-            
+         
+         # FUNCTION TO FLASH SUPERSU IN RECOVERY   
          def suroot(recovimg):
             while not os.path.isfile(superSU):
                if usecolor == 'color':
@@ -702,7 +739,7 @@ def main():
             else:
                print("file " + recovimg + " found!\n")
             raw_input("press ENTER to copy file to device, then reboot into bootloader.")
-            remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.46.zip'
+            remotesuperSU = '/sdcard/SuperSU-v2.49.zip'
             obj.push(superSU, remotesuperSU)
             obj.reboot("bootloader")
             raw_input("press ENTER to boot into custom recovery.")
@@ -716,8 +753,9 @@ def main():
                raw_input("swipe to install - this may take a moment. if install is successful, select REBOOT from recovery menu. press ENTER to continue.")
             obj.reboot("android")
          
+         # DOWNLOAD SUPERUSER ZIP
          superusr = 'Superuser-3.1.3-arm-signed.zip'
-         def susrdl():  # DOWNLOAD SUPERUSER ZIP
+         def susrdl():
             URLsuperusr = "http://notworth.it/opo/Superuser-3.1.3-arm-signed.zip"
             MD5superusr = "b3c89f46f014c9df7d23b94d37386b8a"
             dl = urllib.URLopener()
@@ -758,8 +796,9 @@ def main():
                      f.flush()
                      os.fsync(f.fileno())
                      f.close()
-            
-         def susrroot(recovimg): # FLASH SUPERUSER ZIP IN CUSTOM RECOVERY
+         
+         # FLASH SUPERUSER ZIP IN CUSTOM RECOVERY
+         def susrroot(recovimg):
             while not os.path.isfile(superusr):
                if usecolor == 'color':
                   print("file \033[32m" + superusr + " \033[0mnot found. attempting download...\n")
@@ -792,8 +831,9 @@ def main():
                print("on device, choose INSTALL from recovery menu, then select file " + superusr + " in the /sdcard directory.\n")
             raw_input("if install is successful, select REBOOT from recovery menu on device. press ENTER to continue.")
          
+         # DOWNLOAD TOWELROOT APK
          trfile = 'apps/tr.apk'
-         def trdl(): # DOWNLOAD TOWELROOT APK
+         def trdl():
             dl = urllib.URLopener()
             URLtr = "https://towelroot.com/tr.apk"
             MD5tr = "e287e785d0e3e043fb0cfbfe69309d8e"
@@ -835,8 +875,9 @@ def main():
                      f.flush()
                      os.fsync(f.fileno())
                      f.close()
-            
-         def towroot(): # INSTALL TOWELROOT APK
+         
+         # INSTALL TOWELROOT APK   
+         def towroot(): 
             if not os.path.exists('apps'):
                os.makedirs('apps', 0755)
             while not os.path.isfile(trfile):
@@ -849,14 +890,85 @@ def main():
             print("if APK installed successfully, it should automatically launch on your device.")
             raw_input("tap on MAKE IT RAIN. the results should appear shortly. follow instructions on device, then press ENTER to continue..")
             
-         print("\033[36mif the firmware release date for your device is before june 2014, there is a chance the towelroot exploit may work.")
-         print("\033[35mhowever, superSU is a safer and more widely confirmed root method for the ONEPLUS ONE. ATTEMPT AT YOUR OWN RISK!\033[0m\n")
-         rootcheck = raw_input("which root method would you like to try? enter 1 for superSU [recommended for oneplus one], 2 for towelroot, 3 for Superuser, or 4 to install custom ZIP file. --> ")
-         while not re.search(r'^[1-4]$', rootcheck):
-            rootcheck = raw_input("invalid selection. enter 1 to install superSU package, 2 to install towelroot exploit, 3 to install Superuser, or 4 to install custom ZIP file. --> ")
-               
-         if rootcheck == '1': # SUPERSU
-            bootcustom = raw_input("press 1 to install superSU in custom recovery, 2 to install in your installed recovery, or 3 to install in fastboot [lower success rate]. --> ")
+         pingpongfile = 'apps/pingpong5.1.apk'
+         # DOWNLOAD PINGPONGROOT APK
+         def ppdl():
+            dl = urllib.URLopener()
+            URLpp = "http://notworth.it/opo/apps/pingpong5.1.apk"
+            MD5pp = "93f08214e35eba4dacc29b1e04ef21d5"
+            dl.retrieve(URLpp, pingpongfile)
+            site = urllib.urlopen(URLpp)
+            meta = site.info()
+            dlsize = meta.getheaders("Content-Length")[0]
+            fsize = os.path.getsize(pingpongfile)
+            if usecolor == "color":
+               print("file size: \033[33m")
+               print(dlsize)
+               print("\n\033[0mbytes downloaded: \033[33m")
+               print(fsize)
+               print("\033[0m\n")
+               print("\033[34mchecking md5 signature...\033[0m\n")
+            else:
+               print("file size: ")
+               print(dlsize)
+               print("bytes downloaded: ")
+               print(fsize)
+               print("checking md5 signature...")
+            md5_read = ''
+            integrity = ''
+            with open(pingpongfile, "r+b") as sf:
+               sfdata = sf.read()
+               md5_read = hashlib.md5(sfdata).hexdigest()
+            if MD5tr == md5_read:
+               print("MD5 verified!")
+               integrity = 'passed'
+            else:
+               print("MD5 file integrity check failed!")
+               integrity = 'failed'
+            if integrity == 'failed':
+               if dlsize != fsize:
+                  with open(pingpongfile, "r+b") as f:
+                     # read contents of downloaded TowelRoot file
+                     fdata = f.read()
+                     f.write(site.read())
+                     f.flush()
+                     os.fsync(f.fileno())
+                     f.close()
+                        
+         # INSTALL PINGPONGROOT APK
+         def pingpongroot():
+            if not os.path.exists('apps'):
+               os.makedirs('apps', 0755)
+            while not os.path.isfile(pingpongfile):
+               print("file \033[32m" + pingpongfile + " \033[0mnot found. attempting download...\n")
+               ppdl()
+            print("file \033[32m" + pingpongfile + " \033[0mfound!\n")
+            raw_input("press ENTER to install..")
+            obj.install(pingpongfile)
+            obj.shell('am start -n org.keenteam.pingpongroot/org.keenteam.pingpongroot.MainActivity')
+            print("if APK installed successfully, it should automatically launch on your device.")
+            raw_input("follow instructions on device, then press ENTER to continue..")
+            
+         if usecolor == 'color':
+            rootwarning = '''\033[35mfor the ONEPLUS ONE, superSU is the safest and most widely confirmed root method. you may have to re-root after upgrading your ROM or flashing a custom ROM image. if flashing in recovery, remember to CLEAR CACHE AND DALVIK CACHE after zip installation!\033[0m\n
+\033[33mif the build date for your device kernel is before \033[32mjune 4, 2014\033[33m, there is a chance the towelroot exploit may work.
+\033[36mfor samsung s6 and s6 edge, and possibly other samsung devices, pingpongroot will work without tripping knox.
+\033[31;1mROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR BRICKING YOUR DEVICE. BACKUP ANY IMPORTANT DATA AND CONTINUE AT YOUR OWN RISK!\033[0m\n'''
+         else:
+            rootwarning = '''for the ONEPLUS ONE, superSU is the safest and most widely confirmed root method. you may have to re-root after upgrading your ROM or flashing a custom ROM image. if flashing in recovery, remember to CLEAR CACHE AND DALVIK CACHE after zip installation!\n
+if the build date for your device kernel is before june 4, 2014, there is a chance the towelroot exploit may work.
+for samsung s6 and s6 edge, and possibly other samsung devices, pingpongroot will work without tripping knox.
+ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR BRICKING YOUR DEVICE. BACKUP ANY IMPORTANT DATA AND CONTINUE AT YOUR OWN RISK!'''
+
+         print(rootwarning)
+
+         rootcheck = raw_input("which root method would you like to try? enter 1 for SuperSU [recommended for oneplus one], 2 for towelroot, 3 for Superuser, 4 for pingpongroot, or 5 to install custom ZIP file. --> ")
+         while not re.search(r'^[1-5]$', rootcheck):
+            rootcheck = raw_input("invalid selection. enter 1 to install superSU package, 2 to install towelroot exploit, 3 to install Superuser, 4 to install pingpongroot, or 5 to install custom ZIP file. --> ")
+         
+         # ROOT OPTION #1 - SUPERSU
+         if rootcheck == '1': 
+            bootcustom = raw_input("press 1 to install superSU in a custom recovery, 2 to install in your current recovery, or 3 to install in fastboot [lower success rate]. --> ")
             while not re.search(r'^[1-3]$', bootcustom):
                bootcustom = raw_input("invalid choice. please enter 1 to load custom recovery, 2 to use installed recovery, or 3 for fastboot. --> ")
             if bootcustom == '1': # SUPERSU TWRP
@@ -876,18 +988,25 @@ def main():
                else:
                   print("file " + superSU + " found!\n")
                raw_input("press ENTER to copy file to device, then reboot into recovery.")
-               remotesuperSU = '/sdcard/UPDATE-SuperSU-v2.46.zip'
+               remotesuperSU = '/sdcard/SuperSU-v2.49.zip'
                obj.push(superSU, remotesuperSU)
                raw_input("file copied to device. press ENTER to continue to recovery..")
                obj.reboot("recovery")
-               raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
-               obj.sideload("UPDATE-SuperSU-v2.46.zip")
-               superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
+               raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB SIDELOAD. press ENTER when ready.")
+               obj.sideload("SuperSU-v2.49.zip")
+               if usecolor == 'color':
+                  print("from device menu, find and select \033[34mCLEAR CACHE\033[0m and \033[34mCLEAR DALVIK CACHE\033[0m, then choose \033[35mREBOOT SYSTEM\033[0m. if zip installed successfully, press \033[32mENTER\033[0m.")
+               else:
+                  print("from device menu, find and select CLEAR CACHE and CLEAR DALVIK CACHE, then choose REBOOT SYSTEM. if zip installed successfully, press ENTER.")
+               superfail = raw_input("if zip installation failed, enter 1 to attempt again from TWRP, enter 2 to install from Philz, enter 3 to install from SD card, or enter 4 to return to main menu --> " )
                obj.reboot("android")
                if superfail == '1': # SUPERSU TWRP
                   suroot("twrp.img")
                elif superfail == '2': # SUPERSU PHILZ
                   suroot("philz.img")
+               elif superfail == '3': # INSTALL FROM SDCARD
+                  print("from the recovery menu of your device, choose INSTALL ZIP, then INSTALL FROM SDCARD. browse to your /sdcard directory and select the following file: %s" % superSU)
+                  raw_input("clear the cache and dalvik cache after zip installation, then reboot. press ENTER to continue.")
                else:
                   obj.get_state()
                time.sleep(0.9)
@@ -917,7 +1036,7 @@ def main():
                      raw_input("press ENTER to continue rebooting to recovery..")
                      obj.reboot("recovery")
                      raw_input("in recovery menu on device, please select APPLY UPDATE, then APPLY FROM ADB. press ENTER when ready.")
-                     obj.sideload("UPDATE-SuperSU-v2.46.zip")
+                     obj.sideload("SuperSU-v2.49.zip")
                      superfail = raw_input("choose REBOOT SYSTEM from device menu. if update successful, press ENTER. else, press 1 to install superSU from TWRP, or 2 to install superSU from Philz --> " )
                      obj.reboot("android")
                      if superfail == '1': # SUPERSU TWRP
@@ -950,8 +1069,8 @@ def main():
             else:
                print("failed to connect to device. returning to main menu.. \n\n")
                
-
-         elif rootcheck == '2': # TOWELROOT
+         # ROOT OPTION 2 - TOWELROOT
+         elif rootcheck == '2':
             towroot()
             trysuroot = raw_input("if towelroot failed, press 1 to launch superSU method. otherwise, press ENTER to return to main menu. --> ")
             if trysuroot == '1': # SUPERSU
@@ -963,15 +1082,24 @@ def main():
                time.sleep(0.9)
                main()
          
-         elif rootcheck == '3': # SUPERUSER or CUSTOM ZIP FILE
-            bootcustom = raw_input("press 1 to install Superuser in TWRP recovery, 2 to install in Philz recovery, or 3 to install in fastboot [lowest success rate]. --> ")
+         # ROOT OPTION 3 - SUPERUSER
+         elif rootcheck == '3':
+            bootcustom = raw_input("press 1 to install Superuser in TWRP recovery, 2 to install in Philz recovery, 3 to install in your current recovery, or 4 to install in fastboot [lowest success rate]. --> ")
             while not re.search(r'^[123]$', bootcustom):
-               bootcustom = raw_input("invalid choice. please enter 1 to load TWRP, 2 for Philz, or 3 for fastboot. --> ")
+               bootcustom = raw_input("invalid choice. please enter 1 to load TWRP, 2 for Philz, 3 for your current recovery, or 4 for fastboot. --> ")
             if bootcustom == '1':
                susrroot("twrp.img")
             elif bootcustom == '2':
                susrroot("philz.img")
             elif bootcustom == '3':
+               while not os.path.isfile(superusr):
+                  print("file \033[32m" + superusr + " \033[0mnot found. attempting download...\n\n")
+                  sudl()
+               raw_input("press ENTER to reboot into recovery.")
+               obj.reboot("recovery")
+               raw_input("on device recovery menu, choose INSTALL ZIP, then select ADB SIDELOAD for install type. press ENTER to continue.")
+               
+            elif bootcustom == '4':
                while not os.path.isfile(superusr):
                   print("file \033[32m" + superusr + " \033[0mnot found. attempting download...\n\n")
                   sudl()
@@ -997,23 +1125,68 @@ def main():
                      obj.get_state()
                time.sleep(0.9)
                main()
-                  
-            elif rootcheck == '4':
-               updatefile = raw_input("please enter path of ZIP file to install --> ")
-               while not os.path.isfile(updatefile):
-                  updatefile = raw_input("invalid file path. please enter correct path of ZIP file to install --> ")
-               raw_input("press ENTER to reboot into bootloader.")
+            
+         # ROOT OPTION 4 - PINGPONG ROOT
+         elif rootcheck == '4':
+            pingpongroot()
+            trysuroot = raw_input("if pingpongroot failed, press 1 to launch superSU method. otherwise, press ENTER to return to main menu. --> ")
+            if trysuroot == '1': # SUPERSU
+               recovimg = chooserec()
+               suroot(recovimg) # SUPERSU CUSTOM RECOVERY
+               time.sleep(0.9)
+               main()
+            else:
+               time.sleep(0.9)
+               main()
+               
+         # ROOT OPTION 5 - USE CUSTOM ZIP
+         elif rootcheck == '5':            
+            def customflash():
+               print("check that device is connected and booted into custom recovery. on device, choose the ADB SIDELOAD option [sometimes under ADVANCED].\n")
+               raw_input("press ENTER to continue with flashing zip file via ADB sideload.")
+               obj.sideload(updatefile)
+               raw_input("from recovery menu, clear cache and dalvik cache, then select REBOOT SYSTEM. press ENTER to continue..")
+               
+            updatefile = raw_input("please enter path of ZIP file to install --> ")
+            while not os.path.isfile(updatefile):
+               updatefile = raw_input("invalid file path. please enter correct path of ZIP file to install --> ")
+            remoteupdatefile = '/sdcard/' + updatefile
+            obj.push(updatefile, remoteupdatefile)
+               
+            rebootoption = raw_input("file copied to /sdcard directory on device. enter 1 to install using current recovery, enter 2 to use custom recovery, or enter 3 to install through fastboot [lowest success rate]. --> ")
+            while not re.match(r'^[123]$', rebootoption):
+               rebootoption = raw_input("invalid selection. please enter an option 1-3 --> ")
+            if rebootoption == '1':
+               obj.reboot("recovery")
+               customflash()
+            elif rebootoption == '2':
+               recovimg = chooserec()
+               while not os.path.isfile(recovimg):
+                  if usecolor == 'color':
+                     print("file \033[32m" + recovimg + " \033[0mnot found. attempting download...\n")
+                  else:
+                     print("file " + recovimg + " not found. attempting download...\n")
+                  recovdl(recovimg)
+               if usecolor == 'color':
+                  print("file \033[32m" + recovimg + " \033[0mfound!\n")
+               else:
+                  print("file " + recovimg + " found!\n")
+               raw_input("press ENTER to reboot into fastboot mode.")
+               obj.reboot("bootloader")
+               raw_input("press ENTER to boot the custom recovery image.")
+               obj.bootimg(recovimg)
+               customflash()
+               
+            elif rebootoption == '3':
                obj.reboot("bootloader")
                print("attempting to install " + updatefile + "...\n")
                obj.update(updatefile)
                raw_input("press ENTER to continue...")
                obj.fastreboot("android")
-               time.sleep(0.9)
-               main()
             
-            else:
-               print("failed to connect to device. returning to main menu.. \n\n")
-               
+            time.sleep(0.9)
+            main()
+         
          else:
             print("failed to connect to device. returning to main menu.. \n\n")
                   
@@ -1075,8 +1248,11 @@ def main():
       
             elif verssel == '5':
                vers = 'XNPH44S'
-   
+               
             elif verssel == '6':
+               vers = 'XNPH05Q'
+   
+            elif verssel == '7':
                print("returning to main menu..")
                time.sleep(0.9)
                main()
@@ -1482,17 +1658,35 @@ def main():
             while not re.search(r'^[\w\-. ]+$', qstr):
                qstr = raw_input("invalid search string. acceptable characters are alphanumeric, period, underscore, and hyphen. please enter new search string --> ")
             if usecolor == 'color':
-               searchtitle = '\033[33mSEARCHING INSTALLED PACKAGES FOR: %s \033[0m\n' % qstr
+               searchtitle = '\033[33mSEARCHING INSTALLED PACKAGES FOR: \033[32m\n%s \033[0m\n' % qstr
             else:
                searchtitle = 'SEARCHING INSTALLED PACKAGES FOR: %s \n' % qstr
             print(searchtitle)
             results = obj.searchpkg(qstr)
-            while len(results) < 1:
-               qstr = raw_input("no package name matches the search query you entered. please try searching again with a different search string --> ")
-               while not re.search(r'^[\w\-. ]+$', qstr):
-                  qstr = raw_input("invalid package name. acceptable characters are alphanumeric, period, underscore, and hyphen. please enter new search string --> ")
-               results = obj.searchpkg(qstr)
-            if len(results) >= 1:
+            print(results)
+            if len(results) < 1:
+               while not results:
+                  qstr = raw_input("no package name matches the search query you entered. please try searching again with a different search string --> ")
+                  while not re.search(r'^[\w\-. ]+$', qstr):
+                     qstr = raw_input("invalid package name. acceptable characters are alphanumeric, period, underscore, and hyphen. please enter new search string --> ")
+                  results = obj.searchpkg(qstr)
+                  if usecolor == 'color':
+                     print(acolors.AQUA + "FOUND: \n" + acolors.GREEN)
+                  else:
+                     print("FOUND: \n")
+                  print(results)
+                  
+                  if re.search(r'=', results):
+                     pkgname = results.split('=')[1]
+                     if usecolor == 'color':
+                        print(acolors.MAGENTA + "PACKAGE NAME: \n" + acolors.YELLOW)
+                        print(pkgname)
+                     else:
+                        print("PACKAGE NAME: \n")
+                        print(pkgname)
+                     if usecolor == 'color':
+                        print(acolors.CLEAR)
+            else:
                if usecolor == 'color':
                   print(acolors.AQUA + "FOUND: \n" + acolors.GREEN)
                   print(results)
@@ -1500,6 +1694,16 @@ def main():
                else:
                   print("FOUND: \n")
                   print(results)
+               if re.search(r'=', results):
+                  pkgname = results.split('=')[1]
+                  if usecolor == 'color':
+                     print(acolors.MAGENTA + "PACKAGE NAME: \n" + acolors.YELLOW)
+                     print(pkgname)
+                  else:
+                     print("PACKAGE NAME: \n")
+                     print(pkgname)
+                  if usecolor == 'color':
+                     print(acolors.CLEAR)
             searchstr = results
             pathquestion = "would you like to get the path for this package? enter Y/N --> "
          else:
@@ -1514,11 +1718,11 @@ def main():
             getpath = raw_input("invalid entry. enter Y or N to get path of package --> ")         
          
          if getpath.lower() == 'y':
-            whichpath = raw_input("please enter the complete package name to get the path --> ")
-            while not re.search(r'^[\w\-. ]+$', whichpath):
-               whichpath = raw_input("invalid package name. please enter complete package name for the app to get its path --> ")
-               
-            results = obj.pathpkg(whichpath)
+            # whichpath = raw_input("please enter the complete package name to get the path --> ")
+#             while not re.search(r'^[\w\-. ]+$', whichpath):
+#                whichpath = raw_input("invalid package name. please enter complete package name for the app to get its path --> ")
+#                
+            results = obj.pathpkg(pkgname)
             # GET PATH OF PACKAGE
             app_path = []
             if len(results) >= 1:
@@ -1647,6 +1851,59 @@ def main():
             line = process.stdout.readline()
          time.sleep(0.9)
          main()
+
+############################################################
+############################################################
+# OPTION 17 - GET OR SET DNS #
+############################################################
+############################################################
+
+      elif option == '17': # get/set DNS servers
+         print('\nDNS servers:\n')
+         showdns = obj.getdns()
+         print(showdns)
+         print('')
+         newdns = raw_input('would you like to change DNS servers? Y/N --> ')
+         while not re.match(r'^[yYnN]$', newdns):
+            newdns = raw_input('invalid input. please enter Y or N --> ')
+         if newdns.lower() == 'y':
+            setdns = raw_input('enter up to 3 DNS servers, each separated by a comma --> ')
+         while not re.search(r'^([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?([12]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\.([1-9]?[0-9]?[0-9])\,?', setdns):
+            setdns = raw_input('invalid format. enter up to 3 DNS servers, each separated by a comma --> ')
+         if ',' in setdns:
+            dnslist = setdns.split(',')
+            dns1 = dnslist[0]
+            if dnslist[1]:
+               dns2 = dnslist[1]
+               resp = obj.setdns(dns1, dns2)
+            elif dnslist[2]:
+               dns3 = dnslist[2]
+               obj.setdns(dns1, dns2, dns3)
+            else:
+               print('an error has occurred. returning to main menu..')
+               time.sleep(2)
+               main()
+         else:
+            dns1 = setdns
+            resp = obj.setdns(dns1)
+            print(resp)
+            print('DNS server set to %s' % dns1)
+         raw_input('press ENTER to continue..')
+         time.sleep(0.9)
+         main()
+            
+############################################################
+############################################################
+# OPTION 18 - LIST DEVICES #
+############################################################
+############################################################
+
+      elif option == '18': # list connected devices
+         devs = obj.attached_devices()
+         print(devs)
+         time.sleep(0.9)
+         main()
+         
 
 ############################################################
 ############################################################

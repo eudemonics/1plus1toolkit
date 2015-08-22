@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 ### PYADB (Python 2.7 Library)
-##### VERSION: 1.3.5 BETA
-##### RELEASE DATE: APRIL 14, 2015
-##### AUTHOR: vvn
+##### VERSION: 1.3.666 BETA
+##### RELEASE DATE: AUGUST 22, 2015
+##### AUTHOR: vvn <lost [at] nobody [dot] ninja>
 ##### DESCRIPTION: simple library to port ADB and FASTBOOT functions to PYTHON
 #####
 ##### for now it's a required companion to the 'half-assed one plus one toolkit'.
@@ -12,7 +12,7 @@
 ##################################################
 ##################################################
 ##### USER LICENSE AGREEMENT & DISCLAIMER
-##### copyright, copyleft (C) 2014-2015  vvn <vvn@notworth.it>
+##### copyright, copyleft (C) 2014-2015  vvn <lost [at] nobody [dot] ninja>
 ##### 
 ##### This program is FREE software: you can use it, redistribute it and/or modify
 ##### it as you wish. Copying and distribution of this file, with or without modification,
@@ -35,34 +35,36 @@
 ##### (you might even enjoy it)
 ##### questions, comments, feedback, bugs, complaints, death threats, marriage proposals?
 ##### contact me at:
-##### vvn (at) notworth (dot) it
+##### lost [at] nobody [dot] ninja
 ##### latest version will always be available HERE:
 ##### https://github.com/eudemonics/opotoolkit
 ##### there be only code after this -->
 
-import os, subprocess, sys, datetime
-from subprocess import call, Popen, PIPE
+import os, subprocess, sys, datetime, shlex
+from subprocess import call, Popen, PIPE, STDOUT
 
 class pyADB(object):
 
    # adb commands
+   
    def call_adb(self, command):
       response = ''
-      command_text = 'adb %s' % command
-      # command_text = r'"%s"' % command_text
+      rawcmd = r'%s' % command
+      command_text = 'adb %r' % rawcmd
+      command_text = r'"%s"' % command_text
       command_text = command_text + '; exit 0'
-      # output = Popen(command_text, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      output = Popen(command_text, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
       output = subprocess.check_call(command_text, shell=True, stderr=subprocess.STDOUT)
       return output
-      # response = output.communicate()
-      # return response
+      response = output.communicate()[0]
+      return response
 
    # fastboot commands
    def call_fastboot(self, command):
       response = ''
       command_text = 'fastboot %s' % command
-      output = Popen(command_text, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response, errors = output.communicate()
+      output = Popen(command_text, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+      response, errors = output.communicate()[0]
       # response = output.stdout()
       return response
       
@@ -83,20 +85,20 @@ class pyADB(object):
    # return list of attached devices
    def attached_devices(self):
       command_text = "adb devices -l"
-      output = Popen(command_text, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response = output.communicate()
+      output = Popen(command_text, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+      response = output.communicate()[0]
       return response or None
    
-      # result = self.call_adb(command)
-      # devices = result.partition('\n')[2].replace('\n', '').split('\tdevice')
-      # return [device for device in devices if len(device) > 2]
-      # return result
+      result = self.call_adb(command_text)
+      devices = result.partition('\n')[2].replace('\n', '').split('\tdevice')
+      return [device for device in devices if len(device) > 2]
+      return result
 
    # fastboot return list of devices
    def fastboot_devices(self):
       command_text = 'fastboot devices'
-      output = Popen(command_text, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response, errors = output.communicate()
+      output = Popen(command_text, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+      response, errors = output.communicate()[0]
       return response
       # command = "devices -l"
       # result = self.call_adb(command)   
@@ -106,8 +108,8 @@ class pyADB(object):
    def get_state(self):
       results = ''
       command_text = 'adb get-state'
-      output = Popen(command_text, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response = output.communicate()
+      output = Popen(command_text, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+      response = output.communicate()[0]
       return response or None
       #result = self.call_adb("get-state")
       #return result or None
@@ -178,43 +180,53 @@ class pyADB(object):
       command = "shell " + shellcmd
       result = self.call_adb(command)
       return result
-      
+   
+   # root shell command
+   def rootshell(self, shellcmd):
+      command = "shell su && " + shellcmd
+      result = self.call_adb(command)
+      return result
+         
    # list packages
    def listpkg(self):
-      command = "adb shell pm list packages -f | sed -ne 's/package://p'"
-      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response, errors = output.communicate()
+      cmd = 'adb shell pm list packages -f | sed -ne "s/package://p"'
+      output = Popen(cmd, stdin = PIPE, stdout = PIPE, stderr = PIPE) % cmd1
+      response = output.communicate()[0]
       return response
       
    # search packages
    def searchpkg(self, query):
-      command = "adb shell pm list packages -f | grep %s | sed -ne 's/package://p'" % query
-      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response, errors = output.communicate()
+      cmd1 = 'adb shell pm list packages -f | grep %s | sed -ne "s/package://p"' % query
+      output = Popen(cmd1, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+      response = output.communicate()[0]
       response = filter(None, response)
-      return response
+      return response or None
       
    # find path for package
    def pathpkg(self, package):
-      command = "adb shell pm list packages -f %s | sed -ne 's/package://;s/=.*$//p'" % package
-      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response, errors = output.communicate()
+      cmd = 'adb shell pm list packages -f %s | sed -ne "s/package://p"' % package
+      output = Popen(cmd, shell=True, stdin = PIPE, stdout = PIPE, stderr = STDOUT)
+      resp = output.communicate()[0]
+      response = resp.split('=')[0]
       return response
    
    def pullapk(self, pkgname):
-      path = "adb shell pm list packages -f %s | sed -ne 's/package://;s/=.*$//p'" % pkgname
-      path = str(path)
-      pkgpath = path.split('=')[0]
+      cmd = "adb shell pm list packages -f %s" % pkgname
+      com1 = Popen(cmd, shell=True, stdin = PIPE, stdout = PIPE, stderr = STDOUT)
+      path = com1.communicate()[0]
+      pathresult = path.split('=')[0]
+      pathresult = pathresult.strip('package:')
+      pkgpath = str(pathresult)
       command = "adb pull -p %s" % pkgpath
-      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response, errors = output.communicate()
+      output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+      response = output.communicate()[0]
       return response
    
    # pull APK from package location on device
    def apkpull(self, pkgname):
-      com = "adb shell pm list packages -f %s | sed -ne 's/package://;s/=.*$//p'" % pkgname
+      com1 = "adb shell pm list packages -f %s | sed -ne 's/package://;s/=.*$//p'"
       packages = []
-      output = Popen(com, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      output = Popen(com1, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
       for o in output:
          pkg1 = o.rsplit("=")[0]
          pkg = pkg1.split(":")[1]
@@ -222,14 +234,14 @@ class pyADB(object):
       response = []
       for package in packages:
          command = "adb pull -p " + r'"%s"' % package
-         output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-         response.append(output.communicate())
+         output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+         response.append(output.communicate()[0])
       return response
       
    def defaultapkpull(self, package):
       command = "adb pull -p %s" % package
-      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
-      response, errors = output.communicate()
+      output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+      response = output.communicate()[0]
       return response
    
    def getfeatures(self):
@@ -244,7 +256,7 @@ class pyADB(object):
    
    def getpermissions(self, package):
       command = "adb shell pm list permissions -g -f | grep -A 4 %s" % package
-      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
       response = output.communicate()
       return response
    
@@ -328,7 +340,7 @@ class pyADB(object):
    def bugreport(self):
       filename = "bugreport-" + str(datetime.date.today()) + ".txt"
       command = "adb bugreport > " + filename
-      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
       response = output.communicate()
       print("bug report saved as: " + filename)
       return response
@@ -336,7 +348,7 @@ class pyADB(object):
    # logcat
    def logcat(self):
       command = "adb logcat"
-      output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+      output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
       response = output.communicate()
       return response
       
@@ -373,6 +385,35 @@ class pyADB(object):
       command = "shell service list | grep %s" % query
       result = self.call_adb(command)
       return result
+      
+   # get usb modes from getprop
+   def usbpropcheck(self):
+      command = "shell getprop sys.usb.state"
+      result = self.call_adb(command)
+      return result
+   
+   # get DNS servers from getprop
+   def getdns(self):
+      command = "adb shell getprop net.dns1 && adb shell getprop net.dns2"
+      output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+      response, errors = output.communicate()
+      return response or None
+      
+   # set DNS servers using setprop
+   def setdns(self, dns1, *args):
+      command = "shell su -c setprop net.dns1 %s" % dns1
+      if args:
+         i = 2
+         lim = len(args) + 2
+         for arg in args:
+            while i < lim:
+               command = command + " && shell su -c setprop net.dns" + str(i) + " %s" % arg
+               i += 1
+            if i >= lim:
+               break
+      output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+      response, errors = output.communicate()
+      return response
    
    # usb tether connect - switch = 1 enables usb tether, switch = 0 turns it off   
    def usbtether(self, switch):
@@ -393,7 +434,7 @@ class pyADB(object):
          commands = wifioff,"adb shell su -c mount -o rw,remount /data","adb push wifidebug.sh /data","adb shell su -c chmod 0775 /data/wifidebug.sh","adb shell su -c sh /data/wifidebug.sh","adb disconnect localhost",wifion
       response = []
       for command in commands:
-         output = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+         output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
          result = output.communicate()
          response.append(result)
       return response
@@ -401,7 +442,7 @@ class pyADB(object):
    def launchdrozer(self):
       cmd = "adb install drozer.apk"
       os.system(cmd)
-      command = "adb shell am broadcast -n http://com.mwr.dz/.receivers.Receiver -c com.mwr.dz.START_EMBEDDED"
+      command = "adb shell am broadcast -n com.mwr.dz/.receivers.Receiver -c com.mwr.dz.START_EMBEDDED"
       command2 = "adb shell su am startservice -n com.mwr.dz/.services.ServerService -c com.mwr.dz.START_EMBEDDED"
       command3 = "adb shell am start -n com.mwr.dz/.activities.MainActivity && adb shell input tap 1240 720"
       

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ### OPOINTRO 
-##### VERSION: 1.3.5 BETA
-##### RELEASE DATE: APRIL 14, 2015
+##### VERSION: 1.3.8 BETA
+##### RELEASE DATE: AUGUST 22, 2015
 ##### AUTHOR: vvn
 ##### DESCRIPTION: simple library to port ADB and FASTBOOT functions to PYTHON
 #####
@@ -88,7 +88,7 @@ class opointro(object):
       time.sleep(0.1)
       print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
-      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ v1.3.5 BETA ~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#")
+      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ v1.3.8 BETA ~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
       print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   7~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
@@ -150,9 +150,9 @@ class opointro(object):
       time.sleep(0.1)
       print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ AUTHOR: VVN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
-      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~ RELEASE DATE: APRIL 14, 2015 ~~~~~~~~~~~~~~~~~~~~~~~~~#")
+      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~ RELEASE DATE: AUGUST 22, 2015 ~~~~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
-      print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COPYLEFT (C) 2014-2015 VVN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
+      print ("#~~~~~~~~~~~~~~~~~~~~ COPYRIGHT, COPYLEFT (C) 2014-2015 VVN ~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
       print ("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
       time.sleep(0.1)
@@ -172,7 +172,7 @@ class opointro(object):
       time.sleep(0.1)
       print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~ \033[40m\033[33mONEPLUS ONE TOOLKIT\033[41m\033[37m ~~~~~~~~I\033[41m\033[37;1m   7~~~~~~~~~#\033[0m")
       time.sleep(0.1)
-      print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~ \033[41m\033[40;1mv1.3.5 BETA\033[41m\033[37;1m ~~~~~~~~~~~~I   7~~~~~~~~~#\033[0m")
+      print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~ \033[41m\033[40;1mv1.3.8 BETA\033[41m\033[37;1m ~~~~~~~~~~~~I   7~~~~~~~~~#\033[0m")
       time.sleep(0.1)
       print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~I   7~~~~~~~~~#\033[0m")
       time.sleep(0.1)
@@ -216,7 +216,9 @@ class opointro(object):
       time.sleep(0.1)
       print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~~ \033[40m\033[35;1mAUTHOR: VVN \033[41m\033[37;1m~~~~~~~~~~~~~~~~~~~~~~~~~#\033[0m")
       time.sleep(0.1)
-      print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~ \033[40m\033[36;1mRELEASE DATE: APRIL 14, 2015 \033[41m\033[37;1m~~~~~~~~~~~~~~~~~#\033[0m")
+      print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~ \033[40m\033[36;1mRELEASE DATE: AUGUST 22, 2015 \033[41m\033[37;1m~~~~~~~~~~~~~~~~~#\033[0m")
+      time.sleep(0.1)
+      print ("\033[41m\033[37;1m#~~~~~~~~~~~~ \033[40m\033[32;1mCOPYRIGHT, COPYLEFT (C) VVN 2014-2015 \033[41m\033[37;1m~~~~~~~~~~~~#\033[0m")
       time.sleep(0.1)
       print ("\033[41m\033[37;1m#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#\033[0m")
       time.sleep(0.1)
@@ -235,7 +237,7 @@ class opointro(object):
    cleanmenu = '''
 *********************************************************** 
 ************ THE HALF-ASSED ONEPLUS ONE TOOLKIT ***********
-**************** VERSION: 1.3.5 BETA * by vvn *************
+**************** VERSION: 1.3.8 BETA * by vvn *************
 ***********************************************************
 *** this is a FREE program, released AS-IS: NO WARRANTY ***
 ****************** USE AT YOUR OWN RISK! ******************
@@ -255,12 +257,14 @@ MAIN MENU:
 -[8] flash stock or custom ROM image
 -[9] unlock bootloader or flash custom recovery
 -[10] run shell command on device
--[11] get bug report from device
+-[11] output bug report from device
 -[12] find/list apps, pull APK from device
 -[13] list services
 -[14] list features
 -[15] list permissions
 -[16] view logcat from device
+-[17] list or change DNS servers
+-[18] list attached devices
 -[0] quit
 '''
 
@@ -269,7 +273,7 @@ MAIN MENU:
    colormenu = '''
 \033[40m\033[34m***********************************************************\033[0m 
 \033[40m\033[34m************ \033[36mTHE HALF-ASSED ONEPLUS ONE TOOLKIT \033[34m***********\033[0m
-\033[40m\033[34m**************** \033[37mVERSION: 1.3.5 BETA \033[34m* \033[35mby vvn \033[34m*************\033[0m
+\033[40m\033[34m**************** \033[37mVERSION: 1.3.8 BETA \033[34m* \033[35mby vvn \033[34m*************\033[0m
 \033[40m\033[34m***********************************************************\033[0m
 \033[40m\033[34m*** \033[33mthis is a FREE program, released AS-IS: NO WARRANTY \033[34m***\033[0m
 \033[40m\033[34m****************** \033[32mUSE AT YOUR OWN RISK! \033[34m******************\033[0m
@@ -289,12 +293,14 @@ MAIN MENU:
 -\033[31m[8]\033[37m flash stock or custom ROM image\033[0m
 -\033[31m[9]\033[37m unlock bootloader or flash custom recovery\033[0m
 -\033[31m[10]\033[37m run shell command on device\033[0m
--\033[31m[11]\033[37m get bug report from device\033[0m
+-\033[31m[11]\033[37m output bug report from device\033[0m
 -\033[31m[12]\033[37m find/list apps, pull APK from device\033[0m
 -\033[31m[13]\033[37m list services\033[0m
 -\033[31m[14]\033[37m list features\033[0m
 -\033[31m[15]\033[37m list permissions\033[0m
 -\033[31m[16]\033[37m view logcat from device\033[0m
+-\033[31m[17]\033[37m list or change DNS servers\033[0m
+-\033[31m[18]\033[37m list attached devices\033[0m
 -\033[31m[0]\033[37m quit \033[0m\n'''
 
 ######################
@@ -402,7 +408,7 @@ colorflashmenu = '''
 -\033[31m[5]\033[37m stock CACHE.IMG \033[0m
 -\033[31m[6]\033[37m stock NON-HLOS.BIN, modem, aboot & more [flash-radio.sh]\033[0m
 -\033[31m[7]\033[37m stock radio, modem, sbl1, aboot \033[34m[flash-extras.sh]\033[0m
--\033[31m[8]\033[37m flash complete stock or ROM image \033[0m
+-\033[31m[8]\033[37m FLASH ENTIRE STOCK OR CUSTOM ROM IMAGE \033[0m
 -\033[31m[9]\033[37m return to main menu\033[0m\n
 \033[35mCHECK THAT DEVICE IS UNLOCKED AND COMPUTER IS AUTHORIZED FOR ADB ACCESS.\n\033[0m'''
 
@@ -439,4 +445,5 @@ III+,:~~==,.,~~=:~=++~+=+?::=:+?=,,,=+=:,:,..,......,..,,,,,,,,,,
 ~~::===+?=++?II+=~~~~=~::=,:~~:=???I?I???=+~+=???=~:=,,~==,..,:::
 =+??I?=:,.:~==?II==~~~:.::,:~=++I?IIII?+==:~==??+++~:..~=~,,,:,::
 +=~:+???++:.,:?IIII?+=~:~:=~=??+?++?+++~+~=+++++~::~=:~===:~===++
-++:::,=II=:..,~=IIII?=+=?I????I??I++?+?+~==?+?+?~:~+=~~=+===+++++'''
+++:::,=II=:..,~=IIII?=+=?I????I??I++?+?+~==?+?+?~:~+=~~=+===+++++
+'''
