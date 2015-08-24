@@ -1844,7 +1844,7 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
          if os.name == 'nt':
             process = subprocess.Popen('start /wait adb logcat', shell=True, creationflags=subprocess.CREATE_NEW_CONSOLE, stdout=subprocess.PIPE)
          else:
-            process = subprocess.Popen(['xterm', '-e', 'adb', 'logcat', 'sleep 4'], stdout=subprocess.PIPE)
+            process = subprocess.Popen(['xterm', '-e', 'adb', 'logcat', 'sleep 4'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
          line = process.stdout.readline()
          while line:
             print line
@@ -1878,15 +1878,14 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
             if ',' in setdns:
                dnslist = setdns.split(',')
                dns1 = dnslist[0]
-               dns1.strip().lstrip()
-               if not dnslist[2]:
+               dns1.strip()
+               if len(dnslist) > 1:
                   dns2 = dnslist[1]
                   dns2.strip().lstrip()
                   resp = obj.setdns(dns1, dns2)
                   print(resp)
                   print('\nDNS servers set to %s and %s \n') % (dns1, dns2)
-               elif dnslist[2]:
-                  dns2 = dnslist[1]
+               if len(dnslist) > 2:
                   dns3 = dnslist[2]
                   dns3.strip().lstrip()
                   resp = obj.setdns(dns1, dns2, dns3)
