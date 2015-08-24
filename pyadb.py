@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ### PYADB (Python 2.7 Library)
-##### VERSION: 1.3.666 BETA
-##### RELEASE DATE: AUGUST 22, 2015
+##### VERSION: 1.3.9 BETA
+##### RELEASE DATE: AUGUST 24, 2015
 ##### AUTHOR: vvn <lost [at] nobody [dot] ninja>
 ##### DESCRIPTION: simple library to port ADB and FASTBOOT functions to PYTHON
 #####
@@ -349,7 +349,7 @@ class pyADB(object):
    def logcat(self):
       command = "adb logcat"
       output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
-      response = output.communicate()
+      response, errors = output.communicate()
       return response
       
    # wipe/erase partitions

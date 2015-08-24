@@ -1651,7 +1651,6 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
          optstr = raw_input("would you like to search for a specific package? enter Y/N --> ")
          while not re.search(r'^[YyNn]$', optstr):
             optstr = raw_input("invalid selection. please enter Y to search for a package or N to list all packages --> ")
-         searchstr = []
          qstr = ''
          if optstr.lower() == 'y':
             qstr = raw_input("please enter a keyword to search for in package names --> ")
@@ -1663,7 +1662,6 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
                searchtitle = 'SEARCHING INSTALLED PACKAGES FOR: %s \n' % qstr
             print(searchtitle)
             results = obj.searchpkg(qstr)
-            print(results)
             if len(results) < 1:
                while not results:
                   qstr = raw_input("no package name matches the search query you entered. please try searching again with a different search string --> ")
@@ -1675,17 +1673,17 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
                   else:
                      print("FOUND: \n")
                   print(results)
-                  
-                  if re.search(r'=', results):
-                     pkgname = results.split('=')[1]
+                  if '=' in results:
+                     package = results.split('=')
+                     pkgpath = package[0]
+                     pkgname = package[1]
                      if usecolor == 'color':
                         print(acolors.MAGENTA + "PACKAGE NAME: \n" + acolors.YELLOW)
                         print(pkgname)
+                        print(acolors.CLEAR)
                      else:
                         print("PACKAGE NAME: \n")
                         print(pkgname)
-                     if usecolor == 'color':
-                        print(acolors.CLEAR)
             else:
                if usecolor == 'color':
                   print(acolors.AQUA + "FOUND: \n" + acolors.GREEN)
@@ -1694,17 +1692,40 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
                else:
                   print("FOUND: \n")
                   print(results)
-               if re.search(r'=', results):
-                  pkgname = results.split('=')[1]
-                  if usecolor == 'color':
-                     print(acolors.MAGENTA + "PACKAGE NAME: \n" + acolors.YELLOW)
-                     print(pkgname)
-                  else:
-                     print("PACKAGE NAME: \n")
-                     print(pkgname)
-                  if usecolor == 'color':
-                     print(acolors.CLEAR)
-            searchstr = results
+               pkglist = results.split('\r\n')
+               pkglist = filter(None, pkglist)
+               if len(pkglist) > 1:
+                  print('\nPACKAGES:\n')
+                  i = 1
+                  pathlist = []
+                  pkglen = len(pkglist)
+                  for p in pkglist:
+                     pkgs = p.split('=')
+                     ppkgname = pkgs[1]
+                     ppkgpath = pkgs[0]
+                     print('%d - %s') % (i, ppkgname)
+                     pathlist.append(ppkgpath)
+                     i += 1
+                  print('')
+                  pkgsel = raw_input('make a selection [1-%d] --> ' % pkglen)
+                  pkgsel = int(pkgsel)
+                  while pkgsel not in range(1,(pkglen + 1)):
+                     pkgsel = raw_input('invalid selection. enter a corresponding value 1-%d --> ' % pkglen)
+                  m = int(pkgsel) - 1
+                  pkgname = pkglist[m]
+                  pkgpath = pathlist[m]
+               else:
+                  if re.search(r'=', results):
+                     pkgname = results.split('=')[1]
+                     pkgpath = results.split('=')[0]
+                     if usecolor == 'color':
+                        print(acolors.MAGENTA + "PACKAGE NAME: \n" + acolors.YELLOW)
+                        print(pkgname)
+                     else:
+                        print("PACKAGE NAME: \n")
+                        print(pkgname)
+                     if usecolor == 'color':
+                        print(acolors.CLEAR)
             pathquestion = "would you like to get the path for this package? enter Y/N --> "
          else:
             print("LISTING ALL INSTALLED PACKAGES ON DEVICE \n")
@@ -1722,17 +1743,31 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
 #             while not re.search(r'^[\w\-. ]+$', whichpath):
 #                whichpath = raw_input("invalid package name. please enter complete package name for the app to get its path --> ")
 #                
-            results = obj.pathpkg(pkgname)
-            # GET PATH OF PACKAGE
-            app_path = []
-            if len(results) >= 1:
-               path = results.split('=')[0]
-               print(path)
-               app_path.append(path)
+            if pkgpath:
+               app_path = pkgpath.strip()
             else:
-               print("no results found. returning to main menu..")
-               time.sleep(0.9)
-               main()
+               results = obj.pathpkg(pkgname)
+               if len(results) > 0:
+                  app_path = results.strip()
+                  app_path = app_path.lstrip()
+               else:
+                  pkgname = raw_input('path not found. enter complete package name --> ')
+                  while not re.match(r'^(([a-zA-Z-_]+)\.([0-9a-zA-Z-_]+)(\.[0-9a-zA-Z-_]*)?)$', pkgname):
+                     pkgname = raw_input('invalid entry. enter complete package name --> ')
+                  app_path = obj.pathpkg(pkgname)
+                  if len(app_path) > 0:
+                     app_path = app_path.strip().lstrip()
+                  else:
+                     print("no results found. returning to main menu..")
+                     time.sleep(0.9)
+                     main()
+            if usecolor == 'color':
+               print(acolors.OKBLUE + "\npath to package:\n" + acolors.MAGENTA)
+               print(app_path)
+               print(acolors.CLEAR)
+            else:
+               print("\npath to package:\n")
+               print(app_path)
             if app_path:
                pullcheck = raw_input("would you like to pull the package? Y/N --> ")
                while not re.search(r'^[yYnN]$', pullcheck):
@@ -1746,21 +1781,20 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
                # PULL PACKAGE
                else:
                   current = os.getcwd()
-                  for app in app_path:
-                     if usecolor == 'color':
-                        print(acolors.OKMAGENTA + "pulling %s") % app
-                        print(acolors.CLEAR)
-                        pulled = obj.defaultapkpull(app)
-                        print(pulled)
-                        print(acolors.OKAQUA + "the following file was pulled to the current directory (" + acolors.OKBLUE + "%s" + "%s): ") % (current, acolors.OKAQUA)
-                        print(acolors.CLEAR + app)
-                     else:
-                        print("pulling %s") % app
-                        pulled = obj.defaultapkpull(app)
-                        print(pulled)
-                        print("the following file was pulled to the current directory (%s): " % current)
+                  pulled = obj.defaultapkpull(app_path)
+                  if usecolor == 'color':
+                     print(acolors.OKMAGENTA + "\npulling %s.. \n") % app_path
+                     print(acolors.CLEAR)
+                     print(pulled)
+                     print(acolors.YELLOW + "\nthe following file was pulled to the current directory (" + acolors.OKBLUE + "%s" + "%s): \n") % (current, acolors.YELLOW)
+                     print(acolors.GREEN + app_path + acolors.CLEAR)
+                  else:
+                     print("\npulling %s..\n") % app_path
+                     print(pulled)
+                     print("\nthe following file was pulled to the current directory (%s): \n" % current)
+                  print('')
             else:
-               print("no results found. returning to main menu..")
+               print("\nno results found. returning to main menu..\n")
                
                time.sleep(0.9)
                main()
