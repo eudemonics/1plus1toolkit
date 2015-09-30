@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ### HALF-ASSED ONE + ONE TOOLKIT
-##### VERSION: 1.3.8 BETA
-##### RELEASE DATE: AUG 22, 2015
+##### VERSION: 1.3.9 BETA
+##### RELEASE DATE: AUG 24, 2015
 ##### AUTHOR: vvn [eudemonics on xda-developers]
 ##### DESCRIPTION: A spotaneously developed, very sporadically updated, but hopefully 
 ##### helpful and comprehensive toolkit for Android, built originally for the OnePlus
@@ -1743,7 +1743,7 @@ ROOTING YOUR DEVICE WILL VOID YOUR WARRANTY. YOU ALSO RUN THE RISK OF WIPING OR 
 #             while not re.search(r'^[\w\-. ]+$', whichpath):
 #                whichpath = raw_input("invalid package name. please enter complete package name for the app to get its path --> ")
 #                
-            if pkgpath:
+            if 'pkgpath' in locals():
                app_path = pkgpath.strip()
             else:
                results = obj.pathpkg(pkgname)

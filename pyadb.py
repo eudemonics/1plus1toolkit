@@ -45,12 +45,14 @@ from subprocess import call, Popen, PIPE, STDOUT
 
 class pyADB(object):
 
+   mydev = Popen('adb devices | sed -ne \'2,$s/device.*$//p\' | head -n 1', shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
+   
    # adb commands
    
    def call_adb(self, command):
       response = ''
       rawcmd = r'%s' % command
-      command_text = 'adb %r' % rawcmd
+      command_text = 'adb -s %s %r' % (mydev, rawcmd)
       command_text = r'"%s"' % command_text
       command_text = command_text + '; exit 0'
       output = Popen(command_text, shell=True, stdout=PIPE, stderr=STDOUT, stdin=PIPE)
